@@ -9,6 +9,9 @@
   "sideEffects": false,
   "type": "module",
   "types": "./index.d.ts",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yaspeller *.md"
+  },
   "peerDependencies": {
     "react": ">=16.8.0",
     "react-dom": ">=16.8.0"
@@ -31,6 +34,20 @@
     "semi": false,
     "singleQuote": true,
     "trailingComma": "none"
+  },
+  "jest": {
+    "preset": "ts-jest/presets/default-esm",
+    "globals": {
+      "ts-jest": {
+        "useESM": true
+      }
+    },
+    "testEnvironment": "jsdom",
+    "coverageThreshold": {
+      "global": {
+        "statements": 100
+      }
+    }
   },
   "eslintConfig": {
     "extends": "@logux/eslint-config/esm",
@@ -71,8 +88,10 @@
   },
   "devDependencies": {
     "@logux/eslint-config": "^45.4.4",
+    "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
+    "check-dts": "^0.5.3",
     "eslint": "^7.29.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-es5": "^1.5.0",
@@ -84,9 +103,12 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-unicorn": "^33.0.1",
+    "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "simple-git-hooks": "^2.4.1",
+    "ts-jest": "^27.0.3",
     "typescript": "^4.3.4"
-  }
+  },
+  "dependencies": {}
 }
