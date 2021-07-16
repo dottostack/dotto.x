@@ -108,7 +108,8 @@
     "react": "^17.0.2",
     "simple-git-hooks": "^2.4.1",
     "ts-jest": "^27.0.3",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.4",
+    "yaspeller": "^7.0.0"
   },
   "dependencies": {}
 }

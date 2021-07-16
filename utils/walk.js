@@ -6,8 +6,8 @@ const handlers = new Map([
 
 const handle = (payload, key, cb, isLast) => {
   let h = handlers.get(Object.getPrototypeOf(payload))
-  cb && cb({ payload, key, isLast, value: h(payload, key) })
-  return h(payload, key)
+  cb && cb({ payload, key, isLast, value: h && h(payload, key) })
+  return h && h(payload, key)
 }
 
 export const walk = (object, path, cb = null) => {

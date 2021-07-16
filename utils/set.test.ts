@@ -33,9 +33,26 @@ describe('set util:', () => {
       testIt('1level.second.third', new Map())
     })
   })
+
   describe('map', () => {
     it('1 level', () => {
       testIt('1level', 'check', new Map())
+    })
+    it('2 level', () => {
+      testIt(
+        '1level.second',
+        'check',
+        new Map([['1level', new Map([['second', 'check']])]])
+      )
+    })
+  })
+
+  describe('array', () => {
+    it('1 level', () => {
+      testIt('1', 'check', [])
+    })
+    it('2 level', () => {
+      testIt('1.2', 'check', [[]])
     })
   })
 })

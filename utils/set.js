@@ -8,7 +8,7 @@ const handlers = new Map([
 
 const handle = (payload, key, value) => {
   let h = handlers.get(Object.getPrototypeOf(payload))
-  return h(payload, key, value)
+  return h && h(payload, key, value)
 }
 
 export const set = (object, key, value) => {

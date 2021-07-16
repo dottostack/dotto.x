@@ -11,4 +11,7 @@ describe('get util:', () => {
   it('from nested array', () => {
     expect(get({ a: [1] }, 'a.0')).toBe(1)
   })
+  it('array as key', () => {
+    expect(get({ a: [1] }, ['a', '0'])).toBe(1)
+  })
 })
