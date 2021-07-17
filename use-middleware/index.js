@@ -3,7 +3,7 @@ export const use = ([...stores], middleware) => {
   stores.forEach(store => {
     const commit = store.emit
     const handler = (storeName, path) => {
-      middleware({ commit, storeName, store, path })
+      middleware({ commit, storeName, store, path, value: store.get(path) })
     }
     store.emit = handler
   })
