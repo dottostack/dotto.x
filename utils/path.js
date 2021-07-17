@@ -1,4 +1,4 @@
-export const toArrayKeys = path =>
+export const toChain = path =>
   Array.isArray(path) ? path : path.split('.').filter(key => key)
 
 export const concat = (left, right) =>
@@ -9,8 +9,8 @@ export const concat = (left, right) =>
     ? `${left}.${right}`
     : left
 
-export const walkPath = (path, cb) =>
-  toArrayKeys(path).reduce((acc, part) => {
+export const walk = (path, cb) =>
+  toChain(path).reduce((acc, part) => {
     const n = acc ? `${acc}.${part}` : part
     cb(n)
     return n

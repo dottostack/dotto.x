@@ -1,4 +1,4 @@
-import { toArrayKeys } from '../utils/path'
+import { toChain } from '../utils/path'
 
 const handlers = new Map([
   [Array.prototype, (payload, key) => payload[key]],
@@ -13,7 +13,7 @@ const handle = (payload, key, cb, isLast) => {
 }
 
 export const walk = (object, path, cb = null) => {
-  const pathArray = toArrayKeys(path)
+  const pathArray = toChain(path)
   return pathArray.reduce(
     (acc, key, i) => acc && handle(acc, key, cb, pathArray.length - 1 === i),
     object

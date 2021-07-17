@@ -1,30 +1,29 @@
 import { get } from '../utils/get'
 import { set } from '../utils/set'
-import { concat, walkPath } from '../utils/path'
+import { concat, walk } from '../utils/path'
 
 const listenners = {}
 const state = {}
 
-const emit = (storeName, path) => {
-  walkPath(concat(storeName, path), part => {
-    const list = get(listenners, part)
-    list &&
-      list.forEach &&
-      list.forEach(listener =>
-        listener(part.replace(`${storeName}.`, ''), get(state, part))
-      )
-  })
-}
-
 export const createStore = (name, initialState = {}) => {
   set(state, name, initialState)
-  const store = {
+  return {
     set(path, value) {
       const op = set(state, concat(name, path), value)
-      op === value && emit(name, path)
+      op === value && this.emit(name, path)
     },
     get(path) {
       return get(state, concat(name, path))
+    },
+    emit(storeName, path) {
+      walk(concat(storeName, path), part => {
+        const list = get(listenners, part)
+        list &&
+          list.forEach &&
+          list.forEach(listener =>
+            listener(part.replace(`${storeName}.`, ''), get(state, part))
+          )
+      })
     },
     listen(path, cb) {
       if (typeof path !== 'string') cb = path
@@ -37,9 +36,8 @@ export const createStore = (name, initialState = {}) => {
         nsListeners.splice(nsListeners.indexOf(cb), 1)
       }
     },
-    destroy() {
+    off() {
       set(listenners, name, undefined)
     }
   }
-  return store
 }
