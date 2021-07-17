@@ -1,8 +1,1 @@
-export {
-  createState,
-  connect,
-  destroy,
-  disconnect,
-  addProvider,
-  ydoc
-} from './create-state'
+export { get } from './utils/get'
