@@ -10,8 +10,9 @@
   "type": "module",
   "types": "./index.d.ts",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yaspeller *.md",
-    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yaspeller *.md && size",
+    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
+    "size": "size-limit"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -79,6 +80,13 @@
       "eslint --fix"
     ]
   },
+  "size-limit": [
+    {
+      "name": "Store",
+      "path": "./create-store/index.js",
+      "limit": "800B"
+    }
+  ],
   "exports": {
     ".": "./index.js",
     "./react": "./react/index.js",
@@ -89,6 +97,7 @@
   },
   "devDependencies": {
     "@logux/eslint-config": "^45.4.4",
+    "@size-limit/preset-small-lib": "^5.0.1",
     "@types/jest": "^26.0.24",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
@@ -108,6 +117,7 @@
     "prettier": "^2.3.2",
     "react": "^17.0.2",
     "simple-git-hooks": "^2.4.1",
+    "size-limit": "^5.0.1",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.4",
     "yaspeller": "^7.0.0"
