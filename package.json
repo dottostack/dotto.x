@@ -84,7 +84,14 @@
     {
       "name": "Store",
       "path": "./create-store/index.js",
-      "limit": "800B"
+      "import": "{ createStore }",
+      "limit": "500B"
+    },
+    {
+      "name": "UseMiddleware",
+      "path": "./use-middleware/index.js",
+      "import": "{ use }",
+      "limit": "100B"
     }
   ],
   "exports": {
