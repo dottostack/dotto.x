@@ -36,6 +36,9 @@ export const createStore = (name, initialState = {}) => {
       return () => {
         nsListeners.splice(nsListeners.indexOf(cb), 1)
       }
+    },
+    destroy() {
+      set(listenners, name, undefined)
     }
   }
   return store

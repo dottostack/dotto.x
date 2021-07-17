@@ -12,7 +12,7 @@ const handle = (payload, key, value) => {
 }
 
 export const set = (object, key, value) => {
-  const test = walk(
+  return walk(
     object,
     key,
     ({ payload, key: localKey, isLast, value: localValue }) => {
@@ -20,5 +20,4 @@ export const set = (object, key, value) => {
       if (isLast) handle(payload, localKey, value)
     }
   )
-  return test
 }

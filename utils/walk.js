@@ -15,7 +15,7 @@ const handle = (payload, key, cb, isLast) => {
 export const walk = (object, path, cb = null) => {
   const pathArray = toArrayKeys(path)
   return pathArray.reduce(
-    (obj, key, i) => obj && handle(obj, key, cb, pathArray.length - 1 === i),
+    (acc, key, i) => acc && handle(acc, key, cb, pathArray.length - 1 === i),
     object
   )
 }
