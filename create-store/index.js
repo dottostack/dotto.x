@@ -1,14 +1,15 @@
 import { get } from '../utils/get'
 import { set } from '../utils/set'
-import { concat } from '../utils/path'
+import { concat, walkPath } from '../utils/path'
 
 const listenners = {}
 const state = {}
 
 const emit = (storeName, path) => {
-  get(listenners, concat(storeName, path)).forEach(listener =>
-    listener(path, get(state, concat(storeName, path)))
-  )
+  walkPath(concat(storeName, path), (acc, part) => {
+    get(listenners, part) ||
+      [].forEach(listener => listener(path, get(state, part)))
+  })
 }
 
 export const createStore = (name, initialState = {}) => {

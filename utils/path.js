@@ -6,3 +6,6 @@ export const toArrayKeys = path =>
 
 export const concat = (left, right) =>
   Array.isArray(right) ? [left].concat(right) : `${left}.${right}`
+
+export const walkPath = (path, cb) =>
+  toArrayKeys(path).reduce((...args) => cb(...args))
