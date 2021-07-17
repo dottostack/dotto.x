@@ -19,7 +19,18 @@ describe('create-store:', () => {
   it('parent listen', () => {
     const store = createStore('test')
     const unbind = store.listen('some', (path: string, value: any) => {
-      expect(value).toBe(store.get('some'))
+      expect(value).toBe(store.get(path))
+    })
+
+    store.set('some.path', 1)
+    store.set('some.path', 2)
+    unbind()
+  })
+
+  it('root listen', () => {
+    const store = createStore('test')
+    const unbind = store.listen((path: string, value: any) => {
+      expect(value).toBe(store.get(path))
     })
 
     store.set('some.path', 1)

@@ -8,8 +8,9 @@ const state = {}
 const emit = (storeName, path) => {
   walkPath(concat(storeName, path), part => {
     const list = get(listenners, part)
-    list?.forEach &&
-      list?.forEach(listener =>
+    list &&
+      list.forEach &&
+      list.forEach(listener =>
         listener(part.replace(`${storeName}.`, ''), get(state, part))
       )
   })
@@ -26,6 +27,7 @@ export const createStore = (name, initialState = {}) => {
       return get(state, concat(name, path))
     },
     listen(path, cb) {
+      if (typeof path !== 'string') cb = path
       let nsListeners = get(listenners, concat(name, path))
       if (!Array.isArray(nsListeners)) {
         nsListeners = set(listenners, concat(name, path), [])
