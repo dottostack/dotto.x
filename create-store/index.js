@@ -22,12 +22,14 @@ export const createStore = (name, initialState = {}) => {
       return get(state, concat(name, path))
     },
     listen(path, cb) {
-      let l = get(listenners, concat(name, path))
-      if (!Array.isArray(l)) {
-        l = set(listenners, concat(name, path), [])
+      let nsListeners = get(listenners, concat(name, path))
+      if (!Array.isArray(nsListeners)) {
+        nsListeners = set(listenners, concat(name, path), [])
       }
-      l.push(cb)
-      return () => {}
+      nsListeners.push(cb)
+      return () => {
+        nsListeners.splice(nsListeners.indexOf(cb), 1)
+      }
     }
   }
   return store
