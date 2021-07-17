@@ -6,9 +6,12 @@ const listenners = {}
 const state = {}
 
 const emit = (storeName, path) => {
-  walkPath(concat(storeName, path), (acc, part) => {
-    get(listenners, part) ||
-      [].forEach(listener => listener(path, get(state, part)))
+  walkPath(concat(storeName, path), part => {
+    const list = get(listenners, part)
+    list?.forEach &&
+      list?.forEach(listener =>
+        listener(part.replace(`${storeName}.`, ''), get(state, part))
+      )
   })
 }
 
