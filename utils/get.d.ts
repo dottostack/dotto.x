@@ -1,4 +1,8 @@
-export type PropertyPath = string
+type PropertyPath = string
+
+interface NumericDictionary<T> {
+  [index: number]: T
+}
 
 export function get<TObject extends object, TKey extends keyof TObject>(
   object: TObject,
