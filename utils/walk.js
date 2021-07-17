@@ -16,7 +16,7 @@ export const walk = (object, path, cb = null) => {
     : path.split('.').filter(key => key)
 
   return pathArray.reduce(
-    (obj, key, i) => handle(obj, key, cb, pathArray.length - 1 === i),
+    (obj, key, i) => obj && handle(obj, key, cb, pathArray.length - 1 === i),
     object
   )
 }

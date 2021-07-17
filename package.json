@@ -10,7 +10,8 @@
   "type": "module",
   "types": "./index.d.ts",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yaspeller *.md"
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yaspeller *.md",
+    "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
