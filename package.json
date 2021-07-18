@@ -1,16 +1,16 @@
 {
   "name": "quarkx",
-  "version": "0.0.10",
+  "version": "0.0.1",
   "description": "A tiny state manager for Quarkly projects",
   "main": "index.js",
-  "repository": "https://github.com/quarkly/project-store",
+  "repository": "https://github.com/quarkly/quarkx",
   "author": "Eddort <webisforce@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
   "types": "./index.d.ts",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yaspeller *.md && size",
+    "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
     "size": "size-limit",
     "deploy": "clean-publish"
@@ -110,7 +110,6 @@
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "check-dts": "^0.5.3",
-    "clean-publish": "^2.2.0",
     "eslint": "^7.29.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-es5": "^1.5.0",

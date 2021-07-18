@@ -1,0 +1,10 @@
+{
+  "dictionary": [
+    "quarkX"
+  ],
+  "excludeFiles": [
+    ".git",
+    "node_modules",
+    "ideas.md"
+  ]
+}

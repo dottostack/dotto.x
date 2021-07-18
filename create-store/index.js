@@ -36,9 +36,9 @@ export const createStore = (name, initialState = {}) => {
         nsListeners.splice(nsListeners.indexOf(cb), 1)
       }
     },
-    chain(path) {
-      return cb => this.listen(path, cb)
-    },
+    // chain(path) {
+    //   return cb => this.listen(path, cb)
+    // },
     off() {
       set(listenners, name, undefined)
     }

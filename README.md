@@ -1,4 +1,4 @@
-# Work in progress
+# quarkX
 
 ### Simple usage:
 
