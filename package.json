@@ -83,13 +83,13 @@
   "size-limit": [
     {
       "name": "Store",
-      "path": "./create-store/index.js",
+      "path": "./index.js",
       "import": "{ createStore }",
       "limit": "500B"
     },
     {
       "name": "UseMiddleware",
-      "path": "./use-middleware/index.js",
+      "path": "./index.js",
       "import": "{ use }",
       "limit": "100B"
     }

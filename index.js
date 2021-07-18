@@ -1,8 +1,2 @@
-export {
-  createState,
-  connect,
-  destroy,
-  disconnect,
-  addProvider,
-  ydoc
-} from './create-state'
+export { createStore } from './create-store'
+export { use } from './use-middleware'
