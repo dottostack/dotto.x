@@ -10,12 +10,12 @@ export const createStore = (name, initialState = {}) => {
   return {
     set(path, value) {
       const op = set(state, concat(name, path), value)
-      op === value && this.emit(name, path)
+      op === value && this.emit({ storeName: name, path })
     },
     get(path) {
       return get(state, concat(name, path))
     },
-    emit(storeName, path) {
+    emit({ storeName, path }) {
       walk(concat(storeName, path), part => {
         const list = get(listenners, part)
         list &&
@@ -35,6 +35,9 @@ export const createStore = (name, initialState = {}) => {
       return () => {
         nsListeners.splice(nsListeners.indexOf(cb), 1)
       }
+    },
+    chain(path) {
+      return cb => this.listen(path, cb)
     },
     off() {
       set(listenners, name, undefined)
