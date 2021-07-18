@@ -41,6 +41,18 @@ describe('create-store:', () => {
     unbind()
   })
 
+  it('change parent deep', () => {
+    expect.assertions(2)
+    const store = createStore('test-deep')
+    const unbind = store.listen('some.path', (path: string, value: any) => {
+      expect(value).toBe(store.get())
+    })
+
+    store.set(null, { some: { path: 1 } })
+    store.set(null, { some: { path: 2 } })
+    unbind()
+  })
+
   it.skip('root listen', () => {
     // expect.assertions(2)
     const store = createStore('test')
