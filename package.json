@@ -1,6 +1,6 @@
 {
-  "name": "@quarkly/project-store",
-  "version": "0.0.7",
+  "name": "quarkx",
+  "version": "0.0.10",
   "description": "A tiny state manager for Quarkly projects",
   "main": "index.js",
   "repository": "https://github.com/quarkly/project-store",
@@ -13,7 +13,7 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yaspeller *.md && size",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
     "size": "size-limit",
-    "publish": "clean-publish"
+    "deploy": "clean-publish"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
