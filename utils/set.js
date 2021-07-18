@@ -1,10 +1,9 @@
 import { walk } from './walk'
 
-const handlers = new Map([
-  [Array.prototype, (payload, key, value) => (payload[key] = value)],
-  [Object.prototype, (payload, key, value) => (payload[key] = value)],
-  [Map.prototype, (payload, key, value) => payload.set(key, value)]
-])
+const handlers = new Map()
+handlers.set(Array.prototype, (payload, key, value) => (payload[key] = value))
+handlers.set(Object.prototype, (payload, key, value) => (payload[key] = value))
+handlers.set(Map.prototype, (payload, key, value) => payload.set(key, value))
 
 const handle = (payload, key, value) => {
   let h = handlers.get(Object.getPrototypeOf(payload))

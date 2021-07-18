@@ -4,6 +4,15 @@ import { concat, walk } from '../utils/path'
 
 const listenners = {}
 const state = {}
+const HANDLERS = '__quarkx'
+
+const emitChildren = (obj = {}, cb) => {
+  for (const [path, child] of Object.entries(obj)) {
+    if (path === HANDLERS) continue
+    cb(get(obj, concat(path, HANDLERS)), path)
+    emitChildren(child, cb)
+  }
+}
 
 export const createStore = (name, initialState = {}) => {
   set(state, name, initialState)
@@ -16,15 +25,21 @@ export const createStore = (name, initialState = {}) => {
       return get(state, concat(name, path))
     },
     emit({ storeName, path }) {
-      walk(concat(storeName, path), part => {
-        for (let listener of get(listenners, concat(part, 'handlers')) || []) {
+      const fullPath = concat(storeName, path)
+      walk(fullPath, part => {
+        for (let listener of get(listenners, concat(part, HANDLERS)) || []) {
           listener(part.replace(`${storeName}.`, ''), get(state, part))
+        }
+      })
+      emitChildren(get(listenners, fullPath), handlers => {
+        for (let listener of handlers || []) {
+          listener(fullPath.replace(`${storeName}.`, ''), get(state, fullPath))
         }
       })
     },
     listen(path, cb) {
       if (typeof path !== 'string') cb = path
-      const dest = concat(name, concat(path, 'handlers'))
+      const dest = concat(name, concat(path, HANDLERS))
       let nsListeners = get(listenners, dest) || set(listenners, dest, [])
       nsListeners.push(cb)
       return () => {
