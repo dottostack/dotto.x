@@ -4,7 +4,7 @@ const actionWrap = (store, actionName, cb, ...params) => {
   const unbind = use([store], ({ commit, storeName, path }) => {
     commit({ storeName, path, actionName })
   })
-  const res = cb(params)
+  const res = cb(...params)
   unbind()
   return res
 }
