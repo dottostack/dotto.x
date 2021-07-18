@@ -1,10 +1,10 @@
 import { use } from '../use-middleware'
 
-const actionWrap = (store, actionName, cb) => {
+const actionWrap = (store, actionName, cb, ...params) => {
   const unbind = use([store], ({ commit, storeName, path }) => {
     commit({ storeName, path, actionName })
   })
-  const res = cb()
+  const res = cb(params)
   unbind()
   return res
 }
