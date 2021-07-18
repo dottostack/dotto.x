@@ -37,4 +37,19 @@ describe('create-store:', () => {
     store.set('some.path', 2)
     store.off()
   })
+
+  it('self get', () => {
+    const obj = { a: { b: 1 } }
+    const store = createStore('test', obj)
+    expect(store.get()).toEqual(obj)
+  })
+
+  it('self set', () => {
+    const obj = { a: { b: 1 } }
+    const obj2 = { c: { b: 1 } }
+    const store = createStore('test', obj)
+    expect(store.get()).toEqual(obj)
+    store.set(null, obj2)
+    expect(store.get()).toEqual(obj2)
+  })
 })
