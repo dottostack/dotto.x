@@ -6,7 +6,7 @@ const getRDT = () =>
 
 function instanceId() {
   if (typeof document === 'object') {
-    return `${document.title}`
+    return `quarkX ${document.title}`
   }
   return 'no title instance'
 }
@@ -16,7 +16,6 @@ const RDT = () => {
   if (!rdt) {
     return {
       call: () => {},
-      off: () => {},
       sub: () => {},
       unsub: () => {}
     }
@@ -34,13 +33,11 @@ const RDT = () => {
       store.get()
     )
   }
-
-  const off = () => connected.disconnect()
-  return { call, off, sub: connected.subscribe, unsub: connected.unsubscribe }
+  return { call, sub: connected.subscribe, unsub: connected.unsubscribe }
 }
 
 export const reduxDevtoolsEnhancer = ([...stores]) => {
-  const { call, off, sub } = RDT()
+  const { call, sub, unsub } = RDT()
   const enhancer = ({
     store,
     commit,
@@ -67,17 +64,25 @@ export const reduxDevtoolsEnhancer = ([...stores]) => {
     const { type } = extState.payload
     const { state } = extState
     if (type !== 'JUMP_TO_STATE' && type !== 'JUMP_TO_ACTION') return
-    silentReinit(state)
+    let parsed
+    try {
+      parsed = JSON.parse(state) || {}
+    } catch {
+      return
+    }
+    silentReinit(parsed)
   }
+  const subs = []
   stores.forEach(store => {
     const silentReinit = action(store, 'SILENT_REINIT', value =>
-      store.set('', value)
+      store.set(null, value)
     )
-    sub(ext => handleRDT(ext, silentReinit))
+    const hadnl = ext => handleRDT(ext, silentReinit)
+    sub(hadnl)
   })
   const unsue = use(stores, enhancer)
   return () => {
-    off()
+    subs.forEach(_sub => unsub(_sub))
     unsue()
   }
 }
