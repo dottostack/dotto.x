@@ -5,7 +5,7 @@ import { use } from './index'
 
 jest.useFakeTimers()
 
-describe('use-middlewares:', () => {
+describe('use-enhancer:', () => {
   it('base usage', () => {
     expect.assertions(1)
     const testingStore = createStore('test')

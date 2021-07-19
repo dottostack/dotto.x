@@ -89,7 +89,7 @@
       "limit": "550B"
     },
     {
-      "name": "UseMiddleware",
+      "name": "UseEnhancer",
       "path": "./index.js",
       "import": "{ use }",
       "limit": "100B"

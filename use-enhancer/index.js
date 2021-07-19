@@ -1,9 +1,9 @@
-export const use = ([...stores], middleware) => {
+export const use = ([...stores], enhancer) => {
   const originals = stores.map(({ emit }) => emit)
   stores.forEach(store => {
     const commit = store.emit
     const handler = ({ storeName, path, ...rest }) => {
-      middleware({
+      enhancer({
         commit,
         storeName,
         store,

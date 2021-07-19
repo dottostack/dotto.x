@@ -2,7 +2,7 @@ import { jest } from '@jest/globals'
 
 import { createStore } from '../../create-store'
 import { actions } from './index'
-import { use } from '../../use-middleware'
+import { use } from '../../use-enhancer'
 
 jest.useFakeTimers()
 

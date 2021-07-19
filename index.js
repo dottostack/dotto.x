@@ -1,2 +1,2 @@
 export { createStore } from './create-store'
-export { use } from './use-middleware'
+export { use } from './use-enhancer'
