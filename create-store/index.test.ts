@@ -53,11 +53,12 @@ describe('create-store:', () => {
     unbind()
   })
 
-  it.skip('root listen', () => {
-    // expect.assertions(2)
+  it('root listen', () => {
+    expect.assertions(2)
     const store = createStore('test')
-    store.listen((path: string, value: any) => {
-      expect(value).toBe(store.get(path))
+    let i = 1
+    store.listen('', (path: string, value: any) => {
+      expect(value).toEqual({ some: { path: i++ } })
     })
 
     store.set('some.path', 1)

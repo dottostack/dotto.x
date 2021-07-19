@@ -1,4 +1,4 @@
-import { use } from '../use-middleware'
+import { use } from '../../use-middleware'
 
 // const setName = action(store, 'setName', (name) => set('user.name'))
 // setName('John')

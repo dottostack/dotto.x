@@ -2,8 +2,6 @@ import { get } from '../utils/get'
 import { set } from '../utils/set'
 import { concat, walk } from '../utils/path'
 
-const listenners = {}
-const state = {}
 const HANDLERS = '__quarkx'
 
 const emitChildren = (obj = {}, cb) => {
@@ -14,8 +12,9 @@ const emitChildren = (obj = {}, cb) => {
   }
 }
 
-export const createStore = (name, initialState = {}) => {
-  set(state, name, initialState)
+export const createStore = (name, initial = {}) => {
+  const listenners = {}
+  const state = { [name]: initial }
   return {
     set(path, value) {
       set(state, concat(name, path), value)
@@ -38,12 +37,11 @@ export const createStore = (name, initialState = {}) => {
       })
     },
     listen(path, cb) {
-      if (typeof path !== 'string') cb = path
       const dest = concat(name, concat(path, HANDLERS))
-      let nsListeners = get(listenners, dest) || set(listenners, dest, [])
-      nsListeners.push(cb)
+      let ns = get(listenners, dest) || set(listenners, dest, [])
+      ns.push(cb)
       return () => {
-        nsListeners.splice(nsListeners.indexOf(cb), 1)
+        ns.splice(ns.indexOf(cb), 1)
       }
     },
     off() {
