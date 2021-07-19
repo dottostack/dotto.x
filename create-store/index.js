@@ -23,16 +23,24 @@ export const createStore = (name, initial = {}) => {
     get(path) {
       return get(state, concat(name, path))
     },
-    emit({ storeName, path }) {
+    emit({ storeName, path, ...rest }) {
       const fullPath = concat(storeName, path)
+      const acc = {
+        storeName,
+        ...rest
+      }
       walk(fullPath, part => {
         for (let listener of get(listenners, concat(part, HANDLERS)) || []) {
-          listener(part.replace(`${storeName}.`, ''), get(state, part))
+          listener(part.replace(`${storeName}.`, ''), get(state, part), acc)
         }
       })
       emitChildren(get(listenners, fullPath), handlers => {
         for (let listener of handlers || []) {
-          listener(fullPath.replace(`${storeName}.`, ''), get(state, fullPath))
+          listener(
+            fullPath.replace(`${storeName}.`, ''),
+            get(state, fullPath),
+            acc
+          )
         }
       })
     },

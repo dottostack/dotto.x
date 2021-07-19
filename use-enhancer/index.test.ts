@@ -40,4 +40,23 @@ describe('use-enhancer:', () => {
 
     testingStore.set('some.path', 1)
   })
+
+  it('data from enhancer to listener', () => {
+    expect.assertions(1)
+    const testingStore = createStore('test')
+    const unuse = use([testingStore], ({ commit, storeName, path }: any) => {
+      commit({ storeName, path, dataToListener: 1 })
+    })
+    const unbind = testingStore.listen(
+      'some.path',
+      (path: string, value: any, { dataToListener }: any) => {
+        expect(dataToListener).toBe(1)
+      }
+    )
+
+    testingStore.set('some.path', 1)
+
+    unbind()
+    unuse()
+  })
 })

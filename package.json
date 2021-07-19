@@ -86,7 +86,7 @@
       "name": "Store",
       "path": "./index.js",
       "import": "{ createStore }",
-      "limit": "550B"
+      "limit": "600B"
     },
     {
       "name": "UseEnhancer",
