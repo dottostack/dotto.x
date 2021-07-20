@@ -1,3 +1,5 @@
 export { createStore } from './create-store'
 export { use } from './use-enhancer'
-export { observe } from './utils/observe'
+
+export { listenMany } from './utils/listen-many'
+export { query } from './utils/query'
