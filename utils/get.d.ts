@@ -12,16 +12,16 @@ export type ResolveType<
       : Path extends `${number}.${infer RightSide}.${infer OtherSide}`
       ? RightSide extends keyof U
         ? ResolveType<U, `${RightSide}.${OtherSide}`>
-        : 'nope233'
-      : 'nope'
+        : never
+      : never
     : Path extends `${number}`
     ? U
-    : 'nope22'
+    : never
   : Path extends `${infer LeftSide}.${infer RightSide}`
   ? LeftSide extends keyof ObjectType
     ? ResolveType<ObjectType[LeftSide], RightSide>
-    : 'notleft'
-  : 'nope2'
+    : never
+  : never
 
 export function get<ObjecType, Path extends string>(
   obj: ObjecType,
