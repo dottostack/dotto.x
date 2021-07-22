@@ -7,12 +7,9 @@ describe('prev value enhancer:', () => {
     const testingStore = createStore('test')
     prevValueEnhancer([testingStore])
     let prev: number
-    const unbind = testingStore.listen(
-      'some.path',
-      (path: string, b: any, acc: any) => {
-        expect(prev).toBe(acc.prevValue)
-      }
-    )
+    const unbind = testingStore.listen('some.path', (path, value, acc: any) => {
+      expect(prev).toBe(acc.prevValue)
+    })
     prev = 1
     testingStore.set('some.path', 1)
     prev = 1

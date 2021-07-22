@@ -5,7 +5,7 @@ type DataStore<State = {}> = {
   data: State
 }
 
-type QXStore<State> = {
+export type QXStore<State> = {
   get(path?: undefined): State
   get<Path extends string>(
     path: Path
