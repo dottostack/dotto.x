@@ -1,7 +1,7 @@
 import { jest } from '@jest/globals'
 
 import { createStore } from '../../create-store'
-import { actions } from './index'
+import { action } from './index'
 import { use } from '../../use-enhancer'
 
 jest.useFakeTimers()
@@ -16,11 +16,10 @@ describe('action:', () => {
       commit({ storeName, path })
     })
 
-    const a = actions(testingStore, {
-      setProp() {
-        testingStore.set('some.path', 1)
-      }
-    }) as { setProp: any }
-    a.setProp()
+    const setProp = action(testingStore, 'setProp', (): number =>
+      testingStore.set('some.path', 1)
+    )
+
+    setProp()
   })
 })

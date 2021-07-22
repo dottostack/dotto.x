@@ -1,2 +1,5 @@
-export { get } from './utils/get'
-export { set } from './utils/set'
+export { createStore } from './create-store'
+export { use } from './use-enhancer'
+
+export { listenMany } from './utils/listen-many'
+export { query } from './utils/query'
