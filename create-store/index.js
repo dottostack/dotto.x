@@ -41,7 +41,7 @@ export const createStore = (name = 'quarkX', initial = {}) => {
         }
       })
     },
-    listen(path, cb) {
+    listen(path = '', cb) {
       const dest = concat(DATA, concat(path, HANDLERS))
       let ns = get(listenners, dest) || set(listenners, dest, [])
       ns.push(cb)

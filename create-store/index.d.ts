@@ -1,12 +1,12 @@
 /* eslint-disable no-shadow */
 import { ResolveType } from '../utils/get'
 
-type DataStore<State> = {
+type DataStore<State = {}> = {
   data: State
 }
 
 type QXStore<State> = {
-  get(path?: unknown): State
+  get(path?: undefined): State
   get<Path extends string>(
     path: Path
   ): ResolveType<DataStore<State>, `data.${Path}`>
@@ -18,13 +18,25 @@ type QXStore<State> = {
   ): ResolveType<DataStore<State>, `data.${Path}`>
 
   emit(arg: any): void
+
   listen(
-    path: string,
-    cb: (path: string, value: any, acc: any) => void
+    path: null | undefined,
+    cb: (path: null, value: State, acc: any) => void
   ): () => void
+  listen<ListenPath extends string>(
+    path: ListenPath,
+    cb: (
+      path: ListenPath,
+      value: ResolveType<DataStore<State>, `data.${ListenPath}`>,
+      acc: any
+    ) => void
+  ): () => void
+
   off(): void
 }
-
+/**
+ * Hi
+ */
 export function createStore<Name extends string, State>(
   name: Name,
   initial?: State = {}
