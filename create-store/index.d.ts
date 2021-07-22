@@ -11,11 +11,11 @@ export type QXStore<State> = {
     path: Path
   ): ResolveType<DataStore<State>, `data.${Path}`>
 
-  set(path?: unknown, payload: any): any
   set<Path extends string>(
     path: Path,
-    payload: any
+    payload: ResolveType<DataStore<State>, `data.${Path}`>
   ): ResolveType<DataStore<State>, `data.${Path}`>
+  set(path?: null | undefined, payload: State): State
 
   emit(arg: any): void
 

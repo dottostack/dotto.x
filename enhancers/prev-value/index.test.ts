@@ -4,7 +4,7 @@ import { createStore } from '../../create-store'
 describe('prev value enhancer:', () => {
   it('base', () => {
     expect.assertions(4)
-    const testingStore = createStore('test')
+    const testingStore = createStore('test', { some: { path: 0 } })
     prevValueEnhancer([testingStore])
     let prev: number
     const unbind = testingStore.listen('some.path', (path, value, acc: any) => {

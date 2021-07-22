@@ -4,7 +4,10 @@ import { query } from './query'
 describe('query:', () => {
   it('base', () => {
     expect.assertions(9)
-    const testingStore = createStore('test')
+    const testingStore = createStore<
+      'test',
+      { some: { user: { name?: string; age?: number; location?: string } } }
+    >('test', { some: { user: {} } })
     let predict: any
     const unbind = query(
       testingStore,

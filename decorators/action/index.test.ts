@@ -9,7 +9,7 @@ jest.useFakeTimers()
 describe('action:', () => {
   it('show action name', () => {
     expect.assertions(1)
-    const testingStore = createStore('test')
+    const testingStore = createStore('test', { some: { path: 0 } })
 
     use([testingStore], ({ commit, storeName, path, actionName }: any) => {
       expect(actionName).toBe('setProp')

@@ -8,7 +8,7 @@ jest.useFakeTimers()
 describe('use-enhancer:', () => {
   it('base usage', () => {
     expect.assertions(1)
-    const testingStore = createStore('test')
+    const testingStore = createStore('test', { some: { path: 0 } })
     const unuse = use([testingStore], ({ commit, storeName, path }: any) => {
       expect(path).toBe('some.path')
       commit({ storeName, path })
@@ -25,7 +25,7 @@ describe('use-enhancer:', () => {
 
   it('pass data down', () => {
     expect.assertions(3)
-    const testingStore = createStore('test')
+    const testingStore = createStore('test', { some: { path: 0 } })
 
     use([testingStore], ({ commit, storeName, path, someData }: any) => {
       expect(path).toBe('some.path')
@@ -43,7 +43,7 @@ describe('use-enhancer:', () => {
 
   it('data from enhancer to listener', () => {
     expect.assertions(1)
-    const testingStore = createStore('test')
+    const testingStore = createStore('test', { some: { path: 0 } })
     const unuse = use([testingStore], ({ commit, storeName, path }: any) => {
       commit({ storeName, path, dataToListener: 1 })
     })

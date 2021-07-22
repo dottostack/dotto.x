@@ -24,7 +24,7 @@ describe('create-store:', () => {
       expect(value).toBe(store.get(path))
     })
 
-    store.set('some.path', 1)
+    store.set('some.path', 3)
     store.set('some.path', 2)
     unbind()
   })
@@ -74,7 +74,7 @@ describe('create-store:', () => {
 
   it('self set', () => {
     const obj = { a: { b: 1 } }
-    const obj2 = { c: { b: 1 } }
+    const obj2 = { a: { b: 333 } }
     const store = createStore('test', obj)
     expect(store.get()).toEqual(obj)
     store.set(null, obj2)
