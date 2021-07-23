@@ -1,8 +1,5 @@
 import { use } from '../../use-enhancer'
 
-// const setName = action(store, 'setName', (name) => set('user.name'))
-// setName('John')
-
 export const action = (store, actionName, cb) => {
   return (...params) => {
     const unbind = use([store], ({ commit, storeName, path, ...rest }) => {
@@ -13,9 +10,3 @@ export const action = (store, actionName, cb) => {
     return res
   }
 }
-
-export const actions = (store, methods) =>
-  Object.entries(methods).reduce((acc, [actionName, cb]) => {
-    acc[actionName] = action(store, actionName, cb)
-    return acc
-  }, {})

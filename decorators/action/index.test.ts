@@ -16,10 +16,10 @@ describe('action:', () => {
       commit({ storeName, path })
     })
 
-    const setProp = action(testingStore, 'setProp', (): number =>
-      testingStore.set('some.path', 1)
+    const setProp = action(testingStore, 'setProp', (num: number): number =>
+      testingStore.set('some.path', num)
     )
 
-    setProp()
+    setProp(1)
   })
 })
