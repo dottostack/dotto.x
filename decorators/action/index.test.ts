@@ -2,7 +2,7 @@ import { jest } from '@jest/globals'
 
 import { createStore } from '../../create-store'
 import { action } from './index'
-import { use } from '../../use-enhancer'
+import { enhance } from '../../enhancer'
 
 jest.useFakeTimers()
 
@@ -11,10 +11,13 @@ describe('action:', () => {
     expect.assertions(1)
     const testingStore = createStore('test', { some: { path: 0 } })
 
-    use([testingStore], ({ commit, storeName, path, actionName }: any) => {
-      expect(actionName).toBe('setProp')
-      commit({ storeName, path })
-    })
+    enhance(
+      testingStore,
+      ({ commit, storeName, path, actionName, ...rest }) => {
+        expect(actionName).toBe('setProp')
+        commit({ storeName, path, ...rest })
+      }
+    )
 
     const setProp = action(testingStore, 'setProp', (num: number): number =>
       testingStore.set('some.path', num)
