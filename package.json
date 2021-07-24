@@ -67,9 +67,6 @@
       "jsdom": false
     }
   },
-  "eslintIgnore": [
-    "providers/**"
-  ],
   "lint-staged": {
     "*.md": "yaspeller",
     "*.js": [

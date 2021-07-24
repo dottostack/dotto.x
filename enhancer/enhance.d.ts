@@ -32,7 +32,7 @@ type Enhancer<Store> = {
  * @param stores Store instance.
  * @param enhancer Callback for handling change.
  */
-export function use<Data>(
+export function enhance<Data>(
   store: DotXStore<Data>,
   enhancer: (args: Enhancer<DotXStore<Data>>) => void
 ): () => void
