@@ -1,23 +1,4 @@
-# quarkX
+# dotstorex
 
-### Simple usage:
+![](https://raw.githubusercontent.com/dotstorex/docs/main/static/img/header.png?token=AHZCZFEUEKKH4ZOOB2DUONDA7OWC2)
 
-```js
-const store = createStore('test')
-const unbind = store.listen('some', (path, value) => {
-  expect(value).toBe(store.get(path))
-})
-store.set('some.path', 1)
-store.set('some.path.deep.path', 2)
-```
-
-### Middleware
-
-```js
-const testingStore = createStore('test')
-const unuse = use([testingStore], ({ commit, storeName, path }) => {
-  console.log(storeName, path)
-  // you can log or do something and than commit for fire reaction
-  commit(storeName, path)
-})
-```
