@@ -1,7 +1,7 @@
 {
-  "name": "quarkx",
-  "version": "0.0.5",
-  "description": "A tiny state manager for Quarkly projects",
+  "name": "dotstorex",
+  "version": "0.0.1",
+  "description": "A tiny state manager",
   "main": "index.js",
   "repository": "https://github.com/quarkly/quarkx",
   "author": "Eddort <webisforce@gmail.com>",

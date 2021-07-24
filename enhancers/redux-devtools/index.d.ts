@@ -1,3 +1,3 @@
-import type { QXStore } from '../../create-store'
+import type { DotXStore } from '../../create-store'
 
-export function reduxDevtoolsEnhancer([...stores]: [QXStore]): () => void
+export function reduxDevtoolsEnhancer([...stores]: [DotXStore]): () => void

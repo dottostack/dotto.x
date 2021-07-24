@@ -1,4 +1,4 @@
-import { QXStore } from '../../create-store'
+import { DotXStore } from '../../create-store'
 
 /**
  * Wrap your function and mark this function as action for enhancers
@@ -12,7 +12,7 @@ import { QXStore } from '../../create-store'
  * @returns Your own function.
  */
 export function action<
-  Store extends QXStore,
+  Store extends DotXStore,
   ActionName extends string,
   Callback
 >(store: Store, actionName: ActionName, cb: Callback): Callback

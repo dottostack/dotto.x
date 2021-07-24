@@ -9,13 +9,10 @@ describe('use-enhancer:', () => {
   it('base usage', () => {
     expect.assertions(1)
     const testingStore = createStore('test', { some: { path: 0 } })
-    const unuse = use(
-      [testingStore],
-      ({ commit, storeName, path, ...rest }) => {
-        expect(path).toBe('some.path')
-        commit({ storeName, path, ...rest })
-      }
-    )
+    const unuse = use(testingStore, ({ commit, storeName, path, ...rest }) => {
+      expect(path).toBe('some.path')
+      commit({ storeName, path, ...rest })
+    })
     const unbind = testingStore.listen('some.path', () => {
       unuse()
     })
@@ -26,22 +23,33 @@ describe('use-enhancer:', () => {
     unbind()
   })
 
+  it('pass pass store from enhancer', () => {
+    expect.assertions(2)
+    const testingStore = createStore('test', { some: { path: 0 } })
+
+    use(testingStore, ({ commit, storeName, path, store, ...rest }) => {
+      expect(path).toBe('some.path')
+      expect(store.get('some.path')).toEqual(testingStore.get('some.path'))
+      commit({ storeName, path, store, ...rest })
+    })
+
+    testingStore.set('some.path', 1)
+  })
+
   it('pass data down', () => {
     expect.assertions(3)
     const testingStore = createStore('test', { some: { path: 0 } })
-    const testingStore2 = createStore('test', { some: { lol: 0 } })
-    const testingStore3 = createStore('test', { some: { aa: 0 } })
 
     use(
-      [testingStore, testingStore2, testingStore3],
-      ({ commit, storeName, path, someData, ...rest }) => {
+      testingStore,
+      ({ commit, storeName, path, someData, store, ...rest }) => {
         expect(path).toBe('some.path')
         expect(someData).toBe('imhere')
-        commit({ storeName, path, ...rest })
+        commit({ storeName, path, store, ...rest })
       }
     )
 
-    use([testingStore], ({ commit, storeName, path, ...rest }) => {
+    use(testingStore, ({ commit, storeName, path, ...rest }) => {
       expect(path).toBe('some.path')
       commit({ storeName, path, someData: 'imhere', ...rest })
     })
@@ -52,12 +60,9 @@ describe('use-enhancer:', () => {
   it('data from enhancer to listener', () => {
     expect.assertions(1)
     const testingStore = createStore('test', { some: { path: 0 } })
-    const unuse = use(
-      [testingStore],
-      ({ commit, storeName, path, ...rest }) => {
-        commit({ storeName, path, dataToListener: 1, ...rest })
-      }
-    )
+    const unuse = use(testingStore, ({ commit, storeName, path, ...rest }) => {
+      commit({ storeName, path, dataToListener: 1, ...rest })
+    })
     const unbind = testingStore.listen(
       'some.path',
       (path, value, { dataToListener }) => {

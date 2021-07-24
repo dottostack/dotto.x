@@ -5,7 +5,7 @@ type DataStore<State = {}> = {
   data: State
 }
 
-export type QXStore<State> = {
+export type DotXStore<State> = {
   /**
    * Get store value.
    *
@@ -83,4 +83,4 @@ export type QXStore<State> = {
 export function createStore<Name extends string, State>(
   name: Name,
   initial?: State = {}
-): QXStore<State>
+): DotXStore<State>
