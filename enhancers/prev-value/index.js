@@ -1,11 +1,11 @@
-import { use } from '../../use-enhancer'
+import { enhance } from '../../enhancer'
 import { get } from '../../utils/get'
 import { set } from '../../utils/set'
 
 // TODO: clone deep and rethink storeName logic
 export const prevValueEnhancer = ([...stores]) => {
   const container = {}
-  use(stores, ({ commit, storeName, store, path, ...rest }) => {
+  enhance(stores, ({ commit, storeName, store, path, ...rest }) => {
     let prev = get(container, storeName)
     let prevValue
     if (prev === undefined) {

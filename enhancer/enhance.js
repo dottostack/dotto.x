@@ -1,4 +1,4 @@
-export const use = (store, enhancer) => {
+export const enhance = (store, enhancer) => {
   const commit = store.emit
   const handler = ({ storeName, path, ...rest }) => {
     enhancer({

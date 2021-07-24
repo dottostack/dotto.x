@@ -1,5 +1,5 @@
 import { action } from '../../decorators/action'
-import { use } from '../../use-enhancer'
+import { enhance } from '../../enhancer'
 
 const getRDT = () =>
   typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__
@@ -80,7 +80,7 @@ export const reduxDevtoolsEnhancer = ([...stores]) => {
     const hadnl = ext => handleRDT(ext, silentReinit)
     sub(hadnl)
   })
-  const unsue = use(stores, enhancer)
+  const unsue = enhance(stores, enhancer)
   return () => {
     subs.forEach(_sub => unsub(_sub))
     unsue()

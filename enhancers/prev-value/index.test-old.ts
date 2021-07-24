@@ -5,7 +5,8 @@ describe('prev value enhancer:', () => {
   it('base', () => {
     expect.assertions(4)
     const testingStore = createStore('test', { some: { path: 0 } })
-    prevValueEnhancer([testingStore])
+    const testingStore2 = createStore('test', { some: { kek: 1 } })
+    prevValueEnhancer([testingStore, testingStore2])
     let prev: number
     const unbind = testingStore.listen('some.path', (path, value, acc: any) => {
       expect(prev).toBe(acc.prevValue)

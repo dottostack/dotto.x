@@ -1,3 +1,3 @@
-import type { QXStore } from '../../create-store'
+import type { DotXStore } from '../../create-store'
 
-export function prevValueEnhancer([...stores]: [QXStore]): () => void
+export function prevValueEnhancer(stores: DotXStore<any>[]): () => void
