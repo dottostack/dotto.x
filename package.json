@@ -1,6 +1,6 @@
 {
   "name": "dotstorex",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A tiny state manager",
   "main": "index.js",
   "repository": "https://github.com/dotstorex/dotstorex",
@@ -32,8 +32,7 @@
   "clean-publish": {
     "files": [
       "logo.png"
-    ],
-    "packageManager": "yarn"
+    ]
   },
   "prettier": {
     "arrowParens": "avoid",
