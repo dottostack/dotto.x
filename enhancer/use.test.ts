@@ -7,9 +7,11 @@ import { use } from './use'
 jest.useFakeTimers()
 
 function enhancer<Data>(store: DotXStore<Data>): () => void {
-  return enhance(store, ({ commit, storeName, path, ...rest }) => {
-    expect(path).toBe('some.path')
-    commit({ storeName, path, ...rest })
+  return enhance(store, {
+    after: ({ commit, storeName, path, ...rest }) => {
+      expect(path).toBe('some.path')
+      commit({ storeName, path, ...rest })
+    }
   })
 }
 

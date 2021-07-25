@@ -1,25 +1,21 @@
 const handler =
   (cb, commit, store) =>
-  ({ storeName, path, ...rest }) => {
+  ({ ...rest }) => {
     cb({
       commit,
-      storeName,
       store,
-      path,
       ...rest
     })
   }
-const def = ({ commit, ...rest }) => {
-  return commit({ ...rest })
-}
-export const enhance = (store, after = def, before = def) => {
-  const emit = store._emit.bind(store)
-  const set = store._set.bind(store)
 
-  store._emit = handler(after, emit, store)
-  store._set = handler(before, set, store)
+export const enhance = (store, { before, after }) => {
+  const set = store._set.bind(store)
+  const emit = store._emit.bind(store)
+
+  if (before) store._set = handler(before, set, store)
+  if (after) store._emit = handler(after, emit, store)
   return () => {
-    store._emit = emit
-    store._set = set
+    if (before) store._set = set
+    if (after) store._emit = emit
   }
 }
