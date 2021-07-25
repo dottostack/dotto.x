@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "A tiny state manager",
   "main": "index.js",
-  "repository": "https://github.com/quarkly/quarkx",
+  "repository": "https://github.com/dotstorex/dotstorex",
   "author": "Eddort <webisforce@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
@@ -89,6 +89,12 @@
       "name": "UseEnhancer",
       "path": "./index.js",
       "import": "{ use }",
+      "limit": "100B"
+    },
+    {
+      "name": "Enhancer",
+      "path": "./index.js",
+      "import": "{ enhance }",
       "limit": "100B"
     }
   ],
