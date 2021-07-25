@@ -1,6 +1,6 @@
 {
   "name": "dotstorex",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A tiny state manager",
   "main": "index.js",
   "repository": "https://github.com/dotstorex/dotstorex",
