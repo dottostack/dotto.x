@@ -31,7 +31,8 @@
   },
   "clean-publish": {
     "files": [
-      "logo.png"
+      "logo.png",
+      "ideas.md"
     ]
   },
   "prettier": {

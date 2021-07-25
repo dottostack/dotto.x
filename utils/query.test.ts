@@ -9,19 +9,16 @@ describe('query:', () => {
       { some: { user: { name?: string; age?: number; location?: string } } }
     >('test', { some: { user: {} } })
     let predict: any
-    const unbind = query(
-      testingStore,
-      {
-        name: 'some.user.name',
-        age: 'some.user.age',
-        location: 'some.user.location'
-      },
-      ({ name, age, location }: any) => {
-        expect(name).toBe(predict.name)
-        expect(age).toBe(predict.age)
-        expect(location).toBe(predict.location)
-      }
-    )
+    const select = {
+      name: 'some.user.name',
+      age: 'some.user.age',
+      location: 'some.user.location'
+    } as const
+    const unbind = query(testingStore, select, ({ name, age, location }) => {
+      expect(name).toBe(predict.name)
+      expect(age).toBe(predict.age)
+      expect(location).toBe(predict.location)
+    })
     predict = {
       name: 'John',
       age: undefined,
