@@ -1,16 +1,17 @@
-# Dotstorex
+<h1 align="center">Dotstorex</h1>
 
 <img align="right" src="logo.png" width="200px" alt="dotstorex - lightweight state manager">
 
 A tiny state manager for **React**
 and vanilla JS. (other frameworks in future)
 point changes
-* **Lightweight.** Less than 485 bytes (minified and gzipped). Zero dependencies.
-* **Easy but strong.** Simple working principe without magic, but with all features from big state managers.
-* **Deep observable and fast.** You can subscribe and follow pinpoint changes without thinking about multiple re-renders.
-* **Strong plugin system.** With plugins, you can enhance your store. Logging, undoing changes, connecting **Redux-devtools**, and anything else.
-* **Tree Shakable.** All project splited by small modules.
-* **Very strong TypeScript support.**
+
+- **Lightweight.** Less than 485 bytes (minified and gzipped). Zero dependencies.
+- **Easy but strong.** Simple working principe without magic, but with all features from big state managers.
+- **Deep observable and fast.** You can subscribe and follow pinpoint changes without thinking about multiple re-renders.
+- **Strong plugin system.** With plugins, you can enhance your store. Logging, undoing changes, connecting **Redux-devtools**, and anything else.
+- **Tree Shakable.** All project splited by small modules.
+- **Very strong TypeScript support.**
 <hr>
 <br>
 <p align="center">
@@ -27,4 +28,18 @@ point changes
 <br>
 
 ## How it works
-<!-- https://img.shields.io/github/workflow/status/dotstorex/dotstorex/test?labelColor=000000&style=for-the-badge -->
+
+```ts
+import { createStore } from 'dotstorex'
+
+const store = createStore('test', { some: { path: 0 } })
+
+store.listen('some.path', (path, value) => {
+  // path - some.path
+  // value - 1,2
+})
+
+store.set('some.path', 1)
+store.set('some.path', 2)
+store.set('some.path', 'error') // type checks throw error, because 'some.path' most be a number.
+```
