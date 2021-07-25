@@ -1,6 +1,6 @@
 {
   "name": "dotstorex",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "A tiny state manager",
   "main": "index.js",
   "repository": "https://github.com/dotstorex/dotstorex",
@@ -12,8 +12,7 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
-    "size": "size-limit",
-    "deploy": "npx clean-publish"
+    "size": "size-limit"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
