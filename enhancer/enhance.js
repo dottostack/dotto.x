@@ -1,15 +1,25 @@
-export const enhance = (store, enhancer) => {
-  const commit = store.emit
-  const handler = ({ storeName, path, ...rest }) => {
-    enhancer({
+const handler =
+  (cb, commit, store) =>
+  ({ storeName, path, ...rest }) => {
+    cb({
       commit,
       storeName,
       store,
       path,
-      value: store.get(path),
       ...rest
     })
   }
-  store.emit = handler
-  return () => (store.emit = commit)
+const def = ({ commit, ...rest }) => {
+  return commit({ ...rest })
+}
+export const enhance = (store, after = def, before = def) => {
+  const emit = store._emit.bind(store)
+  const set = store._set.bind(store)
+
+  store._emit = handler(after, emit, store)
+  store._set = handler(before, set, store)
+  return () => {
+    store._emit = emit
+    store._set = set
+  }
 }
