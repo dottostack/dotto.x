@@ -18,13 +18,16 @@ export const createStore = (name = 'quarkX', initial = {}) => {
   const state = { data: initial }
   return {
     set(path, value) {
+      this._set({ storeName: name, path, value })
+    },
+    _set({ storeName, value, path, ...rest }) {
       set(state, concat(DATA, path), value)
-      this.emit({ storeName: name, path })
+      this._emit({ storeName, path, ...rest })
     },
     get(path) {
       return get(state, concat(DATA, path))
     },
-    emit({ storeName, path, ...rest }) {
+    _emit({ storeName, path, ...rest }) {
       const fullPath = concat(DATA, path)
       const acc = {
         storeName,

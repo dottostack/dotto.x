@@ -34,5 +34,8 @@ type Enhancer<Store> = {
  */
 export function enhance<Data>(
   store: DotXStore<Data>,
-  enhancer: (args: Enhancer<DotXStore<Data>>) => void
+  handlers: {
+    after: (args: Enhancer<DotXStore<Data>>) => void
+    before?: (args: Enhancer<DotXStore<Data>>) => void
+  }
 ): () => void
