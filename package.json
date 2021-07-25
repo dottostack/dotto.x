@@ -13,7 +13,7 @@
     "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
     "size": "size-limit",
-    "deploy": "clean-publish"
+    "publish": "clean-publish"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -29,6 +29,12 @@
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
+  },
+  "clean-publish": {
+    "files": [
+      "logo.png"
+    ],
+    "packageManager": "yarn"
   },
   "prettier": {
     "arrowParens": "avoid",
@@ -66,6 +72,23 @@
     "globals": {
       "jsdom": false
     }
+  },
+  "yaspeller": {
+    "lang": "en",
+    "ignoreCapitalization": true,
+    "ignoreText": [
+      " \\(by [^)]+\\).",
+      "\\d+\\.\\d+ “[^”]+”"
+    ],
+    "dictionary": [
+      "Dotstorex",
+      "Redux",
+      "devtools",
+      "splited",
+      "JS",
+      "Shakable",
+      "gzipped"
+    ]
   },
   "lint-staged": {
     "*.md": "yaspeller",
