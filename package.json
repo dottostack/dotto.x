@@ -86,7 +86,8 @@
       "splited",
       "JS",
       "Shakable",
-      "gzipped"
+      "gzipped",
+      "WIP"
     ]
   },
   "lint-staged": {
