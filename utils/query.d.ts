@@ -2,7 +2,7 @@
 import { DotXStore } from '../create-store'
 import { ResolveType } from '../utils/get'
 
-export function query<Data, T extends const>(
+export function query<Data, T extends Object>(
   store: DotXStore<Data>,
   query: T,
   cb: (
