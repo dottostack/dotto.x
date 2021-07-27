@@ -8,7 +8,6 @@ const pathGet = (stores, cb) => {
     store.get = cb.bind(null, store, index)
     store._get = oldGet
   })
-
   return () =>
     stores.forEach(store => {
       store.get = store._get
@@ -16,11 +15,11 @@ const pathGet = (stores, cb) => {
     })
 }
 
-const createComputedContainer = (stores, cb, emit) => {
+const createComputedContainer = (dependecies, cb, emit) => {
   let listeners = {}
-
+  // добавить кеш!
   const call = () => {
-    const unpatch = pathGet(stores, (store, index, path) => {
+    const unpatch = pathGet(dependecies, (store, index, path) => {
       const accPath = concat(`${index}`, path)
       if (listeners[accPath]) return store._get(path)
       listeners[accPath] = store.listen(path, emit)
@@ -30,7 +29,6 @@ const createComputedContainer = (stores, cb, emit) => {
     const result = cb()
 
     unpatch()
-
     return result
   }
 
@@ -43,7 +41,7 @@ const createComputedContainer = (stores, cb, emit) => {
   }
 }
 
-export const computed = (stores, cb) => {
+export const computed = (dependecies, cb) => {
   const subscribers = []
   let lastResult = EMPTY
 
@@ -54,7 +52,7 @@ export const computed = (stores, cb) => {
     })
   }
 
-  const container = createComputedContainer(stores, cb, emit)
+  const container = createComputedContainer(dependecies, cb, emit)
 
   const subscribe = subscriber => {
     subscribers.push(subscriber)
@@ -73,5 +71,7 @@ export const computed = (stores, cb) => {
     }
   }
 
-  return { subscribe }
+  return {
+    subscribe
+  }
 }
