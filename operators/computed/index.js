@@ -2,14 +2,14 @@ const EMPTY = Symbol.for('empty')
 
 const pathGet = (stores, direct, cb) => {
   stores.forEach((store, index) => {
-    if (direct && store._get) return
+    if (direct) return
     const oldGet = store.get
     store.get = cb.bind(null, store, index)
     store._get = oldGet
   })
   return () =>
     stores.forEach(store => {
-      if (direct && store._get) return
+      if (direct) return
       store.get = store._get
       delete store._get
     })

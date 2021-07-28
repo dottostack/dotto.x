@@ -44,4 +44,59 @@ describe('computed function:', () => {
     })
     unsub2()
   })
+
+  it('nested', () => {
+    expect.assertions(5)
+    let pathMultRes: number, nextDataGetterRes: number
+    const store = createStore('test', {
+      some: { deep: { path: 3, test: 2, some: 4 } }
+    })
+
+    const pathMult = computed([store], () => {
+      const path = store.get('some.deep.path')
+      return path * 2
+    })
+
+    const nextDataGetter = computed([pathMult], () => {
+      return pathMult.run() / 2
+    })
+    pathMultRes = 6
+    nextDataGetterRes = 3
+    const unsub = pathMult.subscribe(val => {
+      expect(val).toBe(pathMultRes)
+    })
+    const unsub2 = nextDataGetter.subscribe(val => {
+      expect(val).toBe(nextDataGetterRes)
+    })
+    pathMultRes = 8
+    nextDataGetterRes = 4
+    store.set('some.deep.path', 4)
+    unsub()
+    nextDataGetterRes = 5
+    store.set('some.deep.path', 5)
+    unsub2()
+  })
+
+  it('work without reactive', () => {
+    expect.assertions(1)
+    const store = createStore('test', {
+      some: { deep: { path: 3, test: 2, some: 4 } }
+    })
+
+    const pathMult = computed([store], () => {
+      const path = store.get('some.deep.path')
+      return path * 2
+    })
+
+    const nextDataGetter = computed([], () => {
+      return pathMult.run() / 2
+    })
+
+    const unsub2 = nextDataGetter.subscribe(val => {
+      expect(val).toBe(3)
+    })
+    store.set('some.deep.path', 4)
+    store.set('some.deep.path', 5)
+    unsub2()
+  })
 })
