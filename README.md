@@ -1,4 +1,4 @@
-<h1 align="center">Dotto Store</h1>
+<h1 align="center">dotto.x</h1>
 
 <img align="right" src="logo.png" width="200px" alt="dotstorex - lightweight state manager">
 
@@ -30,7 +30,7 @@ point changes
 ## How it works
 
 ```ts
-import { createStore } from 'dotstorex'
+import { createStore } from 'dotto.x'
 
 const store = createStore('test', { some: { path: 0 } })
 
