@@ -1,36 +1,39 @@
 const EMPTY = Symbol.for('empty')
 
-const pathGet = (stores, direct, cb) => {
+const pathGet = (stores, cb) => {
   stores.forEach((store, index) => {
-    if (direct) return
     const oldGet = store.get
     store.get = cb.bind(null, store, index)
     store._get = oldGet
   })
   return () =>
     stores.forEach(store => {
-      if (direct) return
       store.get = store._get
       delete store._get
     })
+}
+
+const insideHandlers = (dependecies, listeners, emit, cb) => {
+  const unpatch = pathGet(dependecies, (store, index, path) => {
+    if (!listeners.has(store)) listeners.set(store, {})
+    const target = listeners.get(store)
+    if (target[path]) return store._get(path)
+    target[path] = store.listen(path, emit)
+    return store._get(path)
+  })
+
+  const result = cb()
+
+  unpatch()
+  return result
 }
 
 const createComputedContainer = (dependecies, cb, emit) => {
   const listeners = new Map()
 
   const call = direct => {
-    const unpatch = pathGet(dependecies, direct, (store, index, path) => {
-      if (!listeners.has(store)) listeners.set(store, {})
-      const target = listeners.get(store)
-      if (target[path]) return store._get(path)
-      target[path] = store.listen(path, emit)
-      return store._get(path)
-    })
-
-    const result = cb()
-
-    unpatch()
-    return result
+    if (direct) return cb()
+    return insideHandlers(dependecies, listeners, emit, cb)
   }
 
   return {
