@@ -5,14 +5,23 @@ const AssertType = <T>(expect: [T] extends [never] ? never : T): T => expect
 
 describe('query:', () => {
   it('base', () => {
-    expect.assertions(9)
+    expect.assertions(12)
 
     const testingStore = createStore<
       'test',
       { some: { user: { name?: string; age?: number; location?: string } } }
     >('test', { some: { user: {} } })
 
-    let predict: any
+    type Name = string | undefined
+    type Age = number | undefined
+    type Location = string | undefined
+    type Predict = { name: Name; location: Location; age: Age }
+
+    let predict: Predict = {
+      name: undefined,
+      age: undefined,
+      location: undefined
+    }
     const select = {
       name: 'some.user.name',
       age: 'some.user.age',
@@ -21,9 +30,6 @@ describe('query:', () => {
 
     const unbind = query(testingStore, select).subscribe(
       ({ name, age, location }) => {
-        type Name = string | undefined
-        type Age = number | undefined
-        type Location = string | undefined
         expect(AssertType<Name>(name)).toEqual(predict.name)
         expect(AssertType<Age>(age)).toEqual(predict.age)
         expect(AssertType<Location>(location)).toEqual(predict.location)

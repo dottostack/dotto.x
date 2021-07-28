@@ -1,4 +1,4 @@
-<h1 align="center">Dotstorex WIP</h1>
+<h1 align="center">Dotto Store</h1>
 
 <img align="right" src="logo.png" width="200px" alt="dotstorex - lightweight state manager">
 

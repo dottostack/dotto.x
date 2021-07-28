@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { computed } from '.'
 import { createStore } from '../../create-store'
 
 describe('computed function:', () => {
-  it('base', () => {
+  it('scoped listeners', () => {
     expect.assertions(5)
 
     const store = createStore('test', {
@@ -45,7 +46,7 @@ describe('computed function:', () => {
     unsub2()
   })
 
-  it('nested', () => {
+  it('containers nesting works correctly', () => {
     expect.assertions(5)
     let pathMultRes: number, nextDataGetterRes: number
     const store = createStore('test', {
@@ -77,7 +78,7 @@ describe('computed function:', () => {
     unsub2()
   })
 
-  it('work without reactive', () => {
+  it('works without reactive', () => {
     expect.assertions(1)
     const store = createStore('test', {
       some: { deep: { path: 3, test: 2, some: 4 } }
@@ -98,5 +99,33 @@ describe('computed function:', () => {
     store.set('some.deep.path', 4)
     store.set('some.deep.path', 5)
     unsub2()
+  })
+
+  it('prevents diamond dependency problem', () => {
+    const store = createStore('count', { count: 0 })
+    const values: string[] = []
+
+    const a = computed([store], () => {
+      return 'a' + store.get('count')
+    })
+
+    const b = computed([store], () => {
+      return 'b' + store.get('count')
+    })
+
+    const combined = computed([a, b], () => {
+      return a.run() + b.run()
+    })
+
+    const unsubscribe = combined.subscribe(v => {
+      values.push(v)
+    })
+
+    expect(values).toEqual(['a0b0'])
+
+    store.set('count', 1)
+    expect(values).toEqual(['a0b0', 'a1b1'])
+
+    unsubscribe()
   })
 })

@@ -1,18 +1,13 @@
-import { listenMany } from '../../utils/listen-many'
+import { computed } from '../computed'
 
 export const query = (store, queries) => {
-  // TODO handle many callbacks
-  const contract = {
-    subscribe(cb) {
-      return listenMany(store, Object.values(queries), () => {
-        cb(
-          Object.entries(queries).reduce((acc, [queryKey, queryParam]) => {
-            acc[queryKey] = store.get(queryParam)
-            return acc
-          }, {})
-        )
-      })
-    }
-  }
-  return contract
+  return computed([store], () => {
+    return Object.entries(queries).reduce(
+      (acc, [queryKey, queryParam]) => ({
+        ...acc,
+        [queryKey]: store.get(queryParam)
+      }),
+      {}
+    )
+  })
 }

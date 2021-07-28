@@ -1,5 +1,5 @@
 {
-  "name": "dotstorex",
+  "name": "dottostore",
   "version": "0.0.12",
   "description": "A tiny state manager",
   "main": "index.js",
