@@ -1,5 +1,3 @@
-import { concat } from '../../utils/path'
-
 const EMPTY = Symbol.for('empty')
 
 const pathGet = (stores, cb) => {
@@ -15,27 +13,33 @@ const pathGet = (stores, cb) => {
     })
 }
 
+const insideHandlers = (dependecies, listeners, emit, cb) => {
+  const unpatch = pathGet(dependecies, (store, index, path) => {
+    if (!listeners.has(store)) listeners.set(store, {})
+    const target = listeners.get(store)
+    if (target[path]) return store._get(path)
+    target[path] = store.listen(path, emit)
+    return store._get(path)
+  })
+
+  const result = cb()
+
+  unpatch()
+  return result
+}
+
 const createComputedContainer = (dependecies, cb, emit) => {
-  let listeners = {}
-  // добавить кеш!
-  const call = () => {
-    const unpatch = pathGet(dependecies, (store, index, path) => {
-      const accPath = concat(`${index}`, path)
-      if (listeners[accPath]) return store._get(path)
-      listeners[accPath] = store.listen(path, emit)
-      return store._get(path)
-    })
+  const listeners = new Map()
 
-    const result = cb()
-
-    unpatch()
-    return result
+  const call = direct => {
+    if (direct) return cb()
+    return insideHandlers(dependecies, listeners, emit, cb)
   }
 
   return {
     unbind() {
       Object.values(listeners).forEach(unsub => unsub())
-      listeners = {}
+      listeners.clear()
     },
     call
   }
@@ -52,7 +56,17 @@ export const computed = (dependecies, cb) => {
     })
   }
 
-  const container = createComputedContainer(dependecies, cb, emit)
+  const depsWithNested = [
+    ...new Set(
+      dependecies.reduce((acc, dep) => {
+        if (dep.dependecies) return acc.concat(dep.dependecies)
+        acc.push(dep)
+        return acc
+      }, [])
+    )
+  ]
+
+  const container = createComputedContainer(depsWithNested, cb, emit)
 
   const subscribe = subscriber => {
     subscribers.push(subscriber)
@@ -72,6 +86,10 @@ export const computed = (dependecies, cb) => {
   }
 
   return {
-    subscribe
+    dependecies: depsWithNested,
+    subscribe,
+    run() {
+      return container.call(true)
+    }
   }
 }

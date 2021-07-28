@@ -6,6 +6,7 @@ const AssertType = <T>(expect: [T] extends [never] ? never : T): T => expect
 describe('query:', () => {
   it('base', () => {
     expect.assertions(9)
+
     const testingStore = createStore<
       'test',
       { some: { user: { name?: string; age?: number; location?: string } } }
@@ -28,6 +29,7 @@ describe('query:', () => {
         expect(AssertType<Location>(location)).toEqual(predict.location)
       }
     )
+
     predict = {
       name: 'John',
       age: undefined,
