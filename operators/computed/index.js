@@ -1,28 +1,29 @@
-import { concat } from '../../utils/path'
-
 const EMPTY = Symbol.for('empty')
 
-const pathGet = (stores, cb) => {
+const pathGet = (stores, direct, cb) => {
   stores.forEach((store, index) => {
+    if (direct && store._get) return
     const oldGet = store.get
     store.get = cb.bind(null, store, index)
     store._get = oldGet
   })
   return () =>
     stores.forEach(store => {
+      if (direct && store._get) return
       store.get = store._get
       delete store._get
     })
 }
 
 const createComputedContainer = (dependecies, cb, emit) => {
-  let listeners = {}
-  // добавить кеш!
-  const call = () => {
-    const unpatch = pathGet(dependecies, (store, index, path) => {
-      const accPath = concat(`${index}`, path)
-      if (listeners[accPath]) return store._get(path)
-      listeners[accPath] = store.listen(path, emit)
+  const listeners = new Map()
+
+  const call = direct => {
+    const unpatch = pathGet(dependecies, direct, (store, index, path) => {
+      if (!listeners.has(store)) listeners.set(store, {})
+      const target = listeners.get(store)
+      if (target[path]) return store._get(path)
+      target[path] = store.listen(path, emit)
       return store._get(path)
     })
 
@@ -35,7 +36,7 @@ const createComputedContainer = (dependecies, cb, emit) => {
   return {
     unbind() {
       Object.values(listeners).forEach(unsub => unsub())
-      listeners = {}
+      listeners.clear()
     },
     call
   }
@@ -52,7 +53,17 @@ export const computed = (dependecies, cb) => {
     })
   }
 
-  const container = createComputedContainer(dependecies, cb, emit)
+  const depsWithNested = [
+    ...new Set(
+      dependecies.reduce((acc, dep) => {
+        if (dep.dependecies) return acc.concat(dep.dependecies)
+        acc.push(dep)
+        return acc
+      }, [])
+    )
+  ]
+
+  const container = createComputedContainer(depsWithNested, cb, emit)
 
   const subscribe = subscriber => {
     subscribers.push(subscriber)
@@ -72,6 +83,10 @@ export const computed = (dependecies, cb) => {
   }
 
   return {
-    subscribe
+    dependecies: depsWithNested,
+    subscribe,
+    run() {
+      return container.call(true)
+    }
   }
 }
