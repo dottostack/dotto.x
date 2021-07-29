@@ -68,26 +68,37 @@ export const computed = (dependecies, cb) => {
 
   const container = createComputedContainer(depsWithNested, cb, emit)
 
-  const subscribe = subscriber => {
+  const activate = (subscriber, fireImmediately) => {
     subscribers.push(subscriber)
 
     if (lastResult === EMPTY) {
       lastResult = container.call()
     }
 
-    subscriber(lastResult)
+    if (fireImmediately) subscriber(lastResult)
 
     return () => {
       const index = subscribers.indexOf(subscriber)
       subscribers.splice(index, 1)
-      container.unbind()
-      lastResult = EMPTY
+      if (!subscribers.length) {
+        container.unbind()
+        lastResult = EMPTY
+      }
     }
+  }
+
+  const subscribe = subscriber => {
+    return activate(subscriber, true)
+  }
+
+  const listen = listener => {
+    return activate(listener, false)
   }
 
   return {
     dependecies: depsWithNested,
     subscribe,
+    listen,
     run() {
       return container.call(true)
     }

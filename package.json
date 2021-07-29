@@ -1,9 +1,9 @@
 {
   "name": "dotto.x",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "A tiny state manager",
   "main": "index.js",
-  "repository": "https://github.com/dotto-team/dotto.x",
+  "repository": "https://github.com/dottostack/dotto.x",
   "author": "Eddort <webisforce@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
