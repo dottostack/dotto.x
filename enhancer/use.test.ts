@@ -18,7 +18,7 @@ function enhancer<Data>(store: DotXStore<Data>): () => void {
 describe('use:', () => {
   it('base usage', () => {
     expect.assertions(2)
-    const testingStore = createStore('test', { some: { path: 0 } })
+    const testingStore = createStore({ some: { path: 0 } })
 
     const unuse = use(testingStore, enhancer, enhancer)
 

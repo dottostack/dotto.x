@@ -6,7 +6,7 @@ describe('computed function:', () => {
   it('scoped listeners', () => {
     expect.assertions(5)
 
-    const store = createStore('test', {
+    const store = createStore({
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
@@ -49,7 +49,7 @@ describe('computed function:', () => {
   it('containers nesting works correctly', () => {
     expect.assertions(5)
     let pathMultRes: number, nextDataGetterRes: number
-    const store = createStore('test', {
+    const store = createStore({
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
@@ -80,7 +80,7 @@ describe('computed function:', () => {
 
   it('works without reactive', () => {
     expect.assertions(1)
-    const store = createStore('test', {
+    const store = createStore({
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
@@ -102,7 +102,7 @@ describe('computed function:', () => {
   })
 
   it('prevents diamond dependency problem', () => {
-    const store = createStore('count', { count: 0 })
+    const store = createStore({ count: 0 })
     const values: string[] = []
 
     const a = computed([store], () => {
@@ -132,7 +132,7 @@ describe('computed function:', () => {
   it('listen', () => {
     expect.assertions(3)
     let predict = 0
-    const store = createStore('count', { count: 0 })
+    const store = createStore({ count: 0 })
     const mult = computed([store], () => {
       const count = store.get('count')
       return count * 2

@@ -80,7 +80,4 @@ export type DotXStore<State> = {
  * @param initial Your initial data or interface.
  * @returns The store object with methods to subscribe, get and set.
  */
-export function createStore<Name extends string, State>(
-  name: Name,
-  initial?: State = {}
-): DotXStore<State>
+export function createStore<State>(initial?: State = {}): DotXStore<State>

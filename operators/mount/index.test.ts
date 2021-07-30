@@ -9,7 +9,7 @@ describe('mount-operator:', () => {
   it('by listen', () => {
     expect.assertions(1)
 
-    const store = createStore('test', { some: { path: 0 } })
+    const store = createStore({ some: { path: 0 } })
 
     const events: (string | number)[] = []
 
@@ -37,7 +37,7 @@ describe('mount-operator:', () => {
   it('by manual off', () => {
     expect.assertions(1)
 
-    const store = createStore('test', { some: { path: 0 } })
+    const store = createStore({ some: { path: 0 } })
 
     const events: (string | number)[] = []
 

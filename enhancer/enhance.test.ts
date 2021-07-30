@@ -8,7 +8,7 @@ jest.useFakeTimers()
 describe('enhancer:', () => {
   it('base usage', () => {
     expect.assertions(1)
-    const testingStore = createStore('test', { some: { path: 0 } })
+    const testingStore = createStore({ some: { path: 0 } })
     const unuse = enhance(testingStore, {
       after: ({ commit, storeName, path, ...rest }) => {
         expect(path).toBe('some.path')
@@ -27,7 +27,7 @@ describe('enhancer:', () => {
 
   it('pass pass store from enhancer', () => {
     expect.assertions(2)
-    const testingStore = createStore('test', { some: { path: 0 } })
+    const testingStore = createStore({ some: { path: 0 } })
 
     enhance(testingStore, {
       after: ({ commit, storeName, path, store, ...rest }) => {
@@ -42,7 +42,7 @@ describe('enhancer:', () => {
 
   it('pass data down', () => {
     expect.assertions(3)
-    const testingStore = createStore('test', { some: { path: 0 } })
+    const testingStore = createStore({ some: { path: 0 } })
 
     enhance(testingStore, {
       after: ({ commit, storeName, path, someData, store, ...rest }) => {
@@ -64,7 +64,7 @@ describe('enhancer:', () => {
 
   it('data from enhancer to listener', () => {
     expect.assertions(1)
-    const testingStore = createStore('test', { some: { path: 0 } })
+    const testingStore = createStore({ some: { path: 0 } })
     const unuse = enhance(testingStore, {
       after: ({ commit, storeName, path, ...rest }) => {
         commit({ storeName, path, dataToListener: 1, ...rest })
@@ -85,7 +85,30 @@ describe('enhancer:', () => {
 
   it('before', () => {
     expect.assertions(1)
-    const testingStore = createStore('test', { some: { path: 0 } })
+    const testingStore = createStore({ some: { path: 0 } })
+    const unuse = enhance(testingStore, {
+      after: ({ commit, storeName, path, ...rest }) => {
+        commit({ storeName, path, dataToListener: 1, ...rest })
+      },
+      before: ({ commit, storeName, path, ...rest }) => {
+        commit({ storeName, path, dataToListener: 1, ...rest })
+      }
+    })
+    const unbind = testingStore.listen(
+      'some.path',
+      (path, value, { dataToListener }) => {
+        expect(dataToListener).toBe(1)
+      }
+    )
+
+    testingStore.set('some.path', 1)
+
+    unbind()
+    unuse()
+  })
+  it('before33', () => {
+    expect.assertions(1)
+    const testingStore = createStore({ some: { path: 0 } })
     const unuse = enhance(testingStore, {
       after: ({ commit, storeName, path, ...rest }) => {
         commit({ storeName, path, dataToListener: 1, ...rest })
