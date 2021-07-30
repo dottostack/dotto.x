@@ -3818,7 +3818,7 @@ jest-jasmine2@^27.0.6:
 
 jest-leak-detector@^27.0.6:
   version "27.0.6"
-  resolved "https://registry.yarnpkg.com/jest-leak-detector/-/jest-leak-detector-27.0.6.tgz#545854275f85450d4ef4b8fe305ca2a26450450f"
+  resolved "https://registry.npmjs.org/jest-leak-detector/-/jest-leak-detector-27.0.6.tgz#545854275f85450d4ef4b8fe305ca2a26450450f"
   integrity sha512-2/d6n2wlH5zEcdctX4zdbgX8oM61tb67PQt4Xh8JFAIy6LRKUnX528HulkaG6nD5qDl5vRV1NXejCe1XRCH5gQ==
   dependencies:
     jest-get-type "^27.0.6"
