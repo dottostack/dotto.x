@@ -3,7 +3,7 @@ import { DotXStore } from '../../create-store'
 
 type Subscribable<Cb> = {
   dependecies: (DotXStore<unknown> | ReturnType<computed<unknown>>)[]
-  run: () => ReturnType<Cb>
+  get: () => ReturnType<Cb>
   subscribe: (cb: (result: ReturnType<Cb>) => void) => () => void
   listen: (cb: (result: ReturnType<Cb>) => void) => () => void
 }

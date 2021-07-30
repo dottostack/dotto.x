@@ -99,7 +99,7 @@ export const computed = (dependecies, cb) => {
     dependecies: depsWithNested,
     subscribe,
     listen,
-    run() {
+    get() {
       return container.call(true)
     }
   }

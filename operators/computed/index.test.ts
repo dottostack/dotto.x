@@ -59,7 +59,7 @@ describe('computed function:', () => {
     })
 
     const nextDataGetter = computed([pathMult], () => {
-      return pathMult.run() / 2
+      return pathMult.get() / 2
     })
     pathMultRes = 6
     nextDataGetterRes = 3
@@ -90,7 +90,7 @@ describe('computed function:', () => {
     })
 
     const nextDataGetter = computed([], () => {
-      return pathMult.run() / 2
+      return pathMult.get() / 2
     })
 
     const unsub2 = nextDataGetter.subscribe(val => {
@@ -114,7 +114,7 @@ describe('computed function:', () => {
     })
 
     const combined = computed([a, b], () => {
-      return a.run() + b.run()
+      return a.get() + b.get()
     })
 
     const unsubscribe = combined.subscribe(v => {
