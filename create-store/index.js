@@ -16,8 +16,8 @@ const emitChildren = (obj = {}, cb) => {
 export const createStore = (name = 'd', initial = {}) => {
   const listenners = {}
   const state = { d: initial }
-  return {
-    mount: false,
+  const store = {
+    lc: 0,
     set(path, value) {
       this._set({ storeName: name, path, value })
     },
@@ -49,14 +49,23 @@ export const createStore = (name = 'd', initial = {}) => {
       const dest = concat(DATA, concat(path, HANDLERS))
       let ns = get(listenners, dest) || set(listenners, dest, [])
       ns.push(cb)
-      if (!this.mount) this.mount = true
+      this.lc++
       return () => {
         ns.splice(ns.indexOf(cb), 1)
+        this.lc--
+        if (this.lc === 0) this.off()
       }
     },
     off() {
       set(listenners, DATA, undefined)
-      this.mount = false
+      this.lc = 0
     }
   }
+
+  if (process.env.NODE_ENV !== 'production') {
+    store._l = listenners
+    store._s = state
+  }
+
+  return store
 }
