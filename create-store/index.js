@@ -2,8 +2,8 @@ import { get } from '../utils/get'
 import { set } from '../utils/set'
 import { concat, walk } from '../utils/path'
 
-const HANDLERS = '__quarkx'
-const DATA = 'data'
+const HANDLERS = '__h'
+const DATA = 'd'
 
 const emitChildren = (obj = {}, cb) => {
   for (const [path, child] of Object.entries(obj)) {
@@ -13,9 +13,9 @@ const emitChildren = (obj = {}, cb) => {
   }
 }
 
-export const createStore = (name = 'quarkX', initial = {}) => {
+export const createStore = (name = 'd', initial = {}) => {
   const listenners = {}
-  const state = { data: initial }
+  const state = { d: initial }
   return {
     set(path, value) {
       this._set({ storeName: name, path, value })

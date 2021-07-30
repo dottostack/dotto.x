@@ -5,6 +5,7 @@ type Subscribable<Cb> = {
   dependecies: (DotXStore<unknown> | ReturnType<computed<unknown>>)[]
   run: () => ReturnType<Cb>
   subscribe: (cb: (result: ReturnType<Cb>) => void) => () => void
+  listen: (cb: (result: ReturnType<Cb>) => void) => () => void
 }
 
 export function computed<Callback extends Function>(

@@ -128,4 +128,24 @@ describe('computed function:', () => {
 
     unsubscribe()
   })
+
+  it('listen', () => {
+    expect.assertions(3)
+    let predict = 0
+    const store = createStore('count', { count: 0 })
+    const mult = computed([store], () => {
+      const count = store.get('count')
+      return count * 2
+    })
+    const unbind = mult.listen(num => {
+      expect(num).toBe(predict)
+    })
+    predict = 2
+    store.set('count', 1)
+    predict = 4
+    store.set('count', 2)
+    predict = 6
+    store.set('count', 3)
+    unbind()
+  })
 })

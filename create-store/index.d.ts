@@ -2,7 +2,7 @@
 import { ResolveType } from '../utils/get'
 
 type DataStore<State = {}> = {
-  data: State
+  d: State
 }
 
 export type DotXStore<State> = {
@@ -18,7 +18,7 @@ export type DotXStore<State> = {
   get(path?: undefined): State
   get<Path extends string>(
     path: Path
-  ): ResolveType<DataStore<State>, `data.${Path}`>
+  ): ResolveType<DataStore<State>, `d.${Path}`>
 
   /**
    * Change store value.
@@ -31,8 +31,8 @@ export type DotXStore<State> = {
    */
   set<Path extends string>(
     path: Path,
-    payload: ResolveType<DataStore<State>, `data.${Path}`>
-  ): ResolveType<DataStore<State>, `data.${Path}`>
+    payload: ResolveType<DataStore<State>, `d.${Path}`>
+  ): ResolveType<DataStore<State>, `d.${Path}`>
   set(path?: null | undefined, payload: State): State
 
   emit(arg: any): void
@@ -52,7 +52,7 @@ export type DotXStore<State> = {
     path: ListenPath,
     cb: (
       path: ListenPath,
-      value: ResolveType<DataStore<State>, `data.${ListenPath}`>,
+      value: ResolveType<DataStore<State>, `d.${ListenPath}`>,
       acc: any
     ) => void
   ): () => void
