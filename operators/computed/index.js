@@ -38,7 +38,7 @@ const createComputedContainer = (dependecies, cb, emit) => {
 
   return {
     unbind() {
-      Object.values(listeners).forEach(unsub => unsub())
+      listeners.forEach(sub => Object.values(sub).forEach(unsub => unsub()))
       listeners.clear()
     },
     call
@@ -68,39 +68,37 @@ export const computed = (dependecies, cb) => {
 
   const container = createComputedContainer(depsWithNested, cb, emit)
 
-  const activate = (subscriber, fireImmediately) => {
-    subscribers.push(subscriber)
-
-    if (lastResult === EMPTY) {
-      lastResult = container.call()
-    }
-
-    if (fireImmediately) subscriber(lastResult)
-
-    return () => {
-      const index = subscribers.indexOf(subscriber)
-      subscribers.splice(index, 1)
-      if (!subscribers.length) {
-        container.unbind()
-        lastResult = EMPTY
-      }
-    }
-  }
-
-  const subscribe = subscriber => {
-    return activate(subscriber, true)
-  }
-
-  const listen = listener => {
-    return activate(listener, false)
-  }
-
   return {
     dependecies: depsWithNested,
-    subscribe,
-    listen,
+    _run(subscriber, fireImmediately) {
+      subscribers.push(subscriber)
+
+      if (lastResult === EMPTY) {
+        lastResult = container.call()
+      }
+
+      if (fireImmediately) subscriber(lastResult)
+
+      return () => {
+        const index = subscribers.indexOf(subscriber)
+        subscribers.splice(index, 1)
+        if (!subscribers.length) {
+          this.off()
+        }
+      }
+    },
+    subscribe(subscriber) {
+      return this._run(subscriber, true)
+    },
+    listen(subscriber) {
+      return this._run(subscriber, false)
+    },
     get() {
       return container.call(true)
+    },
+    off() {
+      container.unbind()
+      lastResult = EMPTY
     }
   }
 }
