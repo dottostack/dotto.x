@@ -123,7 +123,7 @@ describe('mount-operator:', () => {
     expect(events).toEqual(['mount', 1, 2, 'unmount', 'mount', 222])
   })
 
-  it.skip('use computed', () => {
+  it('use computed', () => {
     expect.assertions(1)
 
     const store = createStore<{ some: { path?: number } }>()
@@ -157,7 +157,7 @@ describe('mount-operator:', () => {
     })
     // handle store off
     store.set('some.path', 4)
-    // console.log(events)
-    expect(events).toEqual(['mount', 1, 4, 'unmount'])
+
+    expect(events).toEqual(['mount', 2, 4, 'unmount', 'mount', 8])
   })
 })

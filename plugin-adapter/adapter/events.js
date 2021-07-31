@@ -1,7 +1,7 @@
 const create = (store, cb) => {
   const orig = store.listen.bind(store)
   store.listen = (...args) => {
-    if (store.lc === 0) cb([...args])
+    if (!store.lc) cb([...args])
     return orig(...args)
   }
 }
