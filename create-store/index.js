@@ -13,34 +13,28 @@ const emitChildren = (obj = {}, cb) => {
   }
 }
 
-export const createStore = (name = 'd', initial = {}) => {
+export const createStore = (initial = {}) => {
   const listenners = {}
   const state = { d: initial }
-  return {
+  const store = {
+    lc: 0,
     set(path, value) {
-      this._set({ storeName: name, path, value })
-    },
-    _set({ storeName, value, path, ...rest }) {
       set(state, concat(DATA, path), value)
-      this._emit({ storeName, path, ...rest })
+      this._emit(path)
     },
     get(path) {
       return get(state, concat(DATA, path))
     },
-    _emit({ storeName, path, ...rest }) {
+    _emit(path) {
       const fullPath = concat(DATA, path)
-      const acc = {
-        storeName,
-        ...rest
-      }
       walk(fullPath, part => {
         for (let listener of get(listenners, concat(part, HANDLERS)) || []) {
-          listener(part.replace(`${DATA}.`, ''), get(state, part), acc)
+          listener(part.replace(`${DATA}.`, ''), get(state, part))
         }
       })
       emitChildren(get(listenners, fullPath), handlers => {
         for (let listener of handlers || []) {
-          listener(fullPath.replace(`${DATA}.`, ''), get(state, fullPath), acc)
+          listener(fullPath.replace(`${DATA}.`, ''), get(state, fullPath))
         }
       })
     },
@@ -48,12 +42,23 @@ export const createStore = (name = 'd', initial = {}) => {
       const dest = concat(DATA, concat(path, HANDLERS))
       let ns = get(listenners, dest) || set(listenners, dest, [])
       ns.push(cb)
+      this.lc++
       return () => {
         ns.splice(ns.indexOf(cb), 1)
+        this.lc--
+        if (this.lc === 0) this.off()
       }
     },
     off() {
       set(listenners, DATA, undefined)
+      this.lc = 0
     }
   }
+
+  if (process.env.NODE_ENV !== 'production') {
+    store._l = listenners
+    store._s = state
+  }
+
+  return store
 }

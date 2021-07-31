@@ -44,6 +44,9 @@
     "trailingComma": "none"
   },
   "jest": {
+    "modulePathIgnorePatterns": [
+      "wip"
+    ],
     "preset": "ts-jest/presets/default-esm",
     "globals": {
       "ts-jest": {
@@ -79,8 +82,13 @@
       " \\(by [^)]+\\).",
       "\\d+\\.\\d+ “[^”]+”"
     ],
+    "excludeFiles": [
+      ".git",
+      "node_modules",
+      "ideas.md"
+    ],
     "dictionary": [
-      "Dotstorex",
+      "dotto",
       "Redux",
       "devtools",
       "splited",
@@ -109,16 +117,15 @@
       "limit": "600B"
     },
     {
-      "name": "UseEnhancer",
-      "path": "./index.js",
-      "import": "{ use }",
-      "limit": "100B"
+      "name": "api",
+      "path": "./plugin-adapter/index.js",
+      "import": "{ on }",
+      "limit": "400B"
     },
     {
-      "name": "Enhancer",
-      "path": "./index.js",
-      "import": "{ enhance }",
-      "limit": "100B"
+      "name": "api",
+      "path": "./operators/computed/index.js",
+      "import": "{ computed }"
     }
   ],
   "exports": {

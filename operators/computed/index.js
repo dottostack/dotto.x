@@ -1,3 +1,5 @@
+import { on } from '../../plugin-adapter'
+
 const EMPTY = Symbol.for('empty')
 
 const pathGet = (stores, cb) => {
@@ -19,6 +21,7 @@ const insideHandlers = (dependecies, listeners, emit, cb) => {
     const target = listeners.get(store)
     if (target[path]) return store._get(path)
     target[path] = store.listen(path, emit)
+
     return store._get(path)
   })
 
@@ -28,25 +31,34 @@ const insideHandlers = (dependecies, listeners, emit, cb) => {
   return result
 }
 
-const createComputedContainer = (dependecies, cb, emit) => {
+const createComputedContainer = (dependecies, cb, emit, destroy) => {
   const listeners = new Map()
-
-  const call = direct => {
-    if (direct) return cb()
-    return insideHandlers(dependecies, listeners, emit, cb)
-  }
-
+  dependecies.forEach(store => {
+    const un = on(store, {
+      off() {
+        const unbinds = listeners.get(store)
+        if (!unbinds) return un()
+        Object.values(unbinds).forEach(unsub => unsub())
+        listeners.delete(store)
+        destroy(listeners.size === 0)
+        un()
+      }
+    })
+  })
   return {
     unbind() {
-      Object.values(listeners).forEach(unsub => unsub())
+      listeners.forEach(sub => Object.values(sub).forEach(unsub => unsub()))
       listeners.clear()
     },
-    call
+    call(direct) {
+      if (direct) return cb()
+      return insideHandlers(dependecies, listeners, emit, cb)
+    }
   }
 }
 
 export const computed = (dependecies, cb) => {
-  const subscribers = []
+  let subscribers = []
   let lastResult = EMPTY
 
   const emit = () => {
@@ -65,42 +77,43 @@ export const computed = (dependecies, cb) => {
       }, [])
     )
   ]
-
-  const container = createComputedContainer(depsWithNested, cb, emit)
-
-  const activate = (subscriber, fireImmediately) => {
-    subscribers.push(subscriber)
-
-    if (lastResult === EMPTY) {
-      lastResult = container.call()
-    }
-
-    if (fireImmediately) subscriber(lastResult)
-
-    return () => {
-      const index = subscribers.indexOf(subscriber)
-      subscribers.splice(index, 1)
-      if (!subscribers.length) {
-        container.unbind()
-        lastResult = EMPTY
-      }
-    }
+  const destroy = isAll => {
+    lastResult = EMPTY
+    if (isAll) subscribers = []
   }
-
-  const subscribe = subscriber => {
-    return activate(subscriber, true)
-  }
-
-  const listen = listener => {
-    return activate(listener, false)
-  }
+  const container = createComputedContainer(depsWithNested, cb, emit, destroy)
 
   return {
     dependecies: depsWithNested,
-    subscribe,
-    listen,
+    _run(subscriber, fireImmediately) {
+      subscribers.push(subscriber)
+
+      if (lastResult === EMPTY) {
+        lastResult = container.call()
+      }
+
+      if (fireImmediately) subscriber(lastResult)
+
+      return () => {
+        const index = subscribers.indexOf(subscriber)
+        subscribers.splice(index, 1)
+        if (!subscribers.length) {
+          this.off()
+        }
+      }
+    },
+    subscribe(subscriber) {
+      return this._run(subscriber, true)
+    },
+    listen(subscriber) {
+      return this._run(subscriber, false)
+    },
     get() {
       return container.call(true)
+    },
+    off() {
+      container.unbind()
+      lastResult = EMPTY
     }
   }
 }

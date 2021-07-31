@@ -4,10 +4,9 @@ import { query } from './query'
 describe('query:', () => {
   it('base', () => {
     expect.assertions(9)
-    const testingStore = createStore<
-      'test',
-      { some: { user: { name?: string; age?: number; location?: string } } }
-    >('test', { some: { user: {} } })
+    const testingStore = createStore<{
+      some: { user: { name?: string; age?: number; location?: string } }
+    }>({ some: { user: {} } })
     let predict: any
     const select = {
       name: 'some.user.name',

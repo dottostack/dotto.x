@@ -7,10 +7,9 @@ describe('query:', () => {
   it('base', () => {
     expect.assertions(12)
 
-    const testingStore = createStore<
-      'test',
-      { some: { user: { name?: string; age?: number; location?: string } } }
-    >('test', { some: { user: {} } })
+    const testingStore = createStore<{
+      some: { user: { name?: string; age?: number; location?: string } }
+    }>({ some: { user: {} } })
 
     type Name = string | undefined
     type Age = number | undefined

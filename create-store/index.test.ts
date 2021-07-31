@@ -7,7 +7,7 @@ jest.useFakeTimers()
 describe('create-store:', () => {
   it('strict listen', async () => {
     expect.assertions(2)
-    const store = createStore('test', { some: { path: 0 } })
+    const store = createStore({ some: { path: 0 } })
     const unbind = store.listen('some.path', (path, value) => {
       expect(value).toBe(store.get(path))
     })
@@ -19,7 +19,7 @@ describe('create-store:', () => {
 
   it('parent listen', () => {
     expect.assertions(2)
-    const store = createStore('test', { some: { path: 0 } })
+    const store = createStore({ some: { path: 0 } })
     const unbind = store.listen('some', (path, value) => {
       expect(value).toBe(store.get(path))
     })
@@ -31,7 +31,7 @@ describe('create-store:', () => {
 
   it('change parent', () => {
     expect.assertions(2)
-    const store = createStore('test', { some: { path: 0 } })
+    const store = createStore({ some: { path: 0 } })
     const unbind = store.listen('some.path', (path, value) => {
       expect(value).toBe(store.get(path))
     })
@@ -43,7 +43,7 @@ describe('create-store:', () => {
 
   it('change parent deep', () => {
     expect.assertions(2)
-    const store = createStore('test-deep', { some: { path: 0 } })
+    const store = createStore({ some: { path: 0 } })
     const unbind = store.listen('some.path', (path, value) => {
       expect(value).toBe(store.get())
     })
@@ -55,7 +55,7 @@ describe('create-store:', () => {
 
   it('root listen', () => {
     expect.assertions(2)
-    const store = createStore('test', { some: { path: 0 } })
+    const store = createStore({ some: { path: 0 } })
     let i = 1
     store.listen(undefined, (path, value) => {
       expect(value).toEqual({ some: { path: i++ } })
@@ -68,16 +68,22 @@ describe('create-store:', () => {
 
   it('self get', () => {
     const obj = { a: { b: 1 } }
-    const store = createStore('test', obj)
+    const store = createStore(obj)
     expect(store.get()).toEqual(obj)
   })
 
   it('self set', () => {
     const obj = { a: { b: 1 } }
     const obj2 = { a: { b: 333 } }
-    const store = createStore('test', obj)
+    const store = createStore(obj)
     expect(store.get()).toEqual(obj)
     store.set(null, obj2)
     expect(store.get()).toEqual(obj2)
+  })
+
+  it('generict test', () => {
+    const store = createStore<{ num: 1 }>()
+    store.set('num', 1)
+    expect(store.get('num')).toBe(1)
   })
 })
