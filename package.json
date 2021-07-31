@@ -119,6 +119,12 @@
       "path": "./index.js",
       "import": "{ enhance }",
       "limit": "100B"
+    },
+    {
+      "name": "api",
+      "path": "./plugin-adapter/index.js",
+      "import": "{ on }",
+      "limit": "400B"
     }
   ],
   "exports": {
