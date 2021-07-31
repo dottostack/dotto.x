@@ -14,10 +14,10 @@ const api = (store, bind) => {
     store,
     (key, originalData, apiMethods) => {
       listenerContainer[key] &&
-        listenerContainer[key].reduceRight(
-          (_, h) => !isStoped && h(originalData, { event, api: apiMethods }),
-          null
-        )
+        listenerContainer[key].reduceRight((shared, h) => {
+          !isStoped && h(originalData, { event, methods: apiMethods, shared })
+          return shared
+        }, {})
       isStoped = false
     },
     event

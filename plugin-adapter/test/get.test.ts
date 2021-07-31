@@ -105,7 +105,7 @@ describe('api plugin: events: get', () => {
       expect(events).toEqual([['myPath'], ['anotherPath']])
     })
 
-    it('api', () => {
+    it('api event', () => {
       const store = createStore({ myPath: 'data' })
       const events: string[] = []
 
@@ -128,6 +128,30 @@ describe('api plugin: events: get', () => {
       un2()
 
       expect(events).toEqual(['wake up, Neo'])
+    })
+
+    it('api shared', () => {
+      const store = createStore({ myPath: 'data' })
+      const events: string[] = []
+
+      const un = on(store, {
+        get(original: any, api: any) {
+          events.push(api.shared)
+        }
+      })
+
+      const un2 = on(store, {
+        get(original: any, api: any) {
+          api.shared.test = 1
+        }
+      })
+
+      store.get('myPath')
+
+      un()
+      un2()
+
+      expect(events).toEqual([{ test: 1 }])
     })
   })
 })
