@@ -40,7 +40,7 @@ const createComputedContainer = (dependecies, cb, emit, destroy) => {
         if (!unbinds) return un()
         Object.values(unbinds).forEach(unsub => unsub())
         listeners.delete(store)
-        destroy(true)
+        destroy(listeners.size === 0)
         un()
       }
     })
@@ -77,9 +77,9 @@ export const computed = (dependecies, cb) => {
       }, [])
     )
   ]
-  const destroy = e => {
+  const destroy = isAll => {
     lastResult = EMPTY
-    if (e) subscribers = []
+    if (isAll) subscribers = []
   }
   const container = createComputedContainer(depsWithNested, cb, emit, destroy)
 

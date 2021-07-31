@@ -133,13 +133,16 @@ describe('computed function:', () => {
     expect.assertions(3)
     let predict = 0
     const store = createStore({ count: 0 })
+
     const mult = computed([store], () => {
       const count = store.get('count')
       return count * 2
     })
+
     const unbind = mult.listen(num => {
       expect(num).toBe(predict)
     })
+
     predict = 2
     store.set('count', 1)
     predict = 4
@@ -152,18 +155,52 @@ describe('computed function:', () => {
   it('re-listen: when listener is last - container will destroy', () => {
     const events: number[] = []
     const store = createStore({ count: 0 })
+
     const mult = computed([store], () => {
       const count = store.get('count')
       return count
     })
+
     const unbind = mult.listen(num => {
       events.push(num)
     })
+
     store.set('count', 1)
     store.set('count', 2)
     store.set('count', 3)
 
     unbind()
+
+    const unbind2 = mult.listen(num => {
+      events.push(num)
+    })
+
+    store.set('count', 12)
+    store.set('count', 22)
+    store.set('count', 32)
+
+    unbind2()
+    expect(events).toEqual([1, 2, 3, 12, 22, 32])
+  })
+
+  it('re-listen: when store is off', () => {
+    const events: number[] = []
+    const store = createStore({ count: 0 })
+
+    const mult = computed([store], () => {
+      const count = store.get('count')
+      return count
+    })
+
+    mult.listen(num => {
+      events.push(num)
+    })
+
+    store.set('count', 1)
+    store.set('count', 2)
+    store.set('count', 3)
+
+    store.off()
     const unbind2 = mult.listen(num => {
       events.push(num)
     })
@@ -173,5 +210,35 @@ describe('computed function:', () => {
 
     unbind2()
     expect(events).toEqual([1, 2, 3, 12, 22, 32])
+  })
+
+  it('re-listen: when on of many stores are off', () => {
+    const events: number[] = []
+    const store = createStore({ count: 0 })
+    const store2 = createStore({ count: 0 })
+    const mult = computed([store, store2], () => {
+      return store.get('count') + store2.get('count')
+    })
+    mult.listen(num => {
+      events.push(num)
+    })
+
+    store.set('count', 1)
+    store.set('count', 2)
+    store.set('count', 3)
+
+    store.off()
+
+    store2.set('count', 12)
+    store2.set('count', 22)
+    store2.set('count', 32)
+
+    store2.off()
+
+    store2.set('count', 12)
+    store2.set('count', 22)
+    store2.set('count', 32)
+
+    expect(events).toEqual([1, 2, 3, 15, 25, 35])
   })
 })
