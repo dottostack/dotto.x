@@ -7,6 +7,11 @@ type Handlers = {
     original: unknown[],
     api: { shared: any; event: { stop(): void }; methods: { abort(): void } }
   ): void
+
+  change?(
+    original: unknown[],
+    api: { shared: any; event: { stop(): void }; methods: { abort(): void } }
+  ): void
 }
 
 export function on<Data>(store: DotXStore<Data>, handlers: Handlers)

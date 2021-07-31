@@ -44,6 +44,9 @@
     "trailingComma": "none"
   },
   "jest": {
+    "modulePathIgnorePatterns": [
+      "wip"
+    ],
     "preset": "ts-jest/presets/default-esm",
     "globals": {
       "ts-jest": {
@@ -107,18 +110,6 @@
       "path": "./index.js",
       "import": "{ createStore }",
       "limit": "600B"
-    },
-    {
-      "name": "UseEnhancer",
-      "path": "./index.js",
-      "import": "{ use }",
-      "limit": "100B"
-    },
-    {
-      "name": "Enhancer",
-      "path": "./index.js",
-      "import": "{ enhance }",
-      "limit": "100B"
     },
     {
       "name": "api",

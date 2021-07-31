@@ -19,25 +19,22 @@ export const createStore = (initial = {}) => {
   const store = {
     lc: 0,
     set(path, value) {
-      this._set({ path, value })
-    },
-    _set({ value, path, ...rest }) {
       set(state, concat(DATA, path), value)
-      this._emit({ path, ...rest })
+      this._emit(path)
     },
     get(path) {
       return get(state, concat(DATA, path))
     },
-    _emit({ path, ...rest }) {
+    _emit(path) {
       const fullPath = concat(DATA, path)
       walk(fullPath, part => {
         for (let listener of get(listenners, concat(part, HANDLERS)) || []) {
-          listener(part.replace(`${DATA}.`, ''), get(state, part), rest)
+          listener(part.replace(`${DATA}.`, ''), get(state, part))
         }
       })
       emitChildren(get(listenners, fullPath), handlers => {
         for (let listener of handlers || []) {
-          listener(fullPath.replace(`${DATA}.`, ''), get(state, fullPath), rest)
+          listener(fullPath.replace(`${DATA}.`, ''), get(state, fullPath))
         }
       })
     },
