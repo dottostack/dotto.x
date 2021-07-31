@@ -92,7 +92,7 @@ describe('api plugin: events: set', () => {
       const events: unknown[] = []
 
       const un = on(store, {
-        set(original) {
+        change(original) {
           events.push(original)
         }
       })
@@ -102,10 +102,7 @@ describe('api plugin: events: set', () => {
 
       un()
 
-      expect(events).toEqual([
-        ['myPath', 'someData'],
-        ['anotherPath', 'anotherData']
-      ])
+      expect(events).toEqual([['myPath'], ['anotherPath']])
     })
 
     it('api event', () => {
@@ -113,13 +110,13 @@ describe('api plugin: events: set', () => {
       const events: string[] = []
 
       const un = on(store, {
-        set() {
+        change() {
           events.push('some Data')
         }
       })
 
       const un2 = on(store, {
-        set(original, api) {
+        change(original, api) {
           events.push('wake up, Neo')
           api.event.stop()
         }
@@ -138,13 +135,13 @@ describe('api plugin: events: set', () => {
       const events: unknown[] = []
 
       const un = on(store, {
-        set(original, api) {
+        change(original, api) {
           events.push(api.shared)
         }
       })
 
       const un2 = on(store, {
-        set(original, api) {
+        change(original, api) {
           api.shared.test = 1
         }
       })
@@ -159,35 +156,45 @@ describe('api plugin: events: set', () => {
 
     it('api abort', () => {
       const store = createStore({ myPath: 'data' })
+      const events: unknown[] = []
 
       const un = on(store, {
-        set(original, api) {
+        change(original, api) {
           api.methods.abort()
         }
+      })
+      const unsub = store.listen('myPath', (path, value) => {
+        events.push(value)
       })
 
       store.set('myPath', 'someData')
 
       un()
-
-      expect(store.get()).toEqual({ myPath: 'data' })
+      unsub()
+      expect(events).toEqual([])
     })
 
     it('api abort unsub', () => {
       const store = createStore({ myPath: 'data' })
+      const events: unknown[] = []
 
       const un = on(store, {
-        set(original, api) {
+        change(original, api) {
           api.methods.abort()
         }
+      })
+      const unsub = store.listen('myPath', (path, value) => {
+        events.push(value)
       })
 
       store.set('myPath', 'someData')
 
       un()
 
-      store.set('myPath', 'afterUnsub')
-      expect(store.get()).toEqual({ myPath: 'afterUnsub' })
+      store.set('myPath', 'unsub')
+      unsub()
+
+      expect(events).toEqual(['unsub'])
     })
   })
 })
