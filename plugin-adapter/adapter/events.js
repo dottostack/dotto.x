@@ -15,7 +15,7 @@ const off = (store, cb) => {
 }
 
 const set = (store, cb) => {
-  const orig = store.get.bind(store)
+  const orig = store.set.bind(store)
   store.set = (...args) => {
     let isAborted
     const abort = () => (isAborted = true)
@@ -27,7 +27,7 @@ const set = (store, cb) => {
 }
 
 const change = (store, cb) => {
-  const orig = store.get.bind(store)
+  const orig = store._emit.bind(store)
   store._emit = (...args) => {
     let isAborted
     const abort = () => (isAborted = true)

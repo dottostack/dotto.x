@@ -1,38 +1,37 @@
 import { createStore } from '../../create-store'
 import { on } from '../index'
 
-describe('api plugin: events: get', () => {
+describe('api plugin: events: set', () => {
   it('simple', () => {
     const store = createStore({ some: 'data' })
     const events: string[] = []
     const un = on(store, {
-      get() {
+      set() {
         events.push('hello')
       }
     })
 
-    store.get('some')
+    store.set('some', 'anotherData')
 
     un()
 
     expect(events).toEqual(['hello'])
-    expect(store.get('some')).toBe('data')
   })
 
   it('unsub works', () => {
     const store = createStore({ some: 'data' })
     const events: string[] = []
     const un = on(store, {
-      get() {
+      set() {
         events.push('hello')
       }
     })
 
-    store.get('some')
+    store.set('some', 'anotherData')
 
     un()
 
-    store.get('some')
+    store.set('some', 'anotherData222')
 
     expect(events).toEqual(['hello'])
   })
@@ -42,18 +41,18 @@ describe('api plugin: events: get', () => {
     const events: string[] = []
 
     const un = on(store, {
-      get() {
+      set() {
         events.push('Neo')
       }
     })
 
     const un2 = on(store, {
-      get() {
+      set() {
         events.push('wake up')
       }
     })
 
-    store.get('some')
+    store.set('some', 'someData')
 
     un()
     un2()
@@ -66,22 +65,22 @@ describe('api plugin: events: get', () => {
     const events: string[] = []
 
     const un = on(store, {
-      get() {
+      set() {
         events.push('Neo')
       }
     })
 
     const un2 = on(store, {
-      get() {
+      set() {
         events.push('wake up')
       }
     })
 
-    store.get('some')
+    store.set('some', 'someData')
 
     un()
 
-    store.get('some')
+    store.set('some', 'someData2')
 
     expect(events).toEqual(['wake up', 'Neo', 'wake up'])
     un2()
@@ -93,17 +92,20 @@ describe('api plugin: events: get', () => {
       const events: unknown[] = []
 
       const un = on(store, {
-        get(original) {
+        set(original) {
           events.push(original)
         }
       })
 
-      store.get('myPath')
-      store.get('anotherPath')
+      store.set('myPath', 'someData')
+      store.set('anotherPath', 'anotherData')
 
       un()
 
-      expect(events).toEqual([['myPath'], ['anotherPath']])
+      expect(events).toEqual([
+        ['myPath', 'someData'],
+        ['anotherPath', 'anotherData']
+      ])
     })
 
     it('api event', () => {
@@ -111,19 +113,19 @@ describe('api plugin: events: get', () => {
       const events: string[] = []
 
       const un = on(store, {
-        get() {
+        set() {
           events.push('some Data')
         }
       })
 
       const un2 = on(store, {
-        get(original, api) {
+        set(original, api) {
           events.push('wake up, Neo')
           api.event.stop()
         }
       })
 
-      store.get('myPath')
+      store.set('myPath', 'someData')
 
       un()
       un2()
@@ -136,23 +138,56 @@ describe('api plugin: events: get', () => {
       const events: unknown[] = []
 
       const un = on(store, {
-        get(original, api) {
+        set(original, api) {
           events.push(api.shared)
         }
       })
 
       const un2 = on(store, {
-        get(original, api) {
+        set(original, api) {
           api.shared.test = 1
         }
       })
 
-      store.get('myPath')
+      store.set('myPath', 'someData')
 
       un()
       un2()
 
       expect(events).toEqual([{ test: 1 }])
+    })
+
+    it('api abort', () => {
+      const store = createStore({ myPath: 'data' })
+
+      const un = on(store, {
+        set(original, api) {
+          api.methods.abort()
+        }
+      })
+
+      store.set('myPath', 'someData')
+
+      un()
+
+      expect(store.get()).toEqual({ myPath: 'data' })
+    })
+
+    it('api abort unsub', () => {
+      const store = createStore({ myPath: 'data' })
+
+      const un = on(store, {
+        set(original, api) {
+          api.methods.abort()
+        }
+      })
+
+      store.set('myPath', 'someData')
+
+      un()
+
+      store.set('myPath', 'afterUnsub')
+      expect(store.get()).toEqual({ myPath: 'afterUnsub' })
     })
   })
 })
