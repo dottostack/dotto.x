@@ -32,7 +32,7 @@ point changes
 ```ts
 import { createStore } from 'dotto.x'
 
-const store = createStore('test', { some: { path: 0 } })
+const store = createStore({ some: { path: 0 } })
 
 store.listen('some.path', (path, value) => {
   // path - some.path
@@ -43,3 +43,4 @@ store.set('some.path', 1)
 store.set('some.path', 2)
 store.set('some.path', 'error') // type checks throw error, because 'some.path' most be a number.
 ```
+

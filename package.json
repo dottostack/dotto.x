@@ -82,8 +82,13 @@
       " \\(by [^)]+\\).",
       "\\d+\\.\\d+ “[^”]+”"
     ],
+    "excludeFiles": [
+      ".git",
+      "node_modules",
+      "ideas.md"
+    ],
     "dictionary": [
-      "Dotstorex",
+      "dotto",
       "Redux",
       "devtools",
       "splited",
@@ -116,6 +121,11 @@
       "path": "./plugin-adapter/index.js",
       "import": "{ on }",
       "limit": "400B"
+    },
+    {
+      "name": "api",
+      "path": "./operators/computed/index.js",
+      "import": "{ computed }"
     }
   ],
   "exports": {

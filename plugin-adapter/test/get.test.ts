@@ -138,7 +138,9 @@ describe('api plugin: events: get', () => {
       const un = on(store, {
         get(original, api) {
           events.push(api.shared)
-        }
+        },
+        // @ts-ignore
+        fake() {}
       })
 
       const un2 = on(store, {

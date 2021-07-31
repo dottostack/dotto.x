@@ -216,9 +216,11 @@ describe('computed function:', () => {
     const events: number[] = []
     const store = createStore({ count: 0 })
     const store2 = createStore({ count: 0 })
+
     const mult = computed([store, store2], () => {
       return store.get('count') + store2.get('count')
     })
+
     mult.listen(num => {
       events.push(num)
     })
