@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import { computed } from '.'
+import { computed } from './index'
 import { createStore } from '../../create-store'
 
 describe('computed function:', () => {
@@ -58,9 +58,10 @@ describe('computed function:', () => {
       return path * 2
     })
 
-    const nextDataGetter = computed([pathMult], () => {
+    const nextDataGetter = computed(pathMult, () => {
       return pathMult.get() / 2
     })
+
     pathMultRes = 6
     nextDataGetterRes = 3
     const unsub = pathMult.subscribe(val => {
@@ -84,7 +85,7 @@ describe('computed function:', () => {
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
-    const pathMult = computed([store], () => {
+    const pathMult = computed(store, () => {
       const path = store.get('some.deep.path')
       return path * 2
     })
@@ -105,11 +106,11 @@ describe('computed function:', () => {
     const store = createStore({ count: 0 })
     const values: string[] = []
 
-    const a = computed([store], () => {
+    const a = computed(store, () => {
       return 'a' + store.get('count')
     })
 
-    const b = computed([store], () => {
+    const b = computed(store, () => {
       return 'b' + store.get('count')
     })
 
