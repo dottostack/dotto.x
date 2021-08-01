@@ -2,32 +2,21 @@ import { on } from '../../plugin-adapter'
 
 const EMPTY = Symbol.for('empty')
 
-const pathGet = (stores, cb) => {
-  stores.forEach((store, index) => {
-    const oldGet = store.get
-    store.get = cb.bind(null, store, index)
-    store._get = oldGet
-  })
-  return () =>
-    stores.forEach(store => {
-      store.get = store._get
-      delete store._get
-    })
-}
-
 const insideHandlers = (dependecies, listeners, emit, cb) => {
-  const unpatch = pathGet(dependecies, (store, index, path) => {
-    if (!listeners.has(store)) listeners.set(store, {})
-    const target = listeners.get(store)
-    if (target[path]) return store._get(path)
-    target[path] = store.listen(path, emit)
-
-    return store._get(path)
-  })
+  const unsubs = dependecies.map(store =>
+    on(store, {
+      get(path) {
+        if (!listeners.has(store)) listeners.set(store, {})
+        const target = listeners.get(store)
+        if (target[path]) return
+        target[path] = store.listen(path, emit)
+      }
+    })
+  )
 
   const result = cb()
 
-  unpatch()
+  unsubs.map(u => u())
   return result
 }
 
