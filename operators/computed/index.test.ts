@@ -244,4 +244,16 @@ describe('computed function:', () => {
 
     expect(events).toEqual([1, 2, 3, 15, 25, 35])
   })
+
+  it('use without listeners', () => {
+    const store = createStore({ count: 1 })
+
+    const mult = computed(store, () => {
+      return store.get('count') * 2
+    })
+
+    expect(mult.get()).toBe(2)
+    // @ts-ignore
+    expect(store.lc).toBe(0)
+  })
 })

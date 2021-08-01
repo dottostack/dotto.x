@@ -1,3 +1,4 @@
+import { run_all } from '../utils/run_all'
 import { adapter } from './adapter'
 import { listener } from './listener'
 
@@ -23,7 +24,7 @@ const api = (store, bind) => {
     event
   )
   const toUnbind = bind(listenerContainer)
-  return () => toUnbind.forEach(u => u())
+  return () => run_all(toUnbind)
 }
 
 export const on = (store, handlers) => {

@@ -126,6 +126,10 @@
       "name": "api",
       "path": "./operators/computed/index.js",
       "import": "{ computed }"
+    },
+    {
+      "name": "all",
+      "path": "./index.js"
     }
   ],
   "exports": {
