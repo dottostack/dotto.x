@@ -9,6 +9,16 @@ type Subscribable<Cb> = {
 }
 
 export function computed<Callback extends Function>(
+  dependencies: DotXStore<unknown>,
+  cb: Callback
+): Subscribable<Callback>
+
+export function computed<Callback extends Function>(
+  dependencies: ReturnType<computed<unknown>>,
+  cb: Callback
+): Subscribable<Callback>
+
+export function computed<Callback extends Function>(
   dependencies: (DotXStore<unknown> | ReturnType<computed<unknown>>)[],
   cb: Callback
 ): Subscribable<Callback>

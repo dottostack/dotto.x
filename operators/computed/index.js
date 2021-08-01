@@ -1,52 +1,19 @@
-import { on } from '../../plugin-adapter'
+import { createContainer } from './container'
 
 const EMPTY = Symbol.for('empty')
 
-const insideHandlers = (dependecies, listeners, emit, cb) => {
-  const unsubs = dependecies.map(store =>
-    on(store, {
-      get(path) {
-        if (!listeners.has(store)) listeners.set(store, {})
-        const target = listeners.get(store)
-        if (target[path]) return
-        target[path] = store.listen(path, emit)
-      }
-    })
+const unique = deps => [
+  ...new Set(
+    deps.reduce(
+      (acc, dep) => (dep.deps ? [...acc, ...dep.deps] : [...acc, dep]),
+      []
+    )
   )
+]
 
-  const result = cb()
+export const computed = (deps, cb) => {
+  if (!Array.isArray(deps)) deps = [deps]
 
-  unsubs.map(u => u())
-  return result
-}
-
-const createComputedContainer = (dependecies, cb, emit, destroy) => {
-  const listeners = new Map()
-  dependecies.forEach(store => {
-    const un = on(store, {
-      off() {
-        const unbinds = listeners.get(store)
-        if (!unbinds) return un()
-        Object.values(unbinds).forEach(unsub => unsub())
-        listeners.delete(store)
-        destroy(listeners.size === 0)
-        un()
-      }
-    })
-  })
-  return {
-    unbind() {
-      listeners.forEach(sub => Object.values(sub).forEach(unsub => unsub()))
-      listeners.clear()
-    },
-    call(direct) {
-      if (direct) return cb()
-      return insideHandlers(dependecies, listeners, emit, cb)
-    }
-  }
-}
-
-export const computed = (dependecies, cb) => {
   let subscribers = []
   let lastResult = EMPTY
 
@@ -57,23 +24,22 @@ export const computed = (dependecies, cb) => {
     })
   }
 
-  const depsWithNested = [
-    ...new Set(
-      dependecies.reduce((acc, dep) => {
-        if (dep.dependecies) return acc.concat(dep.dependecies)
-        acc.push(dep)
-        return acc
-      }, [])
-    )
-  ]
-  const destroy = isAll => {
-    lastResult = EMPTY
-    if (isAll) subscribers = []
+  const depsWithNested = unique(deps)
+
+  const off = () => {
+    container.unbind()
+    subscribers = []
   }
-  const container = createComputedContainer(depsWithNested, cb, emit, destroy)
+
+  const invalidate = isAll => {
+    lastResult = EMPTY
+    if (isAll) off()
+  }
+
+  const container = createContainer(depsWithNested, cb, emit, invalidate)
 
   return {
-    dependecies: depsWithNested,
+    deps: depsWithNested,
     _run(subscriber, fireImmediately) {
       subscribers.push(subscriber)
 
@@ -87,7 +53,7 @@ export const computed = (dependecies, cb) => {
         const index = subscribers.indexOf(subscriber)
         subscribers.splice(index, 1)
         if (!subscribers.length) {
-          this.off()
+          invalidate(true)
         }
       }
     },
@@ -98,11 +64,8 @@ export const computed = (dependecies, cb) => {
       return this._run(subscriber, false)
     },
     get() {
-      return container.call(true)
+      return cb()
     },
-    off() {
-      container.unbind()
-      lastResult = EMPTY
-    }
+    off
   }
 }
