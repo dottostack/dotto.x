@@ -17,26 +17,26 @@ export const computed = (deps, cb) => {
   let subscribers = []
   let lastResult = EMPTY
 
-  const emit = () => {
+  let emit = () => {
     lastResult = container.call()
     subscribers.forEach(subscriber => {
       subscriber(lastResult)
     })
   }
 
-  const depsWithNested = unique(deps)
+  let depsWithNested = unique(deps)
 
-  const off = () => {
+  let off = () => {
     container.unbind()
     subscribers = []
   }
 
-  const invalidate = isAll => {
+  let invalidate = isAll => {
     lastResult = EMPTY
     if (isAll) off()
   }
 
-  const container = createContainer(depsWithNested, cb, emit, invalidate)
+  let container = createContainer(depsWithNested, cb, emit, invalidate)
 
   return {
     deps: depsWithNested,
@@ -50,7 +50,7 @@ export const computed = (deps, cb) => {
       if (fireImmediately) subscriber(lastResult)
 
       return () => {
-        const index = subscribers.indexOf(subscriber)
+        let index = subscribers.indexOf(subscriber)
         subscribers.splice(index, 1)
         if (!subscribers.length) {
           invalidate(true)

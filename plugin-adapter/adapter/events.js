@@ -1,5 +1,5 @@
 const create = (store, cb) => {
-  const orig = store.listen.bind(store)
+  let orig = store.listen.bind(store)
   store.listen = (...args) => {
     if (!store.lc) cb([...args])
     return orig(...args)
@@ -7,7 +7,7 @@ const create = (store, cb) => {
 }
 
 const off = (store, cb) => {
-  const orig = store.off.bind(store)
+  let orig = store.off.bind(store)
   store.off = (...args) => {
     cb([...args])
     return orig(...args)
@@ -15,10 +15,10 @@ const off = (store, cb) => {
 }
 
 const set = (store, cb) => {
-  const orig = store.set.bind(store)
+  let orig = store.set.bind(store)
   store.set = (...args) => {
     let isAborted
-    const abort = () => (isAborted = true)
+    let abort = () => (isAborted = true)
 
     cb([...args], { abort })
     if (isAborted) return
@@ -27,10 +27,10 @@ const set = (store, cb) => {
 }
 
 const change = (store, cb) => {
-  const orig = store._emit.bind(store)
+  let orig = store._emit.bind(store)
   store._emit = (...args) => {
     let isAborted
-    const abort = () => (isAborted = true)
+    let abort = () => (isAborted = true)
 
     cb([...args], { abort })
     if (isAborted) return
@@ -39,7 +39,7 @@ const change = (store, cb) => {
 }
 
 const get = (store, cb) => {
-  const orig = store.get.bind(store)
+  let orig = store.get.bind(store)
   store.get = (...args) => {
     cb([...args])
     return orig(...args)

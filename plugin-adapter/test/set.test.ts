@@ -3,9 +3,9 @@ import { on } from '../index'
 
 describe('api plugin: events: set', () => {
   it('simple', () => {
-    const store = createStore({ some: 'data' })
-    const events: string[] = []
-    const un = on(store, {
+    let store = createStore({ some: 'data' })
+    let events: string[] = []
+    let un = on(store, {
       set() {
         events.push('hello')
       }
@@ -19,9 +19,9 @@ describe('api plugin: events: set', () => {
   })
 
   it('unsub works', () => {
-    const store = createStore({ some: 'data' })
-    const events: string[] = []
-    const un = on(store, {
+    let store = createStore({ some: 'data' })
+    let events: string[] = []
+    let un = on(store, {
       set() {
         events.push('hello')
       }
@@ -37,16 +37,16 @@ describe('api plugin: events: set', () => {
   })
 
   it('two listeners: order', () => {
-    const store = createStore({ some: 'data' })
-    const events: string[] = []
+    let store = createStore({ some: 'data' })
+    let events: string[] = []
 
-    const un = on(store, {
+    let un = on(store, {
       set() {
         events.push('Neo')
       }
     })
 
-    const un2 = on(store, {
+    let un2 = on(store, {
       set() {
         events.push('wake up')
       }
@@ -61,16 +61,16 @@ describe('api plugin: events: set', () => {
   })
 
   it('two listeners: unsub', () => {
-    const store = createStore({ some: 'data' })
-    const events: string[] = []
+    let store = createStore({ some: 'data' })
+    let events: string[] = []
 
-    const un = on(store, {
+    let un = on(store, {
       set() {
         events.push('Neo')
       }
     })
 
-    const un2 = on(store, {
+    let un2 = on(store, {
       set() {
         events.push('wake up')
       }
@@ -88,10 +88,10 @@ describe('api plugin: events: set', () => {
 
   describe('api params', () => {
     it('original data', () => {
-      const store = createStore({ myPath: 'data', anotherPath: 'anotherData' })
-      const events: unknown[] = []
+      let store = createStore({ myPath: 'data', anotherPath: 'anotherData' })
+      let events: unknown[] = []
 
-      const un = on(store, {
+      let un = on(store, {
         set(original) {
           events.push(original)
         }
@@ -109,16 +109,16 @@ describe('api plugin: events: set', () => {
     })
 
     it('api event', () => {
-      const store = createStore({ myPath: 'data' })
-      const events: string[] = []
+      let store = createStore({ myPath: 'data' })
+      let events: string[] = []
 
-      const un = on(store, {
+      let un = on(store, {
         set() {
           events.push('some Data')
         }
       })
 
-      const un2 = on(store, {
+      let un2 = on(store, {
         set(original, api) {
           events.push('wake up, Neo')
           api.event.stop()
@@ -134,16 +134,16 @@ describe('api plugin: events: set', () => {
     })
 
     it('api shared', () => {
-      const store = createStore({ myPath: 'data' })
-      const events: unknown[] = []
+      let store = createStore({ myPath: 'data' })
+      let events: unknown[] = []
 
-      const un = on(store, {
+      let un = on(store, {
         set(original, api) {
           events.push(api.shared)
         }
       })
 
-      const un2 = on(store, {
+      let un2 = on(store, {
         set(original, api) {
           api.shared.test = 1
         }
@@ -158,9 +158,9 @@ describe('api plugin: events: set', () => {
     })
 
     it('api abort', () => {
-      const store = createStore({ myPath: 'data' })
+      let store = createStore({ myPath: 'data' })
 
-      const un = on(store, {
+      let un = on(store, {
         set(original, api) {
           api.methods.abort()
         }
@@ -174,9 +174,9 @@ describe('api plugin: events: set', () => {
     })
 
     it('api abort unsub', () => {
-      const store = createStore({ myPath: 'data' })
+      let store = createStore({ myPath: 'data' })
 
-      const un = on(store, {
+      let un = on(store, {
         set(original, api) {
           api.methods.abort()
         }

@@ -6,12 +6,12 @@ describe('computed function:', () => {
   it('scoped listeners', () => {
     expect.assertions(5)
 
-    const store = createStore({
+    let store = createStore({
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
-    const someDataGetter = computed([store], () => {
-      const path = store.get('some.deep.path')
+    let someDataGetter = computed([store], () => {
+      let path = store.get('some.deep.path')
       // tree 2
       if (path > 554) {
         return store.get('some.deep.path') * store.get('some.deep.test')
@@ -20,7 +20,7 @@ describe('computed function:', () => {
       return path
     })
     let exp = 3
-    const unsub = someDataGetter.subscribe(value => {
+    let unsub = someDataGetter.subscribe(value => {
       expect(value).toBe(exp)
     })
 
@@ -40,7 +40,7 @@ describe('computed function:', () => {
     exp = 1554
     store.set('some.deep.path', 777)
 
-    const unsub2 = someDataGetter.subscribe(value => {
+    let unsub2 = someDataGetter.subscribe(value => {
       expect(value).toBe(exp)
     })
     unsub2()
@@ -49,25 +49,25 @@ describe('computed function:', () => {
   it('containers nesting works correctly', () => {
     expect.assertions(5)
     let pathMultRes: number, nextDataGetterRes: number
-    const store = createStore({
+    let store = createStore({
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
-    const pathMult = computed([store], () => {
-      const path = store.get('some.deep.path')
+    let pathMult = computed([store], () => {
+      let path = store.get('some.deep.path')
       return path * 2
     })
 
-    const nextDataGetter = computed(pathMult, () => {
+    let nextDataGetter = computed(pathMult, () => {
       return pathMult.get() / 2
     })
 
     pathMultRes = 6
     nextDataGetterRes = 3
-    const unsub = pathMult.subscribe(val => {
+    let unsub = pathMult.subscribe(val => {
       expect(val).toBe(pathMultRes)
     })
-    const unsub2 = nextDataGetter.subscribe(val => {
+    let unsub2 = nextDataGetter.subscribe(val => {
       expect(val).toBe(nextDataGetterRes)
     })
     pathMultRes = 8
@@ -81,20 +81,20 @@ describe('computed function:', () => {
 
   it('works without reactive', () => {
     expect.assertions(1)
-    const store = createStore({
+    let store = createStore({
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
-    const pathMult = computed(store, () => {
-      const path = store.get('some.deep.path')
+    let pathMult = computed(store, () => {
+      let path = store.get('some.deep.path')
       return path * 2
     })
 
-    const nextDataGetter = computed([], () => {
+    let nextDataGetter = computed([], () => {
       return pathMult.get() / 2
     })
 
-    const unsub2 = nextDataGetter.subscribe(val => {
+    let unsub2 = nextDataGetter.subscribe(val => {
       expect(val).toBe(3)
     })
     store.set('some.deep.path', 4)
@@ -103,22 +103,22 @@ describe('computed function:', () => {
   })
 
   it('prevents diamond dependency problem', () => {
-    const store = createStore({ count: 0 })
-    const values: string[] = []
+    let store = createStore({ count: 0 })
+    let values: string[] = []
 
-    const a = computed(store, () => {
+    let a = computed(store, () => {
       return 'a' + store.get('count')
     })
 
-    const b = computed(store, () => {
+    let b = computed(store, () => {
       return 'b' + store.get('count')
     })
 
-    const combined = computed([a, b], () => {
+    let combined = computed([a, b], () => {
       return a.get() + b.get()
     })
 
-    const unsubscribe = combined.subscribe(v => {
+    let unsubscribe = combined.subscribe(v => {
       values.push(v)
     })
 
@@ -133,14 +133,14 @@ describe('computed function:', () => {
   it('listen', () => {
     expect.assertions(3)
     let predict = 0
-    const store = createStore({ count: 0 })
+    let store = createStore({ count: 0 })
 
-    const mult = computed([store], () => {
-      const count = store.get('count')
+    let mult = computed([store], () => {
+      let count = store.get('count')
       return count * 2
     })
 
-    const unbind = mult.listen(num => {
+    let unbind = mult.listen(num => {
       expect(num).toBe(predict)
     })
 
@@ -154,15 +154,15 @@ describe('computed function:', () => {
   })
 
   it('re-listen: when listener is last - container will destroy', () => {
-    const events: number[] = []
-    const store = createStore({ count: 0 })
+    let events: number[] = []
+    let store = createStore({ count: 0 })
 
-    const mult = computed([store], () => {
-      const count = store.get('count')
+    let mult = computed([store], () => {
+      let count = store.get('count')
       return count
     })
 
-    const unbind = mult.listen(num => {
+    let unbind = mult.listen(num => {
       events.push(num)
     })
 
@@ -172,7 +172,7 @@ describe('computed function:', () => {
 
     unbind()
 
-    const unbind2 = mult.listen(num => {
+    let unbind2 = mult.listen(num => {
       events.push(num)
     })
 
@@ -185,11 +185,11 @@ describe('computed function:', () => {
   })
 
   it('re-listen: when store is off', () => {
-    const events: number[] = []
-    const store = createStore({ count: 0 })
+    let events: number[] = []
+    let store = createStore({ count: 0 })
 
-    const mult = computed([store], () => {
-      const count = store.get('count')
+    let mult = computed([store], () => {
+      let count = store.get('count')
       return count
     })
 
@@ -202,7 +202,7 @@ describe('computed function:', () => {
     store.set('count', 3)
 
     store.off()
-    const unbind2 = mult.listen(num => {
+    let unbind2 = mult.listen(num => {
       events.push(num)
     })
     store.set('count', 12)
@@ -214,11 +214,11 @@ describe('computed function:', () => {
   })
 
   it('re-listen: when on of many stores are off', () => {
-    const events: number[] = []
-    const store = createStore({ count: 0 })
-    const store2 = createStore({ count: 0 })
+    let events: number[] = []
+    let store = createStore({ count: 0 })
+    let store2 = createStore({ count: 0 })
 
-    const mult = computed([store, store2], () => {
+    let mult = computed([store, store2], () => {
       return store.get('count') + store2.get('count')
     })
 
@@ -246,9 +246,9 @@ describe('computed function:', () => {
   })
 
   it('use without listeners', () => {
-    const store = createStore({ count: 1 })
+    let store = createStore({ count: 1 })
 
-    const mult = computed(store, () => {
+    let mult = computed(store, () => {
       return store.get('count') * 2
     })
 

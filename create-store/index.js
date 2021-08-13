@@ -6,7 +6,7 @@ const HANDLERS = '__h'
 const DATA = 'd'
 
 const emitChildren = (obj = {}, cb) => {
-  for (const [path, child] of Object.entries(obj)) {
+  for (let [path, child] of Object.entries(obj)) {
     if (path === HANDLERS) continue
     cb(get(obj, concat(path, HANDLERS)), path)
     emitChildren(child, cb)
@@ -14,9 +14,9 @@ const emitChildren = (obj = {}, cb) => {
 }
 
 export const createStore = (initial = {}) => {
-  const listenners = {}
-  const state = { d: initial }
-  const store = {
+  let listenners = {}
+  let state = { d: initial }
+  let store = {
     lc: 0,
     set(path, value) {
       set(state, concat(DATA, path), value)
@@ -26,7 +26,7 @@ export const createStore = (initial = {}) => {
       return get(state, concat(DATA, path))
     },
     _emit(path) {
-      const fullPath = concat(DATA, path)
+      let fullPath = concat(DATA, path)
       walk(fullPath, part => {
         for (let listener of get(listenners, concat(part, HANDLERS)) || []) {
           listener(part.replace(`${DATA}.`, ''), get(state, part))
@@ -39,7 +39,7 @@ export const createStore = (initial = {}) => {
       })
     },
     listen(path = '', cb) {
-      const dest = concat(DATA, concat(path, HANDLERS))
+      let dest = concat(DATA, concat(path, HANDLERS))
       let ns = get(listenners, dest) || set(listenners, dest, [])
       ns.push(cb)
       this.lc++

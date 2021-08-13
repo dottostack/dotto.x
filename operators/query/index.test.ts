@@ -7,7 +7,7 @@ describe('query:', () => {
   it('base', () => {
     expect.assertions(12)
 
-    const testingStore = createStore<{
+    let testingStore = createStore<{
       some: { user: { name?: string; age?: number; location?: string } }
     }>({ some: { user: {} } })
 
@@ -21,13 +21,13 @@ describe('query:', () => {
       age: undefined,
       location: undefined
     }
-    const select = {
+    let select = {
       name: 'some.user.name',
       age: 'some.user.age',
       location: 'some.user.location'
     } as const
 
-    const unbind = query(testingStore, select).subscribe(
+    let unbind = query(testingStore, select).subscribe(
       ({ name, age, location }) => {
         expect(AssertType<Name>(name)).toEqual(predict.name)
         expect(AssertType<Age>(age)).toEqual(predict.age)

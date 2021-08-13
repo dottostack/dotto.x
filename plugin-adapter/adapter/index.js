@@ -1,10 +1,13 @@
 import { events } from './events'
 
 const createAdapter = (store, cb) => {
-  return Object.entries(events).reduce((acc, [name, creator]) => {
-    acc[name] = creator(store, cb.bind(null, name))
-    return acc
-  }, {})
+  return Object.entries(events).reduce(
+    (acc, [name, creator]) => ({
+      ...acc,
+      [name]: creator(store, cb.bind(null, name))
+    }),
+    {}
+  )
 }
 
 export const adapter = (storage, store, cb, eventUtil) => {

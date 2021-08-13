@@ -6,7 +6,7 @@ const handle = (payload, key, cb, isLast) => {
 }
 
 export const walk = (object, path, cb = null) => {
-  const pathArray = toChain(path)
+  let pathArray = toChain(path)
   return pathArray.reduce(
     (acc, key, i) => acc && handle(acc, key, cb, pathArray.length - 1 === i),
     object
