@@ -10,9 +10,9 @@ describe('mount-operator:', () => {
   it('by listen', () => {
     expect.assertions(1)
 
-    const store = createStore({ some: { path: 0 } })
+    let store = createStore({ some: { path: 0 } })
 
-    const events: (string | number)[] = []
+    let events: (string | number)[] = []
 
     mount(store, () => {
       events.push('mount')
@@ -21,7 +21,7 @@ describe('mount-operator:', () => {
       }
     })
 
-    const unbind = store.listen('some.path', (path, value) => {
+    let unbind = store.listen('some.path', (path, value) => {
       events.push(value)
     })
 
@@ -38,9 +38,9 @@ describe('mount-operator:', () => {
   it('by manual off', () => {
     expect.assertions(1)
 
-    const store = createStore({ some: { path: 0 } })
+    let store = createStore({ some: { path: 0 } })
 
-    const events: (string | number)[] = []
+    let events: (string | number)[] = []
 
     mount(store, () => {
       events.push('mount')
@@ -66,9 +66,9 @@ describe('mount-operator:', () => {
   it('lazy initilization', () => {
     expect.assertions(1)
 
-    const store = createStore<{ some: { path: number } }>()
+    let store = createStore<{ some: { path: number } }>()
 
-    const events: (string | number)[] = []
+    let events: (string | number)[] = []
 
     mount(store, () => {
       events.push('mount')
@@ -94,9 +94,9 @@ describe('mount-operator:', () => {
   it('re-creation', () => {
     expect.assertions(1)
 
-    const store = createStore<{ some: { path: number } }>()
+    let store = createStore<{ some: { path: number } }>()
 
-    const events: (string | number)[] = []
+    let events: (string | number)[] = []
 
     mount(store, () => {
       events.push('mount')
@@ -126,9 +126,9 @@ describe('mount-operator:', () => {
   it('use computed', () => {
     expect.assertions(1)
 
-    const store = createStore<{ some: { path?: number } }>()
+    let store = createStore<{ some: { path?: number } }>()
 
-    const events: (string | number | null)[] = []
+    let events: (string | number | null)[] = []
 
     mount(store, () => {
       events.push('mount')
@@ -137,8 +137,8 @@ describe('mount-operator:', () => {
       }
     })
 
-    const square = computed([store], () => {
-      const num = store.get('some.path')
+    let square = computed([store], () => {
+      let num = store.get('some.path')
       return num === undefined ? null : num * 2
     })
 

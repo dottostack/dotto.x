@@ -6,11 +6,11 @@ const aStorage = new Map()
 const lStorage = new Map()
 
 const api = (store, bind) => {
-  const listenerContainer = listener(lStorage, store)
+  let listenerContainer = listener(lStorage, store)
 
   let isStoped
-  const stop = () => (isStoped = true)
-  const event = { stop }
+  let stop = () => (isStoped = true)
+  let event = { stop }
 
   adapter(
     aStorage,
@@ -26,18 +26,18 @@ const api = (store, bind) => {
     event
   )
 
-  const toUnbind = bind(listenerContainer)
+  let toUnbind = bind(listenerContainer)
   return () => run_all(toUnbind)
 }
 
 export const on = (store, handlers) => {
   return api(store, listenerContainer =>
     Object.entries(handlers).reduce((unsubs, [key, handler]) => {
-      const target = listenerContainer[key]
+      let target = listenerContainer[key]
       if (!target) return unsubs
       target.push(handler)
       unsubs.push(() => {
-        const index = target.indexOf(handler)
+        let index = target.indexOf(handler)
         index > -1 && target.splice(index, 1)
       })
       return unsubs
@@ -46,13 +46,13 @@ export const on = (store, handlers) => {
 }
 
 export const once = (store, handlers) => {
-  const unsub = on(
+  let unsub = on(
     store,
     Object.entries(handlers).reduce(
       (acc, [key, fn]) => ({
         ...acc,
         [key]: (...args) => {
-          const res = fn(...args)
+          let res = fn(...args)
           unsub()
           return res
         }

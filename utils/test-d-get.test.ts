@@ -66,7 +66,7 @@ describe('type get testing', () => {
 
   it('not exists', () => {
     type Assertion = ResolveType<TestClass, 'deep.dsadsa'>
-    const nope = false as never
+    let nope = false as never
     expect(AssertType<Assertion>(nope)).toEqual(nope)
   })
 })

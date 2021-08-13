@@ -68,8 +68,7 @@
       "symbol-description": "off",
       "consistent-return": "off",
       "camelcase": "off",
-      "import/extensions": "off",
-      "prefer-let/prefer-let": "off"
+      "import/extensions": "off"
     },
     "globals": {
       "jsdom": false

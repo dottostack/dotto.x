@@ -4,16 +4,16 @@ import { query } from './query'
 describe('query:', () => {
   it('base', () => {
     expect.assertions(9)
-    const testingStore = createStore<{
+    let testingStore = createStore<{
       some: { user: { name?: string; age?: number; location?: string } }
     }>({ some: { user: {} } })
     let predict: any
-    const select = {
+    let select = {
       name: 'some.user.name',
       age: 'some.user.age',
       location: 'some.user.location'
     } as const
-    const unbind = query(testingStore, select, ({ name, age, location }) => {
+    let unbind = query(testingStore, select, ({ name, age, location }) => {
       expect(name).toBe(predict.name)
       expect(age).toBe(predict.age)
       expect(location).toBe(predict.location)
