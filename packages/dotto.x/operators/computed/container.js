@@ -16,7 +16,7 @@ const withListeners = (dependecies, listeners, emit, cb) => {
   run_all(unsubs)
   return result
 }
-
+// base deps
 export const createContainer = (deps, cb, emit, invalidate) => {
   let listeners = new Map()
   // handle store destroys
@@ -39,5 +39,6 @@ export const createContainer = (deps, cb, emit, invalidate) => {
     call() {
       return withListeners(deps, listeners, emit, cb)
     }
+    // add deps
   }
 }
