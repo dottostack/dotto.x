@@ -1,4 +1,6 @@
+import { decorate } from '../utils/decorate'
 import { createContainer } from './container'
+import { target } from './context'
 
 const EMPTY = Symbol.for('empty')
 
@@ -49,8 +51,16 @@ export const computed = cb => {
     listen(subscriber) {
       return this._run(subscriber, false)
     },
-    take() {
-      return cb()
+    take(reactive) {
+      if (reactive) return cb()
+      let targetContainer = target()
+
+      if (!targetContainer) return cb()
+
+      return decorate(cb, () => {
+        targetContainer.silent = true
+        return () => (targetContainer.silent = false)
+      })
     },
     off
   }

@@ -111,9 +111,13 @@
       "limit": "400B"
     },
     {
-      "name": "api",
+      "name": "computed",
       "path": "./operators/computed/index.js",
       "import": "{ computed }"
+    },
+    {
+      "name": "getter",
+      "path": "./getter/index.js"
     },
     {
       "name": "all",

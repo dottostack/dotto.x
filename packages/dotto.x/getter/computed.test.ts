@@ -79,28 +79,28 @@ describe('computed function:', () => {
     unsub2()
   })
 
-  // it('works without reactive', () => {
-  //   expect.assertions(1)
-  //   let store = createStore({
-  //     some: { deep: { path: 3, test: 2, some: 4 } }
-  //   })
+  it('works without reactive', () => {
+    expect.assertions(1)
+    let store = createStore({
+      some: { deep: { path: 3, test: 2, some: 4 } }
+    })
 
-  //   let pathMult = computed(() => {
-  //     let path = take(store, 'some.deep.path')
-  //     return path * 2
-  //   })
+    let pathMult = computed(() => {
+      let path = take(store, 'some.deep.path')
+      return path * 2
+    })
 
-  //   let nextDataGetter = computed(() => {
-  //     return pathMult.take() / 2
-  //   })
+    let nextDataGetter = computed(() => {
+      return pathMult.take() / 2
+    })
 
-  //   let unsub2 = nextDataGetter.subscribe(val => {
-  //     expect(val).toBe(3)
-  //   })
-  //   store.set('some.deep.path', 4)
-  //   store.set('some.deep.path', 5)
-  //   unsub2()
-  // })
+    let unsub2 = nextDataGetter.subscribe(val => {
+      expect(val).toBe(3)
+    })
+    store.set('some.deep.path', 4)
+    store.set('some.deep.path', 5)
+    unsub2()
+  })
 
   it('prevents diamond dependency problem', () => {
     let store = createStore({ count: 0 })
@@ -130,130 +130,130 @@ describe('computed function:', () => {
     unsubscribe()
   })
 
-  // it('listen', () => {
-  //   expect.assertions(3)
-  //   let predict = 0
-  //   let store = createStore({ count: 0 })
+  it('listen', () => {
+    expect.assertions(3)
+    let predict = 0
+    let store = createStore({ count: 0 })
 
-  //   let mult = computed(() => {
-  //     let count = store.get('count')
-  //     return count * 2
-  //   })
+    let mult = computed(() => {
+      let count = take(store, 'count')
+      return count * 2
+    })
 
-  //   let unbind = mult.listen(num => {
-  //     expect(num).toBe(predict)
-  //   })
+    let unbind = mult.listen(num => {
+      expect(num).toBe(predict)
+    })
 
-  //   predict = 2
-  //   store.set('count', 1)
-  //   predict = 4
-  //   store.set('count', 2)
-  //   predict = 6
-  //   store.set('count', 3)
-  //   unbind()
-  // })
+    predict = 2
+    store.set('count', 1)
+    predict = 4
+    store.set('count', 2)
+    predict = 6
+    store.set('count', 3)
+    unbind()
+  })
 
-  // it('re-listen: when listener is last - container will destroy', () => {
-  //   let events: number[] = []
-  //   let store = createStore({ count: 0 })
+  it('re-listen: when listener is last - container will destroy', () => {
+    let events: number[] = []
+    let store = createStore({ count: 0 })
 
-  //   let mult = computed(() => {
-  //     let count = store.get('count')
-  //     return count
-  //   })
+    let mult = computed(() => {
+      let count = take(store, 'count')
+      return count
+    })
 
-  //   let unbind = mult.listen(num => {
-  //     events.push(num)
-  //   })
+    let unbind = mult.listen(num => {
+      events.push(num)
+    })
 
-  //   store.set('count', 1)
-  //   store.set('count', 2)
-  //   store.set('count', 3)
+    store.set('count', 1)
+    store.set('count', 2)
+    store.set('count', 3)
 
-  //   unbind()
+    unbind()
 
-  //   let unbind2 = mult.listen(num => {
-  //     events.push(num)
-  //   })
+    let unbind2 = mult.listen(num => {
+      events.push(num)
+    })
 
-  //   store.set('count', 12)
-  //   store.set('count', 22)
-  //   store.set('count', 32)
+    store.set('count', 12)
+    store.set('count', 22)
+    store.set('count', 32)
 
-  //   unbind2()
-  //   expect(events).toEqual([1, 2, 3, 12, 22, 32])
-  // })
+    unbind2()
+    expect(events).toEqual([1, 2, 3, 12, 22, 32])
+  })
 
-  // it('re-listen: when store is off', () => {
-  //   let events: number[] = []
-  //   let store = createStore({ count: 0 })
+  it('re-listen: when store is off', () => {
+    let events: number[] = []
+    let store = createStore({ count: 0 })
 
-  //   let mult = computed(() => {
-  //     let count = store.get('count')
-  //     return count
-  //   })
+    let mult = computed(() => {
+      let count = take(store, 'count')
+      return count
+    })
 
-  //   mult.listen(num => {
-  //     events.push(num)
-  //   })
+    mult.listen(num => {
+      events.push(num)
+    })
 
-  //   store.set('count', 1)
-  //   store.set('count', 2)
-  //   store.set('count', 3)
+    store.set('count', 1)
+    store.set('count', 2)
+    store.set('count', 3)
 
-  //   store.off()
-  //   let unbind2 = mult.listen(num => {
-  //     events.push(num)
-  //   })
-  //   store.set('count', 12)
-  //   store.set('count', 22)
-  //   store.set('count', 32)
+    store.off()
+    let unbind2 = mult.listen(num => {
+      events.push(num)
+    })
+    store.set('count', 12)
+    store.set('count', 22)
+    store.set('count', 32)
 
-  //   unbind2()
-  //   expect(events).toEqual([1, 2, 3, 12, 22, 32])
-  // })
+    unbind2()
+    expect(events).toEqual([1, 2, 3, 12, 22, 32])
+  })
 
-  // it('re-listen: when on of many stores are off', () => {
-  //   let events: number[] = []
-  //   let store = createStore({ count: 0 })
-  //   let store2 = createStore({ count: 0 })
+  it('re-listen: when on of many stores are off', () => {
+    let events: number[] = []
+    let store = createStore({ count: 0 })
+    let store2 = createStore({ count: 0 })
 
-  //   let mult = computed(() => {
-  //     return store.get('count') + store2.get('count')
-  //   })
+    let mult = computed(() => {
+      return take(store, 'count') + take(store2, 'count')
+    })
 
-  //   mult.listen(num => {
-  //     events.push(num)
-  //   })
+    mult.listen(num => {
+      events.push(num)
+    })
 
-  //   store.set('count', 1)
-  //   store.set('count', 2)
-  //   store.set('count', 3)
+    store.set('count', 1)
+    store.set('count', 2)
+    store.set('count', 3)
 
-  //   store.off()
+    store.off()
 
-  //   store2.set('count', 12)
-  //   store2.set('count', 22)
-  //   store2.set('count', 32)
+    store2.set('count', 12)
+    store2.set('count', 22)
+    store2.set('count', 32)
 
-  //   store2.off()
+    store2.off()
 
-  //   store2.set('count', 12)
-  //   store2.set('count', 22)
-  //   store2.set('count', 32)
+    store2.set('count', 12)
+    store2.set('count', 22)
+    store2.set('count', 32)
 
-  //   expect(events).toEqual([1, 2, 3, 15, 25, 35])
-  // })
+    expect(events).toEqual([1, 2, 3, 15, 25, 35])
+  })
 
-  // it('use without listeners', () => {
-  //   let store = createStore({ count: 1 })
+  it('use without listeners', () => {
+    let store = createStore({ count: 1 })
 
-  //   let mult = computed(() => {
-  //     return store.get('count') * 2
-  //   })
+    let mult = computed(() => {
+      return store.get('count') * 2
+    })
 
-  //   expect(mult.get()).toBe(2)
-  //   // @ts-ignore
-  //   expect(store.lc).toBe(0)
-  // })
+    expect(mult.take()).toBe(2)
+    // @ts-ignore
+    expect(store.lc).toBe(0)
+  })
 })
