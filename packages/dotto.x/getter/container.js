@@ -2,11 +2,7 @@ import { run_all } from '../utils/run_all'
 import { on } from '../plugin-adapter'
 import { context } from './context'
 import { decorate } from '../utils/decorate'
-
-const get_or_create = (dest, key, payload) => {
-  if (!dest.has(key)) dest.set(key, payload)
-  return dest.get(key)
-}
+import { get_or_create } from '../utils/get_or_create'
 
 export const createContainer = (cb, emit, invalidate) => {
   let listeners = new Map()
@@ -19,9 +15,9 @@ export const createContainer = (cb, emit, invalidate) => {
       storeOffHandlers.clear()
     },
     add(store, query) {
-      let listenerBox = get_or_create(listeners, store, {})
+      let listenerBox = get_or_create(listeners, store, () => ({}))
 
-      if (!storeOffHandlers.has(store)) {
+      get_or_create(storeOffHandlers, store, () => {
         let unbind = on(store, {
           off() {
             listeners.delete(store)
@@ -29,8 +25,7 @@ export const createContainer = (cb, emit, invalidate) => {
             unbind()
           }
         })
-        storeOffHandlers.set(store, unbind)
-      }
+      })
 
       if (!listenerBox[query]) listenerBox[query] = store.listen(query, emit)
     },
@@ -40,6 +35,5 @@ export const createContainer = (cb, emit, invalidate) => {
         return () => context.pop()
       })
     }
-    // add deps
   }
 }

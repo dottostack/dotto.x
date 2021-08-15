@@ -1,3 +1,4 @@
+import { get_or_create } from '../../utils/get_or_create'
 import { events } from './events'
 
 const createAdapter = (store, cb) => {
@@ -11,7 +12,7 @@ const createAdapter = (store, cb) => {
 }
 
 export const adapter = (storage, store, cb, eventUtil) => {
-  if (storage.has(store)) return storage.get(store)
-  storage.set(store, createAdapter(store, cb, eventUtil))
-  return storage.get(store)
+  return get_or_create(storage, store, () =>
+    createAdapter(store, cb, eventUtil)
+  )
 }
