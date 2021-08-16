@@ -1,4 +1,4 @@
-import { allTasks, startTask, task } from './index'
+import { allTasks, startTask, task, clearTasks } from './index'
 
 it('waits no effects', async () => {
   await allTasks()
@@ -27,6 +27,7 @@ it('waits for nested effects', async () => {
   effectA()
   await allTasks()
   expect(track).toEqual('ab')
+  clearTasks()
 })
 
 it('ends task on error', async () => {

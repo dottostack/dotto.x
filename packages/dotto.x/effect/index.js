@@ -5,9 +5,9 @@ export const effect = (deps, cb) => {
   if (!Array.isArray(deps)) deps = [deps]
   let endEffect = cb()
   let unbind = deps.reduce((unbinds, dep) => {
-    if (process.env.NODE_ENV !== 'production') {
-      if (!dep.subscribe && !dep.listen) throw new Error('todo')
-    }
+    // if (process.env.NODE_ENV !== 'production') {
+    //   if (!dep.subscribe && !dep.listen) throw new Error('todo')
+    // }
     let handle = () => {
       if (endEffect) endEffect()
       run_all(unbind)
