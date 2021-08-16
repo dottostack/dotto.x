@@ -2,7 +2,8 @@ import { jest } from '@jest/globals'
 
 import { mount } from './index'
 import { createStore } from '../create-store'
-// import { computed } from '../computed'
+import { computed } from '../getter'
+import { take } from '../getter/take'
 
 jest.useFakeTimers()
 
@@ -123,41 +124,41 @@ describe('mount-operator:', () => {
     expect(events).toEqual(['mount', 1, 2, 'unmount', 'mount', 222])
   })
 
-  // it('use computed', () => {
-  //   expect.assertions(1)
+  it('use computed', () => {
+    expect.assertions(1)
 
-  //   let store = createStore<{ some: { path?: number } }>()
+    let store = createStore<{ some: { path?: number } }>()
 
-  //   let events: (string | number | null)[] = []
+    let events: (string | number | null)[] = []
 
-  //   mount(store, () => {
-  //     events.push('mount')
-  //     return () => {
-  //       events.push('unmount')
-  //     }
-  //   })
+    mount(store, () => {
+      events.push('mount')
+      return () => {
+        events.push('unmount')
+      }
+    })
 
-  //   let square = computed([store], () => {
-  //     let num = store.get('some.path')
-  //     return num === undefined ? null : num * 2
-  //   })
+    let square = computed(() => {
+      let num = take(store, 'some.path')
+      return num === undefined ? null : num * 2
+    })
 
-  //   square.listen(val => {
-  //     events.push(val)
-  //   })
+    square.listen(val => {
+      events.push(val)
+    })
 
-  //   store.set('some.path', 1)
-  //   store.set('some.path', 2)
+    store.set('some.path', 1)
+    store.set('some.path', 2)
 
-  //   store.off()
+    store.off()
 
-  //   store.set('some.path', 111)
-  //   square.listen(val => {
-  //     events.push(val)
-  //   })
-  //   // handle store off
-  //   store.set('some.path', 4)
+    store.set('some.path', 111)
+    square.listen(val => {
+      events.push(val)
+    })
+    // handle store off
+    store.set('some.path', 4)
 
-  //   expect(events).toEqual(['mount', 2, 4, 'unmount', 'mount', 8])
-  // })
+    expect(events).toEqual(['mount', 2, 4, 'unmount', 'mount', 8])
+  })
 })

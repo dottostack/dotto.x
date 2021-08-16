@@ -9,4 +9,4 @@ export function take<Sub extends Subscribable>(dep: Sub): ReturnType<Sub.get>
 export function take<Data, Query extends string>(
   dep: DotXStore<Data>,
   query: Query
-): ResolveType<Data, `d.${Query}`>
+): ResolveType<Data, Query>

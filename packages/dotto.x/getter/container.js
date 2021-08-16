@@ -1,5 +1,5 @@
 import { run_all } from '../utils/run_all'
-import { on } from '../plugin-adapter'
+import { onOff } from '../lifecycle'
 import { context } from './context'
 import { decorate } from '../utils/decorate'
 import { get_or_create } from '../utils/get_or_create'
@@ -18,12 +18,10 @@ export const createContainer = (cb, emit, invalidate) => {
       let listenerBox = get_or_create(listeners, store, () => ({}))
 
       get_or_create(storeOffHandlers, store, () => {
-        let unbind = on(store, {
-          off() {
-            listeners.delete(store)
-            invalidate(listeners.size === 0)
-            unbind()
-          }
+        let unbind = onOff(store, () => {
+          listeners.delete(store)
+          invalidate(listeners.size === 0)
+          unbind()
         })
       })
 

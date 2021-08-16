@@ -105,15 +105,9 @@
       "limit": "600B"
     },
     {
-      "name": "api",
-      "path": "./plugin-adapter/index.js",
-      "import": "{ on }",
+      "name": "lifecycle",
+      "path": "./lifecycle/index.js",
       "limit": "400B"
-    },
-    {
-      "name": "computed",
-      "path": "./operators/computed/index.js",
-      "import": "{ computed }"
     },
     {
       "name": "getter",
