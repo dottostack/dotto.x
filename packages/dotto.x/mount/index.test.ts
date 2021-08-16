@@ -124,6 +124,35 @@ describe('mount-operator:', () => {
     expect(events).toEqual(['mount', 1, 2, 'unmount', 'mount', 222])
   })
 
+  it('re-creation: without destructor', () => {
+    expect.assertions(1)
+
+    let store = createStore<{ some: { path: number } }>()
+
+    let events: (string | number)[] = []
+
+    mount(store, () => {
+      events.push('mount')
+    })
+
+    store.listen('some.path', (path, value) => {
+      events.push(value)
+    })
+
+    store.set('some.path', 1)
+    store.set('some.path', 2)
+
+    store.off()
+
+    store.set('some.path', 111)
+
+    store.listen('some.path', (path, value) => {
+      events.push(value)
+    })
+    store.set('some.path', 222)
+    expect(events).toEqual(['mount', 1, 2, 'mount', 222])
+  })
+
   it('use computed', () => {
     expect.assertions(1)
 
@@ -131,7 +160,7 @@ describe('mount-operator:', () => {
 
     let events: (string | number | null)[] = []
 
-    mount(store, () => {
+    let un = mount(store, () => {
       events.push('mount')
       return () => {
         events.push('unmount')
@@ -158,7 +187,42 @@ describe('mount-operator:', () => {
     })
     // handle store off
     store.set('some.path', 4)
-
+    un()
     expect(events).toEqual(['mount', 2, 4, 'unmount', 'mount', 8])
+  })
+
+  it('use computed: without destructor', () => {
+    expect.assertions(1)
+
+    let store = createStore<{ some: { path?: number } }>()
+
+    let events: (string | number | null)[] = []
+
+    mount(store, () => {
+      events.push('mount')
+    })
+
+    let square = computed(() => {
+      let num = take(store, 'some.path')
+      return num === undefined ? null : num * 2
+    })
+
+    square.listen(val => {
+      events.push(val)
+    })
+
+    store.set('some.path', 1)
+    store.set('some.path', 2)
+
+    store.off()
+
+    store.set('some.path', 111)
+    square.listen(val => {
+      events.push(val)
+    })
+    // handle store off
+    store.set('some.path', 4)
+
+    expect(events).toEqual(['mount', 2, 4, 'mount', 8])
   })
 })
