@@ -1,14 +1,13 @@
 import { createStore } from '../../create-store'
-import { on } from '../index'
+import { onChange } from '../index'
 
 describe('api plugin: events: set', () => {
   it('simple', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
-    let un = on(store, {
-      change() {
-        events.push('hello')
-      }
+
+    let un = onChange(store, () => {
+      events.push('hello')
     })
 
     store.set('some', 'anotherData')
@@ -21,10 +20,8 @@ describe('api plugin: events: set', () => {
   it('unsub works', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
-    let un = on(store, {
-      change() {
-        events.push('hello')
-      }
+    let un = onChange(store, () => {
+      events.push('hello')
     })
 
     store.set('some', 'anotherData')
@@ -40,16 +37,12 @@ describe('api plugin: events: set', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
 
-    let un = on(store, {
-      change() {
-        events.push('Neo')
-      }
+    let un = onChange(store, () => {
+      events.push('Neo')
     })
 
-    let un2 = on(store, {
-      set() {
-        events.push('wake up')
-      }
+    let un2 = onChange(store, () => {
+      events.push('wake up')
     })
 
     store.set('some', 'someData')
@@ -64,16 +57,12 @@ describe('api plugin: events: set', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
 
-    let un = on(store, {
-      change() {
-        events.push('Neo')
-      }
+    let un = onChange(store, () => {
+      events.push('Neo')
     })
 
-    let un2 = on(store, {
-      change() {
-        events.push('wake up')
-      }
+    let un2 = onChange(store, () => {
+      events.push('wake up')
     })
 
     store.set('some', 'someData')
@@ -91,10 +80,8 @@ describe('api plugin: events: set', () => {
       let store = createStore({ myPath: 'data', anotherPath: 'anotherData' })
       let events: unknown[] = []
 
-      let un = on(store, {
-        change(original) {
-          events.push(original)
-        }
+      let un = onChange(store, original => {
+        events.push(original)
       })
 
       store.set('myPath', 'someData')
@@ -108,18 +95,13 @@ describe('api plugin: events: set', () => {
     it('api event', () => {
       let store = createStore({ myPath: 'data' })
       let events: string[] = []
-
-      let un = on(store, {
-        change() {
-          events.push('some Data')
-        }
+      let un = onChange(store, () => {
+        events.push('some Data')
       })
 
-      let un2 = on(store, {
-        change(original, api) {
-          events.push('wake up, Neo')
-          api.event.stop()
-        }
+      let un2 = onChange(store, (original, api) => {
+        events.push('wake up, Neo')
+        api.event.stop()
       })
 
       store.set('myPath', 'someData')
@@ -134,16 +116,12 @@ describe('api plugin: events: set', () => {
       let store = createStore({ myPath: 'data' })
       let events: unknown[] = []
 
-      let un = on(store, {
-        change(original, api) {
-          events.push(api.shared)
-        }
+      let un = onChange(store, (original, api) => {
+        events.push(api.shared)
       })
 
-      let un2 = on(store, {
-        change(original, api) {
-          api.shared.test = 1
-        }
+      let un2 = onChange(store, (original, api) => {
+        api.shared.test = 1
       })
 
       store.set('myPath', 'someData')
@@ -158,11 +136,10 @@ describe('api plugin: events: set', () => {
       let store = createStore({ myPath: 'data' })
       let events: unknown[] = []
 
-      let un = on(store, {
-        change(original, api) {
-          api.methods.abort()
-        }
+      let un = onChange(store, (original, api) => {
+        api.methods.abort()
       })
+
       let unsub = store.listen('myPath', (path, value) => {
         events.push(value)
       })
@@ -178,10 +155,8 @@ describe('api plugin: events: set', () => {
       let store = createStore({ myPath: 'data' })
       let events: unknown[] = []
 
-      let un = on(store, {
-        change(original, api) {
-          api.methods.abort()
-        }
+      let un = onChange(store, (original, api) => {
+        api.methods.abort()
       })
       let unsub = store.listen('myPath', (path, value) => {
         events.push(value)

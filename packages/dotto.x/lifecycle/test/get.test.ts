@@ -1,32 +1,23 @@
 import { createStore } from '../../create-store'
-import { on } from '../index'
+import { onGet } from '../index'
 
-describe('api plugin: events: get', () => {
+describe('api plugin: events: set', () => {
   it('simple', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
-    let un = on(store, {
-      get() {
-        events.push('hello')
-      }
-    })
+    let un = onGet(store, () => events.push('hello'))
 
     store.get('some')
 
     un()
 
     expect(events).toEqual(['hello'])
-    expect(store.get('some')).toBe('data')
   })
 
   it('unsub works', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
-    let un = on(store, {
-      get() {
-        events.push('hello')
-      }
-    })
+    let un = onGet(store, () => events.push('hello'))
 
     store.get('some')
 
@@ -41,17 +32,9 @@ describe('api plugin: events: get', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
 
-    let un = on(store, {
-      get() {
-        events.push('Neo')
-      }
-    })
+    let un = onGet(store, () => events.push('Neo'))
 
-    let un2 = on(store, {
-      get() {
-        events.push('wake up')
-      }
-    })
+    let un2 = onGet(store, () => events.push('wake up'))
 
     store.get('some')
 
@@ -65,17 +48,9 @@ describe('api plugin: events: get', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
 
-    let un = on(store, {
-      get() {
-        events.push('Neo')
-      }
-    })
+    let un = onGet(store, () => events.push('Neo'))
 
-    let un2 = on(store, {
-      get() {
-        events.push('wake up')
-      }
-    })
+    let un2 = onGet(store, () => events.push('wake up'))
 
     store.get('some')
 
@@ -92,11 +67,7 @@ describe('api plugin: events: get', () => {
       let store = createStore({ myPath: 'data', anotherPath: 'anotherData' })
       let events: unknown[] = []
 
-      let un = on(store, {
-        get(original) {
-          events.push(original)
-        }
-      })
+      let un = onGet(store, original => events.push(original))
 
       store.get('myPath')
       store.get('anotherPath')
@@ -110,17 +81,11 @@ describe('api plugin: events: get', () => {
       let store = createStore({ myPath: 'data' })
       let events: string[] = []
 
-      let un = on(store, {
-        get() {
-          events.push('some Data')
-        }
-      })
+      let un = onGet(store, () => events.push('some Data'))
 
-      let un2 = on(store, {
-        get(original, api) {
-          events.push('wake up, Neo')
-          api.event.stop()
-        }
+      let un2 = onGet(store, (original, api) => {
+        events.push('wake up, Neo')
+        api.event.stop()
       })
 
       store.get('myPath')
@@ -135,18 +100,12 @@ describe('api plugin: events: get', () => {
       let store = createStore({ myPath: 'data' })
       let events: unknown[] = []
 
-      let un = on(store, {
-        get(original, api) {
-          events.push(api.shared)
-        },
-        // @ts-ignore
-        fake() {}
+      let un = onGet(store, (original, api) => {
+        events.push(api.shared)
       })
 
-      let un2 = on(store, {
-        get(original, api) {
-          api.shared.test = 1
-        }
+      let un2 = onGet(store, (original, api) => {
+        api.shared.test = 1
       })
 
       store.get('myPath')

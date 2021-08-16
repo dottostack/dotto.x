@@ -1,19 +1,10 @@
+import { decorate } from '../utils/decorate'
 import { createContainer } from './container'
+import { target } from './context'
 
 const EMPTY = Symbol.for('empty')
 
-const unique = deps => [
-  ...new Set(
-    deps.reduce(
-      (acc, dep) => (dep.deps ? [...acc, ...dep.deps] : [...acc, dep]),
-      []
-    )
-  )
-]
-
-export const computed = (deps, cb) => {
-  if (!Array.isArray(deps)) deps = [deps]
-
+export const computed = cb => {
   let subscribers = []
   let lastResult = EMPTY
 
@@ -23,8 +14,6 @@ export const computed = (deps, cb) => {
       subscriber(lastResult)
     })
   }
-
-  let depsWithNested = unique(deps)
 
   let off = () => {
     container.unbind()
@@ -36,10 +25,9 @@ export const computed = (deps, cb) => {
     if (isAll) off()
   }
 
-  let container = createContainer(depsWithNested, cb, emit, invalidate)
+  let container = createContainer(cb, emit, invalidate)
 
   return {
-    deps: depsWithNested,
     _run(subscriber, fireImmediately) {
       subscribers.push(subscriber)
 
@@ -63,8 +51,16 @@ export const computed = (deps, cb) => {
     listen(subscriber) {
       return this._run(subscriber, false)
     },
-    get() {
-      return cb()
+    take(reactive) {
+      if (reactive) return cb()
+      let targetContainer = target()
+
+      if (!targetContainer) return cb()
+
+      return decorate(cb, () => {
+        targetContainer.silent = true
+        return () => (targetContainer.silent = false)
+      })
     },
     off
   }

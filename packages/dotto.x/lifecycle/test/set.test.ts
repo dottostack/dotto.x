@@ -1,15 +1,11 @@
 import { createStore } from '../../create-store'
-import { on } from '../index'
+import { onSet } from '../index'
 
 describe('api plugin: events: set', () => {
   it('simple', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
-    let un = on(store, {
-      set() {
-        events.push('hello')
-      }
-    })
+    let un = onSet(store, () => events.push('hello'))
 
     store.set('some', 'anotherData')
 
@@ -21,11 +17,7 @@ describe('api plugin: events: set', () => {
   it('unsub works', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
-    let un = on(store, {
-      set() {
-        events.push('hello')
-      }
-    })
+    let un = onSet(store, () => events.push('hello'))
 
     store.set('some', 'anotherData')
 
@@ -40,17 +32,9 @@ describe('api plugin: events: set', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
 
-    let un = on(store, {
-      set() {
-        events.push('Neo')
-      }
-    })
+    let un = onSet(store, () => events.push('Neo'))
 
-    let un2 = on(store, {
-      set() {
-        events.push('wake up')
-      }
-    })
+    let un2 = onSet(store, () => events.push('wake up'))
 
     store.set('some', 'someData')
 
@@ -64,17 +48,9 @@ describe('api plugin: events: set', () => {
     let store = createStore({ some: 'data' })
     let events: string[] = []
 
-    let un = on(store, {
-      set() {
-        events.push('Neo')
-      }
-    })
+    let un = onSet(store, () => events.push('Neo'))
 
-    let un2 = on(store, {
-      set() {
-        events.push('wake up')
-      }
-    })
+    let un2 = onSet(store, () => events.push('wake up'))
 
     store.set('some', 'someData')
 
@@ -91,11 +67,7 @@ describe('api plugin: events: set', () => {
       let store = createStore({ myPath: 'data', anotherPath: 'anotherData' })
       let events: unknown[] = []
 
-      let un = on(store, {
-        set(original) {
-          events.push(original)
-        }
-      })
+      let un = onSet(store, original => events.push(original))
 
       store.set('myPath', 'someData')
       store.set('anotherPath', 'anotherData')
@@ -112,17 +84,11 @@ describe('api plugin: events: set', () => {
       let store = createStore({ myPath: 'data' })
       let events: string[] = []
 
-      let un = on(store, {
-        set() {
-          events.push('some Data')
-        }
-      })
+      let un = onSet(store, () => events.push('some Data'))
 
-      let un2 = on(store, {
-        set(original, api) {
-          events.push('wake up, Neo')
-          api.event.stop()
-        }
+      let un2 = onSet(store, (original, api) => {
+        events.push('wake up, Neo')
+        api.event.stop()
       })
 
       store.set('myPath', 'someData')
@@ -137,16 +103,12 @@ describe('api plugin: events: set', () => {
       let store = createStore({ myPath: 'data' })
       let events: unknown[] = []
 
-      let un = on(store, {
-        set(original, api) {
-          events.push(api.shared)
-        }
+      let un = onSet(store, (original, api) => {
+        events.push(api.shared)
       })
 
-      let un2 = on(store, {
-        set(original, api) {
-          api.shared.test = 1
-        }
+      let un2 = onSet(store, (original, api) => {
+        api.shared.test = 1
       })
 
       store.set('myPath', 'someData')
@@ -160,10 +122,8 @@ describe('api plugin: events: set', () => {
     it('api abort', () => {
       let store = createStore({ myPath: 'data' })
 
-      let un = on(store, {
-        set(original, api) {
-          api.methods.abort()
-        }
+      let un = onSet(store, (original, api) => {
+        api.methods.abort()
       })
 
       store.set('myPath', 'someData')
@@ -176,10 +136,8 @@ describe('api plugin: events: set', () => {
     it('api abort unsub', () => {
       let store = createStore({ myPath: 'data' })
 
-      let un = on(store, {
-        set(original, api) {
-          api.methods.abort()
-        }
+      let un = onSet(store, (original, api) => {
+        api.methods.abort()
       })
 
       store.set('myPath', 'someData')

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
-import { computed } from './index'
-import { createStore } from '../../create-store'
+import { computed, take } from './index'
+import { createStore } from '../create-store'
 
 describe('computed function:', () => {
   it('scoped listeners', () => {
@@ -10,11 +10,11 @@ describe('computed function:', () => {
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
-    let someDataGetter = computed([store], () => {
-      let path = store.get('some.deep.path')
+    let someDataGetter = computed(() => {
+      let path = take(store, 'some.deep.path')
       // tree 2
       if (path > 554) {
-        return store.get('some.deep.path') * store.get('some.deep.test')
+        return take(store, 'some.deep.path') * take(store, 'some.deep.test')
       }
       // tree 1
       return path
@@ -53,13 +53,13 @@ describe('computed function:', () => {
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
-    let pathMult = computed([store], () => {
-      let path = store.get('some.deep.path')
+    let pathMult = computed(() => {
+      let path = take(store, 'some.deep.path')
       return path * 2
     })
 
-    let nextDataGetter = computed(pathMult, () => {
-      return pathMult.get() / 2
+    let nextDataGetter = computed(() => {
+      return take(pathMult) / 2
     })
 
     pathMultRes = 6
@@ -85,13 +85,13 @@ describe('computed function:', () => {
       some: { deep: { path: 3, test: 2, some: 4 } }
     })
 
-    let pathMult = computed(store, () => {
-      let path = store.get('some.deep.path')
+    let pathMult = computed(() => {
+      let path = take(store, 'some.deep.path')
       return path * 2
     })
 
-    let nextDataGetter = computed([], () => {
-      return pathMult.get() / 2
+    let nextDataGetter = computed(() => {
+      return pathMult.take() / 2
     })
 
     let unsub2 = nextDataGetter.subscribe(val => {
@@ -106,16 +106,16 @@ describe('computed function:', () => {
     let store = createStore({ count: 0 })
     let values: string[] = []
 
-    let a = computed(store, () => {
-      return 'a' + store.get('count')
+    let a = computed(() => {
+      return 'a' + take(store, 'count')
     })
 
-    let b = computed(store, () => {
-      return 'b' + store.get('count')
+    let b = computed(() => {
+      return 'b' + take(store, 'count')
     })
 
-    let combined = computed([a, b], () => {
-      return a.get() + b.get()
+    let combined = computed(() => {
+      return take(a) + take(b)
     })
 
     let unsubscribe = combined.subscribe(v => {
@@ -135,8 +135,8 @@ describe('computed function:', () => {
     let predict = 0
     let store = createStore({ count: 0 })
 
-    let mult = computed([store], () => {
-      let count = store.get('count')
+    let mult = computed(() => {
+      let count = take(store, 'count')
       return count * 2
     })
 
@@ -157,8 +157,8 @@ describe('computed function:', () => {
     let events: number[] = []
     let store = createStore({ count: 0 })
 
-    let mult = computed([store], () => {
-      let count = store.get('count')
+    let mult = computed(() => {
+      let count = take(store, 'count')
       return count
     })
 
@@ -188,8 +188,8 @@ describe('computed function:', () => {
     let events: number[] = []
     let store = createStore({ count: 0 })
 
-    let mult = computed([store], () => {
-      let count = store.get('count')
+    let mult = computed(() => {
+      let count = take(store, 'count')
       return count
     })
 
@@ -218,8 +218,8 @@ describe('computed function:', () => {
     let store = createStore({ count: 0 })
     let store2 = createStore({ count: 0 })
 
-    let mult = computed([store, store2], () => {
-      return store.get('count') + store2.get('count')
+    let mult = computed(() => {
+      return take(store, 'count') + take(store2, 'count')
     })
 
     mult.listen(num => {
@@ -248,11 +248,11 @@ describe('computed function:', () => {
   it('use without listeners', () => {
     let store = createStore({ count: 1 })
 
-    let mult = computed(store, () => {
+    let mult = computed(() => {
       return store.get('count') * 2
     })
 
-    expect(mult.get()).toBe(2)
+    expect(mult.take()).toBe(2)
     // @ts-ignore
     expect(store.lc).toBe(0)
   })
