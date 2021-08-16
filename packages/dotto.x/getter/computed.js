@@ -16,6 +16,7 @@ export const computed = cb => {
   }
 
   let off = () => {
+    lastResult = EMPTY
     container.unbind()
     subscribers = []
   }

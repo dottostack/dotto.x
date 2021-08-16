@@ -52,6 +52,7 @@ export const createStore = (initial = {}) => {
     off() {
       set(listenners, DATA, undefined)
       this.lc = 0
+      // delete state.d
     }
   }
 
