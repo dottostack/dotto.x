@@ -14,11 +14,10 @@ const lifecycle = (store, eventKey, creator, bind) => {
 
   if (!adapterContainer[eventKey]) {
     let adapterDirector = (key, originalData, apiMethods) => {
-      listenerContainer[key] &&
-        listenerContainer[key].reduceRight((shared, h) => {
-          !isStoped && h(originalData, { event, methods: apiMethods, shared })
-          return shared
-        }, {})
+      listenerContainer[key].reduceRight((shared, h) => {
+        !isStoped && h(originalData, { event, methods: apiMethods, shared })
+        return shared
+      }, {})
       isStoped = false
     }
     creator(store, adapterDirector.bind(null, eventKey))
