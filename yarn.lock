@@ -445,7 +445,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
     cross-fetch: ^3.1.4
-    dotto.x: ^0.1.18
+    dotto.x: ^0.1.19
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -465,7 +465,7 @@ __metadata:
     typescript: ^4.3.4
     yaspeller: ^7.0.0
   peerDependencies:
-    dotto.x: 0.1.18
+    dotto.x: 0.1.19
   languageName: unknown
   linkType: soft
 
@@ -3627,12 +3627,12 @@ __metadata:
   resolution: "dotto.x.monorepo@workspace:."
   dependencies:
     release-it: ^14.11.5
-    release-it-yarn-workspaces-clean-publish: ^0.0.3
+    release-it-yarn-workspaces-clean-publish: ^0.0.4
     yarn-changed-workspaces: ^2.0.10
   languageName: unknown
   linkType: soft
 
-"dotto.x@^0.1.18, dotto.x@workspace:packages/dotto.x":
+"dotto.x@^0.1.19, dotto.x@workspace:packages/dotto.x":
   version: 0.0.0-use.local
   resolution: "dotto.x@workspace:packages/dotto.x"
   dependencies:
@@ -5591,11 +5591,11 @@ fsevents@^1.2.7:
   linkType: hard
 
 "is-core-module@npm:^2.2.0, is-core-module@npm:^2.4.0":
-  version: 2.5.0
-  resolution: "is-core-module@npm:2.5.0"
+  version: 2.6.0
+  resolution: "is-core-module@npm:2.6.0"
   dependencies:
     has: ^1.0.3
-  checksum: e007de6ca5c391f8a669b9335192967d8815f9119f97d81fc4cde07febe09143263bc0146e86e813120223ea9a034cf0608d15b53b0269e19b4dc0a220ce0b4f
+  checksum: 183b3b96fed19822b13959876b0317e61fc2cb5ebcbc21639904c81f7ae328af57f8e18cc4750a9c4abebd686130c70d34a89521e57dbe002edfa4614507ce18
   languageName: node
   linkType: hard
 
@@ -9062,9 +9062,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"release-it-yarn-workspaces-clean-publish@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "release-it-yarn-workspaces-clean-publish@npm:0.0.3"
+"release-it-yarn-workspaces-clean-publish@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "release-it-yarn-workspaces-clean-publish@npm:0.0.4"
   dependencies:
     detect-indent: ^6.0.0
     detect-newline: ^3.1.0
@@ -9074,7 +9074,7 @@ fsevents@^1.2.7:
     walk-sync: ^2.0.2
   peerDependencies:
     release-it: ^14.0.0
-  checksum: d994283559fc951aed267d5ed4588479c61eb9c7fb042b0c0e7366b8c6fd692b819eb6a07c0c1ad874026e475967d80f9464ef7f04b4ba66a1aaebdc59803603
+  checksum: 6c3eed447f806972edfb2e6407405f79b6292e6c7cbed323c8679016fa281fbd59e002b83f87abae05ecb74efc313e4373ba10e379883f5ec37583c3caac0559
   languageName: node
   linkType: hard
 
