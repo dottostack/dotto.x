@@ -1,6 +1,8 @@
 node_modules/
 yarn-error.log
-
+/.yarn/*
+!/.yarn/plugins
+!/.yarn/releases
 coverage/
 
 .DS_Store

@@ -1,6 +1,6 @@
 {
-  "name": "dotto.x",
-  "version": "0.0.13",
+  "name": "@dotto.x/fetch",
+  "version": "0.0.1",
   "description": "A tiny state manager",
   "main": "index.js",
   "repository": "https://github.com/dottostack/dotto.x",
@@ -10,22 +10,13 @@
   "type": "module",
   "types": "./index.d.ts",
   "scripts": {
-    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
-    "test:watch": "node --experimental-vm-modules ../../node_modules/.bin/jest --watch",
+    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
+    "test:watch": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --watch",
     "size": "size-limit",
     "publish": "npx clean-publish"
   },
   "peerDependencies": {
-    "react": ">=16.8.0",
-    "react-dom": ">=16.8.0"
-  },
-  "peerDependenciesMeta": {
-    "react": {
-      "optional": true
-    },
-    "react-dom": {
-      "optional": true
-    }
+    "dotto.x": ">=0.0.13"
   },
   "clean-publish": {
     "files": [
@@ -97,29 +88,12 @@
   },
   "size-limit": [
     {
-      "name": "Store",
-      "path": "./index.js",
-      "import": "{ createStore }",
-      "limit": "600B"
-    },
-    {
-      "name": "lifecycle",
-      "path": "./lifecycle/index.js",
-      "limit": "400B"
-    },
-    {
-      "name": "getter",
-      "path": "./getter/index.js"
-    },
-    {
       "name": "all",
       "path": "./index.js"
     }
   ],
   "exports": {
-    ".": "./index.js",
-    "./react": "./react/index.js",
-    "./package.json": "./package.json"
+    ".": "./index.js"
   },
   "engines": {
     "node": "^12.0.0 || ^14.0.0 || >=16.0.0"
@@ -131,6 +105,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "check-dts": "^0.5.3",
+    "dotto.x": "^0.0.13",
     "eslint": "^7.29.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-es5": "^1.5.0",
@@ -149,5 +124,8 @@
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.4",
     "yaspeller": "^7.0.0"
+  },
+  "dependencies": {
+    "cross-fetch": "^3.1.4"
   }
 }
