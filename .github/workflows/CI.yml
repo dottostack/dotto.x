@@ -27,4 +27,5 @@ jobs:
       - name: Install, test
         run: |
           yarn
+          yarn -v
           yarn test
