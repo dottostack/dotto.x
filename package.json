@@ -44,6 +44,6 @@
     "github": {
       "release": false
     },
-    "npm": true
+    "npm": false
   }
 }

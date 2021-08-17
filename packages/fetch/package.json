@@ -7,13 +7,14 @@
   "author": "Eddort <webisforce@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
+  "privete": false,
   "type": "module",
   "types": "./index.d.ts",
   "scripts": {
     "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
     "test:watch": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --watch",
     "size": "size-limit",
-    "publish": "npx clean-publish --access=public"
+    "deploy": "npx clean-publish"
   },
   "peerDependencies": {
     "dotto.x": "0.1.1"
@@ -22,7 +23,9 @@
     "files": [
       "logo.png",
       "ideas.md"
-    ]
+    ],
+    "packageManager": "npm",
+    "access": "public"
   },
   "prettier": {
     "arrowParens": "avoid",
