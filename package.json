@@ -2,20 +2,21 @@
   "name": "dotto.x.monorepo",
   "version": "0.0.1",
   "main": "index.js",
-  "repository": "https://github.com/dotstorex/dotstorex.git",
+  "repository": "https://github.com/dottostack/dotto.x.git",
   "author": "Eddort <webisforce@gmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": ["packages/*"],
-  "lint-staged": {
-    "*.md": "yaspeller",
-    "*.js": [
-      "prettier --write",
-      "eslint --fix"
-    ],
-    "*.ts": [
-      "prettier --write",
-      "eslint --fix"
-    ]
+  "workspaces": [
+    "packages/*"
+  ],
+  "simple-git-hooks": {
+    "pre-commit": "yarn test"
+  },
+  "devDependencies": {
+    "simple-git-hooks": "^2.4.1",
+    "yarn-changed-workspaces": "^2.0.10"
+  },
+  "scripts": {
+    "test": "yarn workspaces foreach --include $(node ./scripts/changes.js) run test"
   }
 }

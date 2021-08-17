@@ -17,9 +17,9 @@ export const fetch = async (deps, url, init) => {
   return result
 }
 
-export const fetchJson = (deps, url, ...fetchParams) => {
+export const fetchJson = (deps, url, init) => {
   return task(async () => {
-    let fetchResult = await fetch(deps, url, ...fetchParams)
+    let fetchResult = await fetch(deps, url, init)
     return fetchResult.json()
   })
 }

@@ -12,7 +12,8 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/.bin/jest --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
     "test:watch": "node --experimental-vm-modules node_modules/.bin/jest --watch",
-    "size": "size-limit"
+    "size": "size-limit",
+    "publish": "npx clean-publish"
   },
   "peerDependencies": {
     "react": ">=16.8.0",
@@ -25,9 +26,6 @@
     "react-dom": {
       "optional": true
     }
-  },
-  "simple-git-hooks": {
-    "pre-commit": "npx lint-staged"
   },
   "clean-publish": {
     "files": [
@@ -147,11 +145,9 @@
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "react": "^17.0.2",
-    "simple-git-hooks": "^2.4.1",
     "size-limit": "^5.0.1",
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.4",
     "yaspeller": "^7.0.0"
-  },
-  "dependencies": {}
+  }
 }
