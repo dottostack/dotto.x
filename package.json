@@ -13,7 +13,7 @@
     "pre-commit": "yarn test"
   },
   "devDependencies": {
-    "simple-git-hooks": "^2.4.1",
+    "simple-git-hooks": "^2.6.1",
     "yarn-changed-workspaces": "^2.0.10"
   },
   "scripts": {
