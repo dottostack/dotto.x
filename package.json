@@ -19,9 +19,32 @@
     "pre-push": "yarn test"
   },
   "devDependencies": {
+    "release-it": "^14.11.5",
+    "release-it-yarn-workspaces": "^2.0.1",
     "yarn-changed-workspaces": "^2.0.10"
   },
   "scripts": {
-    "test": "yarn workspaces foreach --include $(node ./scripts/changes.js) run test"
+    "test": "yarn workspaces foreach --include $(node ./scripts/changes.js) run test",
+    "release": "release-it --only-version"
+  },
+  "release-it": {
+    "plugins": {
+      "release-it-yarn-workspaces": true
+    },
+    "git": {
+      "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
+    },
+    "hooks": {
+      "before:init": [
+        "yarn test"
+      ],
+      "after:bump": [
+        "npx auto-changelog -p"
+      ]
+    },
+    "github": {
+      "release": true
+    },
+    "npm": true
   }
 }
