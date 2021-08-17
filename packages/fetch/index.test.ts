@@ -6,7 +6,7 @@ describe('fetch', () => {
   it('all ok fetch', async () => {
     expect.assertions(1)
     let store = createStore({})
-    fetch([store], 'https://api.aniapi.com/v1/anime/10').then((res: any) => {
+    fetch<any>([store], 'https://api.aniapi.com/v1/anime/10').then(res => {
       // eslint-disable-next-line jest/no-conditional-expect
       expect(res.status).toBe(200)
     })
@@ -23,6 +23,7 @@ describe('fetch', () => {
         expect(res.status_code).toBe(200)
       }
     )
+
     await allTasks()
   })
 

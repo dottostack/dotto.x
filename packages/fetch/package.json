@@ -90,29 +90,12 @@
   },
   "size-limit": [
     {
-      "name": "Store",
-      "path": "./index.js",
-      "import": "{ createStore }",
-      "limit": "600B"
-    },
-    {
-      "name": "lifecycle",
-      "path": "./lifecycle/index.js",
-      "limit": "400B"
-    },
-    {
-      "name": "getter",
-      "path": "./getter/index.js"
-    },
-    {
       "name": "all",
       "path": "./index.js"
     }
   ],
   "exports": {
-    ".": "./index.js",
-    "./react": "./react/index.js",
-    "./package.json": "./package.json"
+    ".": "./index.js"
   },
   "engines": {
     "node": "^12.0.0 || ^14.0.0 || >=16.0.0"
