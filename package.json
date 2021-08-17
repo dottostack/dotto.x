@@ -1,6 +1,6 @@
 {
   "name": "dotto.x.monorepo",
-  "version": "0.0.1",
+  "version": "0.1.21",
   "main": "index.js",
   "repository": "https://github.com/dottostack/dotto.x.git",
   "author": "Eddort <webisforce@gmail.com>",
@@ -19,9 +19,30 @@
     "pre-push": "yarn test"
   },
   "devDependencies": {
+    "release-it": "^14.11.5",
+    "release-it-yarn-workspaces-clean-publish": "^0.0.4",
     "yarn-changed-workspaces": "^2.0.10"
   },
   "scripts": {
-    "test": "yarn workspaces foreach --include $(node ./scripts/changes.js) run test"
+    "test": "yarn workspaces foreach --include $(node ./scripts/changes.js) run test",
+    "release": "release-it --only-version"
+  },
+  "release-it": {
+    "plugins": {
+      "release-it-yarn-workspaces-clean-publish": true
+    },
+    "git": {
+      "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
+    },
+    "hooks": {
+      "after:bump": [
+        "npx auto-changelog -p",
+        "yarn"
+      ]
+    },
+    "github": {
+      "release": false
+    },
+    "npm": false
   }
 }
