@@ -10,7 +10,7 @@
     "packages/*"
   ],
   "simple-git-hooks": {
-    "pre-commit": "yarn test"
+    "pre-push": "yarn test"
   },
   "devDependencies": {
     "simple-git-hooks": "^2.6.1",
