@@ -26,7 +26,6 @@ jobs:
 
       - name: Install, test
         run: |
-          npm i -g yarn@3
-          yarn install
+          yarn install --immutable
           yarn -v
           yarn test
