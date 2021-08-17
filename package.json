@@ -9,6 +9,10 @@
   "workspaces": [
     "packages/*"
   ],
+  "nohoist": [
+    "**/eslint",
+    "**/jest"
+  ],
   "simple-git-hooks": {
     "pre-push": "yarn test"
   },

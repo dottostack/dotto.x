@@ -11,9 +11,7 @@ on:
 jobs:
   test:
     name: Test code
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
         with:
@@ -23,7 +21,6 @@ jobs:
         with:
           node-version: 14
           check-latest: true
-
       - name: Install, test
         run: |
           yarn install --immutable
