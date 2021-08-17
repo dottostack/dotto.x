@@ -6,7 +6,7 @@ on:
       - main
   pull_request:
     branches:
-      - '*'
+      - "*"
 
 jobs:
   test:
@@ -16,7 +16,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
+        with:
+          fetch-depth: 2
       - name: Use Node.js 14 version
         uses: actions/setup-node@v2
         with:
