@@ -36,7 +36,8 @@
     },
     "hooks": {
       "after:bump": [
-        "npx auto-changelog -p"
+        "npx auto-changelog -p",
+        "yarn"
       ]
     },
     "github": {
