@@ -6,13 +6,15 @@
   "author": "Eddort <webisforce@gmail.com>",
   "license": "MIT",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "nohoist": [
-    "**/eslint",
-    "**/jest"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ],
+    "nohoist": [
+      "**/eslint/**",
+      "**/jest/**"
+    ]
+  },
   "simple-git-hooks": {
     "pre-push": "yarn test"
   },
