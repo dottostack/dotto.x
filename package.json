@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "release-it": "^14.11.5",
-    "release-it-yarn-workspaces-clean-publish": "^0.0.1",
+    "release-it-yarn-workspaces-clean-publish": "^0.0.2",
     "yarn-changed-workspaces": "^2.0.10"
   },
   "scripts": {
