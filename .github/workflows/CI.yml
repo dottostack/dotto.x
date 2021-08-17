@@ -23,6 +23,6 @@ jobs:
           check-latest: true
       - name: Install, test
         run: |
-          yarn install --immutable
+          yarn install
           yarn -v
           yarn test

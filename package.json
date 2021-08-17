@@ -20,7 +20,7 @@
   },
   "devDependencies": {
     "release-it": "^14.11.5",
-    "release-it-yarn-workspaces": "^2.0.1",
+    "release-it-yarn-workspaces-clean-publish": "^0.0.1",
     "yarn-changed-workspaces": "^2.0.10"
   },
   "scripts": {
@@ -29,7 +29,7 @@
   },
   "release-it": {
     "plugins": {
-      "release-it-yarn-workspaces": true
+      "release-it-yarn-workspaces-clean-publish": true
     },
     "git": {
       "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"

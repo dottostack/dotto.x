@@ -445,7 +445,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
     cross-fetch: ^3.1.4
-    dotto.x: ^0.1.5
+    dotto.x: ^0.1.15
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -465,7 +465,7 @@ __metadata:
     typescript: ^4.3.4
     yaspeller: ^7.0.0
   peerDependencies:
-    dotto.x: 0.1.5
+    dotto.x: 0.1.15
   languageName: unknown
   linkType: soft
 
@@ -3627,12 +3627,12 @@ __metadata:
   resolution: "dotto.x.monorepo@workspace:."
   dependencies:
     release-it: ^14.11.5
-    release-it-yarn-workspaces: ^2.0.1
+    release-it-yarn-workspaces-clean-publish: ^0.0.1
     yarn-changed-workspaces: ^2.0.10
   languageName: unknown
   linkType: soft
 
-"dotto.x@^0.1.5, dotto.x@workspace:packages/dotto.x":
+"dotto.x@^0.1.15, dotto.x@workspace:packages/dotto.x":
   version: 0.0.0-use.local
   resolution: "dotto.x@workspace:packages/dotto.x"
   dependencies:
@@ -9062,9 +9062,9 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"release-it-yarn-workspaces@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "release-it-yarn-workspaces@npm:2.0.1"
+"release-it-yarn-workspaces-clean-publish@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "release-it-yarn-workspaces-clean-publish@npm:0.0.1"
   dependencies:
     detect-indent: ^6.0.0
     detect-newline: ^3.1.0
@@ -9074,7 +9074,7 @@ fsevents@^1.2.7:
     walk-sync: ^2.0.2
   peerDependencies:
     release-it: ^14.0.0
-  checksum: c4b95c087c072e7dd5ddc9279723263ee3b86a9ec6c8e22306c5b47cb266ab92c328568c2a18a16cf1e45718dc2f65b9381b87d23b762d8edd3bcc0c769e81ba
+  checksum: 15d351c26f0e2440624e6edb4343bab90bf3c8a08a9842ee5c3fb57f40723605c500261db0e4f608c7ec5963e8b2e6d0a108d4d92a3e8d3844d98ca99f539650
   languageName: node
   linkType: hard
 
