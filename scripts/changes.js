@@ -2,7 +2,7 @@ const getChangedWorkspaces = require("yarn-changed-workspaces");
 
 (async () => {
   const workspaces = await getChangedWorkspaces({
-    branch: "main",
+    branch: "origin/main",
     projectRoot: process.cwd(),
   });
   // '{workspace-a,workspace-b}'
