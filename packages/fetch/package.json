@@ -1,6 +1,6 @@
 {
   "name": "@dotto.x/fetch",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "description": "A tiny state manager",
   "main": "index.js",
   "repository": "https://github.com/dottostack/dotto.x",
@@ -17,7 +17,7 @@
     "deploy": "npx clean-publish"
   },
   "peerDependencies": {
-    "dotto.x": "0.1.15"
+    "dotto.x": "0.1.16"
   },
   "clean-publish": {
     "files": [
@@ -108,7 +108,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "check-dts": "^0.5.3",
-    "dotto.x": "^0.1.15",
+    "dotto.x": "^0.1.16",
     "eslint": "^7.29.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-es5": "^1.5.0",
