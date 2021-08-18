@@ -49,7 +49,7 @@
           "name": "conventionalcommits"
         }
       },
-      "release-it-yarn-workspaces": true
+      "release-it-yarn-workspaces-clean-publish": true
     }
   }
 }
