@@ -1,6 +1,6 @@
 {
   "name": "dotto.x.monorepo",
-  "version": "0.1.21",
+  "version": "0.2.0",
   "main": "index.js",
   "repository": "https://github.com/dottostack/dotto.x.git",
   "author": "Eddort <webisforce@gmail.com>",
@@ -19,6 +19,7 @@
     "pre-push": "yarn test"
   },
   "devDependencies": {
+    "@release-it/conventional-changelog": "^3.2.0",
     "release-it": "^14.11.5",
     "release-it-yarn-workspaces-clean-publish": "^0.0.4",
     "yarn-changed-workspaces": "^2.0.10"
@@ -28,21 +29,27 @@
     "release": "release-it --only-version"
   },
   "release-it": {
-    "plugins": {
-      "release-it-yarn-workspaces-clean-publish": true
-    },
+    "npm": false,
     "git": {
-      "changelog": "npx auto-changelog --stdout --commit-limit false -u --template https://raw.githubusercontent.com/release-it/release-it/master/templates/changelog-compact.hbs"
+      "commitMessage": "chore(release): v${version}"
     },
     "hooks": {
       "after:bump": [
-        "npx auto-changelog -p",
         "yarn"
-      ]
+      ],
+      "after:release": "echo Successfully released ${name} v${version} to ${repo.repository}."
     },
     "github": {
-      "release": false
+      "release": true
     },
-    "npm": false
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "infile": "CHANGELOG.md",
+        "preset": {
+          "name": "conventionalcommits"
+        }
+      },
+      "release-it-yarn-workspaces-clean-publish": true
+    }
   }
 }

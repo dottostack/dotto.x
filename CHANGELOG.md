@@ -1,3 +1,15 @@
+## [0.2.0](https://github.com/dottostack/dotto.x/compare/0.1.21...0.2.0) (2021-08-18)
+
+
+### Features
+
+* new releases ([bb401fa](https://github.com/dottostack/dotto.x/commit/bb401fa401926911235538824f8d20e0a36c4a13))
+
+
+### Bug Fixes
+
+* release ([5d1221f](https://github.com/dottostack/dotto.x/commit/5d1221fa5db5ad39bd02efa36629bcd35a3d6d87))
+
 ### Changelog
 
 All notable changes to this project will be documented in this file. Dates are displayed in UTC.
