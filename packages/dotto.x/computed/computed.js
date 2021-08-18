@@ -52,7 +52,7 @@ export const computed = cb => {
     listen(subscriber) {
       return this._run(subscriber, false)
     },
-    take(reactive) {
+    get(reactive) {
       if (reactive) return cb()
       let targetContainer = target()
 

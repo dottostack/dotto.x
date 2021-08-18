@@ -1,7 +1,7 @@
 import { DotXStore } from '../create-store'
-import { Subscribable } from '../computed'
+import { ReadableStore } from '../computed'
 
 export function mount<Data>(
-  store: DotXStore<Data> | Subscribable<Data>,
+  store: DotXStore<Data> | ReadableStore<Data>,
   cb: () => void
 ): () => void
