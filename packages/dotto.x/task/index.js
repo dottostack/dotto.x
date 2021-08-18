@@ -7,7 +7,7 @@ export function startTask() {
   tasks++
   return () => {
     tasks--
-    if (tasks === 0) {
+    if (!tasks) {
       run_all(resolves)
       resolves = []
     }
@@ -19,15 +19,12 @@ export function task(cb) {
   return cb().finally(endtask)
 }
 
-export function allTasks() {
-  if (tasks === 0) {
-    return Promise.resolve()
-  } else {
-    return new Promise(resolve => {
-      resolves.push(resolve)
-    })
-  }
-}
+export const allTasks = () =>
+  !tasks
+    ? Promise.resolve()
+    : new Promise(resolve => {
+        resolves.push(resolve)
+      })
 
 export function clearTasks() {
   tasks = 0

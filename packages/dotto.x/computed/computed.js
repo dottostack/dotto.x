@@ -10,9 +10,7 @@ export const computed = cb => {
 
   let emit = () => {
     lastResult = container.call()
-    subscribers.forEach(subscriber => {
-      subscriber(lastResult)
-    })
+    subscribers.forEach(subscriber => subscriber(lastResult))
   }
 
   let off = () => {
