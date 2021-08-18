@@ -46,7 +46,7 @@ export const createStore = (initial = {}) => {
       return () => {
         ns.splice(ns.indexOf(cb), 1)
         this.lc--
-        if (this.lc === 0) this.off()
+        if (!this.lc) this.off()
       }
     },
     off() {
