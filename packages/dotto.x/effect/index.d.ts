@@ -1,5 +1,5 @@
 import { DotXStore } from '../create-store'
-import { Subscribable } from '../getter'
+import { Subscribable } from '../computed'
 
 type EffectDep<Data> = DotXStore<Data> | Subscribable<Data>
 

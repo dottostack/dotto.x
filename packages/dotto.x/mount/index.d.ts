@@ -1,5 +1,5 @@
 import { DotXStore } from '../create-store'
-import { Subscribable } from '../getter'
+import { Subscribable } from '../computed'
 
 export function mount<Data>(
   store: DotXStore<Data> | Subscribable<Data>,

@@ -110,8 +110,8 @@
       "limit": "400B"
     },
     {
-      "name": "getter",
-      "path": "./getter/index.js"
+      "name": "computed",
+      "path": "./computed/index.js"
     },
     {
       "name": "all",

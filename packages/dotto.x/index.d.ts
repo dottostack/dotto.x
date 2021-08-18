@@ -1,6 +1,6 @@
 export * from './create-store'
 
-export * from './getter'
+export * from './computed'
 export { mount } from './mount'
 
 export { task, allTasks } from './task'

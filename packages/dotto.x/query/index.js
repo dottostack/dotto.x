@@ -1,4 +1,4 @@
-import { computed, take } from '../getter'
+import { computed, take } from '../computed'
 
 export const query = (store, queries) => {
   return computed(() => {
