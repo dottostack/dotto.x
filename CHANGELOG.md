@@ -1,3 +1,13 @@
+### [0.2.3](https://github.com/dottostack/dotto.x/compare/0.2.2...0.2.3) (2021-08-18)
+
+
+### Features
+
+* computed operator refactoring ([c2402b0](https://github.com/dottostack/dotto.x/commit/c2402b0a850d8b646623bd1b9aeb1e04107f2206))
+* computed refactor ([151fe08](https://github.com/dottostack/dotto.x/commit/151fe083a745a608703bbf15d6231cf63d7a5f9f))
+* query operator ([1ce26d4](https://github.com/dottostack/dotto.x/commit/1ce26d41b332208690b410e4ed7b78acb42d8d3f))
+* query operator ([d321255](https://github.com/dottostack/dotto.x/commit/d32125577702d61c051ff5a510e5715f8dc3e45b))
+
 ### [0.2.2](https://github.com/dottostack/dotto.x/compare/0.2.1...0.2.2) (2021-08-18)
 
 
