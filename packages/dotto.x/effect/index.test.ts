@@ -1,6 +1,6 @@
 import { createStore } from '../create-store'
-import { computed } from '../getter'
-import { take } from '../getter/take'
+import { computed } from '../computed'
+import { take } from '../computed/take'
 import { effect } from './index'
 
 describe('effect', () => {

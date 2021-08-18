@@ -91,7 +91,7 @@ describe('computed function:', () => {
     })
 
     let nextDataGetter = computed(() => {
-      return pathMult.take() / 2
+      return pathMult.get() / 2
     })
 
     let unsub2 = nextDataGetter.subscribe(val => {
@@ -252,7 +252,7 @@ describe('computed function:', () => {
       return store.get('count') * 2
     })
 
-    expect(mult.take()).toBe(2)
+    expect(mult.get()).toBe(2)
     // @ts-ignore
     expect(store.lc).toBe(0)
   })

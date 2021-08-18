@@ -2,8 +2,8 @@ import { jest } from '@jest/globals'
 
 import { mount } from './index'
 import { createStore } from '../create-store'
-import { computed } from '../getter'
-import { take } from '../getter/take'
+import { computed } from '../computed'
+import { take } from '../computed/take'
 
 jest.useFakeTimers()
 

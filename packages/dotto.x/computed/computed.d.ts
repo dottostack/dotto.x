@@ -1,9 +1,9 @@
-export type Subscribable<Cb> = {
+export type ReadableStore<Cb> = {
   subscribe: (cb: (result: ReturnType<Cb>) => void) => () => void
   listen: (cb: (result: ReturnType<Cb>) => void) => () => void
-  take: () => ReturnType<Cb>
+  get: () => ReturnType<Cb>
 }
 
 export function computed<Callback extends Function>(
   cb: Callback
-): Subscribable<Callback>
+): ReadableStore<Callback>

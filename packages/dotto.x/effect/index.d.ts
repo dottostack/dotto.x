@@ -1,7 +1,7 @@
 import { DotXStore } from '../create-store'
-import { Subscribable } from '../getter'
+import { ReadableStore } from '../computed'
 
-type EffectDep<Data> = DotXStore<Data> | Subscribable<Data>
+type EffectDep<Data> = DotXStore<Data> | ReadableStore<Data>
 
 export function effect(store: EffectDep<any>, cb: () => void): () => void
 
