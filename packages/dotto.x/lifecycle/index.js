@@ -13,9 +13,9 @@ const lifecycle = (store, eventKey, creator, bind) => {
   let adapterContainer = get_or_create(adaptersStorage, store, () => ({}))
 
   if (!adapterContainer[eventKey]) {
-    let adapterDirector = (key, originalData, apiMethods) => {
+    let adapterDirector = (key, originalData, methods) => {
       listenerContainer[key].reduceRight((shared, h) => {
-        !isStoped && h(originalData, { event, methods: apiMethods, shared })
+        if (!isStoped) h(originalData, { event, methods, shared })
         return shared
       }, {})
       isStoped = false
@@ -24,12 +24,11 @@ const lifecycle = (store, eventKey, creator, bind) => {
     adapterContainer[eventKey] = 1
   }
 
-  let toUnbind = bind(listenerContainer)
-  return toUnbind
+  return bind(listenerContainer)
 }
 
-const on = (store, handler, key, eventHandler) => {
-  return lifecycle(store, key, eventHandler, listenerContainer => {
+const on = (store, handler, key, eventHandler) =>
+  lifecycle(store, key, eventHandler, listenerContainer => {
     if (!listenerContainer[key]) {
       listenerContainer[key] = []
     }
@@ -39,62 +38,54 @@ const on = (store, handler, key, eventHandler) => {
       listenerContainer[key].splice(index, 1)
     }
   })
-}
 
-export const onCreate = (destStore, cb) => {
-  return on(destStore, cb, 'create', (store, handler) => {
+export const onCreate = (destStore, cb) =>
+  on(destStore, cb, 'create', (store, handler) => {
     let orig = store.listen.bind(store)
     store.listen = (...args) => {
       if (!store.lc) handler([...args])
       return orig(...args)
     }
   })
-}
 
-export const onOff = (destStore, cb) => {
-  return on(destStore, cb, 'off', (store, handler) => {
+export const onOff = (destStore, cb) =>
+  on(destStore, cb, 'off', (store, handler) => {
     let orig = store.off.bind(store)
     store.off = (...args) => {
       handler([...args])
       return orig(...args)
     }
   })
-}
 
-export const onSet = (destStore, cb) => {
-  return on(destStore, cb, 'set', (store, handler) => {
+export const onSet = (destStore, cb) =>
+  on(destStore, cb, 'set', (store, handler) => {
     let orig = store.set.bind(store)
     store.set = (...args) => {
       let isAborted
       let abort = () => (isAborted = true)
 
       handler([...args], { abort })
-      if (isAborted) return
-      return orig(...args)
+      if (!isAborted) return orig(...args)
     }
   })
-}
 
-export const onChange = (destStore, cb) => {
-  return on(destStore, cb, 'change', (store, handler) => {
+export const onChange = (destStore, cb) =>
+  on(destStore, cb, 'change', (store, handler) => {
     let orig = store._emit.bind(store)
     store._emit = (...args) => {
       let isAborted
       let abort = () => (isAborted = true)
 
       handler([...args], { abort })
-      if (isAborted) return
-      return orig(...args)
+      if (!isAborted) return orig(...args)
     }
   })
-}
 
-export const onGet = (destStore, cb) => {
-  return on(destStore, cb, 'get', (store, handler) => {
+export const onGet = (destStore, cb) =>
+  on(destStore, cb, 'get', (store, handler) => {
     let orig = store.get.bind(store)
     store.get = (...args) => {
       handler([...args])
       return orig(...args)
     }
   })
-}

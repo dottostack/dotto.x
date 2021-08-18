@@ -20,7 +20,7 @@ export const createContainer = (cb, emit, invalidate) => {
       get_or_create(storeOffHandlers, store, () => {
         let unbind = onOff(store, () => {
           listeners.delete(store)
-          invalidate(listeners.size === 0)
+          invalidate(!listeners.size)
           unbind()
         })
       })
