@@ -1,3 +1,5 @@
+### [0.2.1](https://github.com/dottostack/dotto.x/compare/0.2.0...0.2.1) (2021-08-18)
+
 ## [0.2.0](https://github.com/dottostack/dotto.x/compare/0.1.21...0.2.0) (2021-08-18)
 
 
