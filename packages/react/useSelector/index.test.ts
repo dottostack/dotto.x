@@ -1,5 +1,11 @@
-import { createStore } from '../../../create-store'
+import { createStore } from 'dotto.x'
+
 import { useSelector } from './index'
 
-const store = createStore({ some: 1 })
-useSelector(store, 'some')
+describe('react selector', () => {
+  it.skip('base', () => {
+    let store = createStore({ some: 1 })
+    let data = useSelector(store, 'some')
+    expect(data).toBe(1)
+  })
+})
