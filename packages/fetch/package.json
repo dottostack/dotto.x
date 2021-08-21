@@ -7,7 +7,7 @@
   "author": "Eddort <webisforce@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
-  "privete": false,
+  "private": false,
   "type": "module",
   "types": "./index.d.ts",
   "scripts": {
