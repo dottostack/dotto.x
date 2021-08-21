@@ -20,4 +20,7 @@ export function query<Data, T extends Object>(
       }
     ) => void
   ) => () => void
+  get(): {
+    [K in keyof T]: ResolveType<Data, T[K]>
+  }
 }

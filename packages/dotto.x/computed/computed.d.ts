@@ -1,4 +1,4 @@
-export type ReadableStore<Cb> = {
+export interface ReadableStore<Cb> {
   subscribe: (cb: (result: ReturnType<Cb>) => void) => () => void
   listen: (cb: (result: ReturnType<Cb>) => void) => () => void
   get: () => ReturnType<Cb>

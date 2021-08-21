@@ -1,6 +1,6 @@
 <h1 align="center">dotto.x</h1>
 
-<img align="right" src="logo.png" width="200px" alt="dotto.x - lightweight state manager">
+<img align="right" src="https://raw.githubusercontent.com/dottostack/dotto.x/main/logo.png" width="200px" alt="dotto.x - lightweight state manager">
 
 A tiny state manager for **React**
 and vanilla JS. (other frameworks in future)

@@ -1,9 +1,9 @@
 import { target } from './context'
 
 export const take = (store, query) => {
-  if (!store.set) return store.get(true)
+  if (store._run) return store.get(true)
   let container = target()
-  return container.silent
+  return !container || container.silent
     ? store.get(query)
     : (container.add(store, query), store.get(query))
 }

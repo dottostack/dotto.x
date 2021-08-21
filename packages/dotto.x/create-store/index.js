@@ -19,8 +19,9 @@ export const createStore = (initial = {}) => {
   let store = {
     lc: 0,
     set(path, value) {
-      set(state, concat(DATA, path), value)
+      let res = set(state, concat(DATA, path), value)
       this._emit(path)
+      return res
     },
     get(path) {
       return get(state, concat(DATA, path))

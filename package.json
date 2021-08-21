@@ -20,6 +20,8 @@
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^3.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "release-it": "^14.11.5",
     "release-it-yarn-workspaces-clean-publish": "^0.0.4",
     "yarn-changed-workspaces": "^2.0.10"

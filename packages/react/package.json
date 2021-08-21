@@ -1,5 +1,5 @@
 {
-  "name": "@dotto.x/fetch",
+  "name": "@dotto.x/react",
   "version": "0.2.3",
   "description": "A tiny state manager",
   "main": "index.js",
@@ -7,17 +7,20 @@
   "author": "Eddort <webisforce@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
-  "private": false,
+  "private": true,
   "type": "module",
   "types": "./index.d.ts",
   "scripts": {
-    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
+    "test": "echo 'todo'",
+    "test:wip": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
     "test:watch": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --watch",
     "size": "size-limit",
     "deploy": "npx clean-publish"
   },
   "peerDependencies": {
-    "dotto.x": "0.2.3"
+    "dotto.x": "0.2.3",
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "clean-publish": {
     "files": [
@@ -126,8 +129,5 @@
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.4",
     "yaspeller": "^7.0.0"
-  },
-  "dependencies": {
-    "cross-fetch": "^3.1.4"
   }
 }

@@ -5,7 +5,7 @@ const AssertType = <T>(expect: [T] extends [never] ? never : T): T => expect
 
 describe('query:', () => {
   it('base', () => {
-    expect.assertions(12)
+    expect.assertions(13)
 
     let testingStore = createStore<{
       some: { user: { name?: string; age?: number; location?: string } }
@@ -27,13 +27,13 @@ describe('query:', () => {
       location: 'some.user.location'
     } as const
 
-    let unbind = query(testingStore, select).subscribe(
-      ({ name, age, location }) => {
-        expect(AssertType<Name>(name)).toEqual(predict.name)
-        expect(AssertType<Age>(age)).toEqual(predict.age)
-        expect(AssertType<Location>(location)).toEqual(predict.location)
-      }
-    )
+    let myOwnQuery = query(testingStore, select)
+
+    let unbind = myOwnQuery.subscribe(({ name, age, location }) => {
+      expect(AssertType<Name>(name)).toEqual(predict.name)
+      expect(AssertType<Age>(age)).toEqual(predict.age)
+      expect(AssertType<Location>(location)).toEqual(predict.location)
+    })
 
     predict = {
       name: 'John',
@@ -53,6 +53,8 @@ describe('query:', () => {
       location: 'USA'
     }
     testingStore.set('some.user.location', 'USA')
+
+    expect(myOwnQuery.get()).toEqual(predict)
 
     unbind()
   })
