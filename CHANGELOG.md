@@ -1,3 +1,17 @@
+### [0.2.4](https://github.com/dottostack/dotto.x/compare/0.2.3...0.2.4) (2021-08-21)
+
+
+### Features
+
+* bind operator ([ab8d23d](https://github.com/dottostack/dotto.x/commit/ab8d23d30dea558c2a63f0c92e4b7d4af53f51d2))
+* monorepo readme ([7029776](https://github.com/dottostack/dotto.x/commit/70297763f2c03b3178c2cd8cbff0da8061d256b5))
+* react packet base ([ad08465](https://github.com/dottostack/dotto.x/commit/ad084657b81c9611cc372394adfab22ffb0f1dbf))
+
+
+### Bug Fixes
+
+* delete unused packages ([0291674](https://github.com/dottostack/dotto.x/commit/0291674046d40afef7ab70efb890c84963c9397c))
+
 ### [0.2.3](https://github.com/dottostack/dotto.x/compare/0.2.2...0.2.3) (2021-08-18)
 
 
