@@ -1,3 +1,10 @@
+### [0.2.5](https://github.com/dottostack/dotto.x/compare/0.2.4...0.2.5) (2021-08-23)
+
+
+### Bug Fixes
+
+* bind operator with plugins ([767ff40](https://github.com/dottostack/dotto.x/commit/767ff405b480494edde4ba7da234701a936d2d0a))
+
 ### [0.2.4](https://github.com/dottostack/dotto.x/compare/0.2.3...0.2.4) (2021-08-21)
 
 
