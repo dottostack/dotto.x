@@ -11,8 +11,7 @@
   "type": "module",
   "types": "./index.d.ts",
   "scripts": {
-    "test": "echo 'todo'",
-    "test:wip": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
+    "test": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --coverage && eslint . && check-dts && yarn size && yaspeller *.md",
     "test:watch": "node --experimental-vm-modules ../../node_modules/.bin/jest --runInBand --watch",
     "size": "size-limit",
     "deploy": "npx clean-publish"
