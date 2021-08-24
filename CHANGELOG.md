@@ -1,3 +1,10 @@
+### [0.2.6](https://github.com/dottostack/dotto.x/compare/0.2.5...0.2.6) (2021-08-24)
+
+
+### Features
+
+* react integration ([4be661c](https://github.com/dottostack/dotto.x/commit/4be661c1843c89a80d1ea2cc99da1db9d5bc0ade))
+
 ### [0.2.5](https://github.com/dottostack/dotto.x/compare/0.2.4...0.2.5) (2021-08-23)
 
 

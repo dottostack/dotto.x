@@ -464,7 +464,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
     cross-fetch: ^3.1.4
-    dotto.x: ^0.2.5
+    dotto.x: ^0.2.6
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -483,7 +483,7 @@ __metadata:
     typescript: ^4.3.4
     yaspeller: ^7.0.0
   peerDependencies:
-    dotto.x: 0.2.5
+    dotto.x: 0.2.6
   languageName: unknown
   linkType: soft
 
@@ -497,7 +497,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.28.0
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
-    dotto.x: ^0.2.5
+    dotto.x: ^0.2.6
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -516,7 +516,7 @@ __metadata:
     typescript: ^4.3.4
     yaspeller: ^7.0.0
   peerDependencies:
-    dotto.x: 0.2.5
+    dotto.x: 0.2.6
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   languageName: unknown
@@ -4162,7 +4162,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"dotto.x@^0.2.5, dotto.x@workspace:packages/dotto.x":
+"dotto.x@^0.2.6, dotto.x@workspace:packages/dotto.x":
   version: 0.0.0-use.local
   resolution: "dotto.x@workspace:packages/dotto.x"
   dependencies:
