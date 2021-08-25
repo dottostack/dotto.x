@@ -1,3 +1,12 @@
+## [0.3.0](https://github.com/dottostack/dotto.x/compare/0.2.6...0.3.0) (2021-08-25)
+
+
+### Features
+
+* minimal doc for validator ([4699138](https://github.com/dottostack/dotto.x/commit/4699138202b7c71d494314c77b6803f1bc8a8742))
+* refator effect ([b363f9f](https://github.com/dottostack/dotto.x/commit/b363f9ffa8e47d52986e51bb1571bd2ce1e77091))
+* validator ([b3eee63](https://github.com/dottostack/dotto.x/commit/b3eee633399297319b2bdea83e01573d75cb96bf))
+
 ### [0.2.6](https://github.com/dottostack/dotto.x/compare/0.2.5...0.2.6) (2021-08-24)
 
 
