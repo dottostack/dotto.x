@@ -1,6 +1,6 @@
 # dotto.x/validator
 
-### Validate all write operation with minimalistic intaerface
+### Validate all write operation with minimalistic interface
 
 ```ts
 import { createStore } from 'dotto.x'

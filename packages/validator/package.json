@@ -85,7 +85,9 @@
       "JS",
       "Shakable",
       "gzipped",
-      "WIP"
+      "WIP",
+      "validator",
+      "minimalistic"
     ]
   },
   "size-limit": [
