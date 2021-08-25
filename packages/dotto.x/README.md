@@ -6,7 +6,7 @@ A tiny state manager for **React**
 and vanilla JS. (other frameworks in future)
 point changes
 
-- **Lightweight.** Less than 485 bytes (minified and gzipped). Zero dependencies.
+- **Lightweight.** Less than 430 bytes (minified and gzipped). Zero dependencies.
 - **Easy but strong.** Simple working principe without magic, but with all features from big state managers.
 - **Deep observable and fast.** You can subscribe and follow pinpoint changes without thinking about multiple re-renders.
 - **Strong plugin system.** With plugins, you can enhance your store. Logging, undoing changes, connecting **Redux-devtools**, and anything else.

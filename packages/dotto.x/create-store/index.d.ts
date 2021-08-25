@@ -64,16 +64,7 @@ export type DotXStore<State> = {
  * Define simple store.
  *
  * ```js
- * import { createStore } from 'quarkx'
- *
- * const store = createStore('test', { some: { path: 0 } })
- *
- * const unbind = store.listen('some.path', (path, value) => {
- *    // do something
- * })
- *
- * store.set('some.path', 3)
- * store.get('some.path')
+ * const store = createStore({ some: { path: 0 } })
  * ```
  *
  * @param name Name of your initializing store.
