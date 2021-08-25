@@ -20,7 +20,7 @@ export const createStore = (initial = {}) => {
     lc: 0,
     set(path, value) {
       let res = set(state, concat(DATA, path), value)
-      this._emit(path)
+      store._emit(path)
       return res
     },
     get(path) {
@@ -39,26 +39,29 @@ export const createStore = (initial = {}) => {
         }
       })
     },
-    listen(path = '', cb) {
+    watch(path = '', cb) {
       let dest = concat(DATA, concat(path, HANDLERS))
       let ns = get(listenners, dest) || set(listenners, dest, [])
       ns.push(cb)
-      this.lc++
+      store.lc++
       return () => {
         ns.splice(ns.indexOf(cb), 1)
-        this.lc--
-        if (!this.lc) this.off()
+        store.lc--
+        if (!store.lc) store.off()
       }
+    },
+    listen(cb) {
+      return store.watch('', (_, value) => cb(value))
+    },
+    subscribe(cb) {
+      let unbind = store.listen(cb)
+      cb(state.d)
+      return unbind
     },
     off() {
       set(listenners, DATA, undefined)
-      this.lc = 0
+      store.lc = 0
     }
-  }
-
-  if (process.env.NODE_ENV !== 'production') {
-    store._l = listenners
-    store._s = state
   }
 
   return store

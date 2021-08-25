@@ -44,11 +44,11 @@ export type DotXStore<State> = {
    * @param cb Callback with store value.
    * @returns Function to remove listener.
    */
-  listen(
+  watch(
     path: null | undefined,
     cb: (path: null, value: State, acc: any) => void
   ): () => void
-  listen<ListenPath extends string>(
+  watch<ListenPath extends string>(
     path: ListenPath,
     cb: (
       path: ListenPath,
@@ -56,6 +56,9 @@ export type DotXStore<State> = {
       acc: any
     ) => void
   ): () => void
+
+  listen(cb: (value: State) => void): () => void
+  subscribe(cb: (value: State) => void): () => void
 
   off(): void
 }

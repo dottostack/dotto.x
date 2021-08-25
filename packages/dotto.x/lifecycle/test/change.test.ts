@@ -140,7 +140,7 @@ describe('api plugin: events: set', () => {
         api.methods.abort()
       })
 
-      let unsub = store.listen('myPath', (path, value) => {
+      let unsub = store.watch('myPath', (path, value) => {
         events.push(value)
       })
 
@@ -158,7 +158,7 @@ describe('api plugin: events: set', () => {
       let un = onChange(store, (original, api) => {
         api.methods.abort()
       })
-      let unsub = store.listen('myPath', (path, value) => {
+      let unsub = store.watch('myPath', (path, value) => {
         events.push(value)
       })
 

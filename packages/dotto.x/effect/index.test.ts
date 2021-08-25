@@ -10,7 +10,7 @@ describe('effect', () => {
     let unsub = effect(store, () => {
       events.push('woof')
     })
-    store.listen('', () => {})
+    store.listen(() => {})
     store.off()
     unsub()
     expect(events).toEqual(['woof', 'woof'])
@@ -25,7 +25,7 @@ describe('effect', () => {
         unsub()
       }
     })
-    store.listen('', () => {})
+    store.listen(() => {})
     store.off()
     unsub()
     expect(events).toEqual(['woof'])

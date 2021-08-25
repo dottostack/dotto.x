@@ -14,7 +14,7 @@ it('validator', () => {
   errors.listen(value => {
     events.push(value.test)
   })
-  testingStore.listen('test', (path, value) => {
+  testingStore.watch('test', (path, value) => {
     events.push(value)
   })
   testingStore.set('test', 2)
@@ -40,7 +40,7 @@ it('validator abort', () => {
   errors.listen(value => {
     events.push(value.test)
   })
-  testingStore.listen('test', (path, value) => {
+  testingStore.watch('test', (path, value) => {
     events.push(value)
   })
   testingStore.set('test', 2)
@@ -57,7 +57,7 @@ it('validator with unused value', () => {
   errors.listen(value => {
     events.push(value.test)
   })
-  testingStore.listen('test', (path, value) => {
+  testingStore.watch('test', (path, value) => {
     events.push(value)
   })
   testingStore.set('test', 2)

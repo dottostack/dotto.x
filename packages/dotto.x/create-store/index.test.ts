@@ -8,7 +8,7 @@ describe('create-store:', () => {
   it('strict listen', async () => {
     expect.assertions(2)
     let store = createStore({ some: { path: 0 } })
-    let unbind = store.listen('some.path', (path, value) => {
+    let unbind = store.watch('some.path', (path, value) => {
       expect(value).toBe(store.get(path))
     })
 
@@ -20,7 +20,7 @@ describe('create-store:', () => {
   it('parent listen', () => {
     expect.assertions(2)
     let store = createStore({ some: { path: 0 } })
-    let unbind = store.listen('some', (path, value) => {
+    let unbind = store.watch('some', (path, value) => {
       expect(value).toBe(store.get(path))
     })
 
@@ -32,7 +32,7 @@ describe('create-store:', () => {
   it('change parent', () => {
     expect.assertions(2)
     let store = createStore({ some: { path: 0 } })
-    let unbind = store.listen('some.path', (path, value) => {
+    let unbind = store.watch('some.path', (path, value) => {
       expect(value).toBe(store.get(path))
     })
 
@@ -44,7 +44,7 @@ describe('create-store:', () => {
   it('change parent deep', () => {
     expect.assertions(2)
     let store = createStore({ some: { path: 0 } })
-    let unbind = store.listen('some.path', (path, value) => {
+    let unbind = store.watch('some.path', (path, value) => {
       expect(value).toBe(store.get())
     })
 
@@ -57,7 +57,7 @@ describe('create-store:', () => {
     expect.assertions(2)
     let store = createStore({ some: { path: 0 } })
     let i = 1
-    store.listen('', (path, value) => {
+    store.listen((value) => {
       expect(value).toEqual({ some: { path: i++ } })
     })
 
@@ -65,7 +65,18 @@ describe('create-store:', () => {
     store.set('some.path', 2)
     store.off()
   })
+  it('root subscribe', () => {
+    expect.assertions(3)
+    let store = createStore({ some: { path: 0 } })
+    let i = 0
+    store.subscribe((value) => {
+      expect(value).toEqual({ some: { path: i++ } })
+    })
 
+    store.set('some.path', 1)
+    store.set('some.path', 2)
+    store.off()
+  })
   it('self get', () => {
     let obj = { a: { b: 1 } }
     let store = createStore(obj)
