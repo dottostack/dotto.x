@@ -39,7 +39,7 @@ export const createStore = (initial = {}) => {
         }
       })
     },
-    watch(path, cb) {
+    watch(path = '', cb) {
       let dest = concat(DATA, concat(path, HANDLERS))
       let ns = get(listenners, dest) || set(listenners, dest, [])
       ns.push(cb)
