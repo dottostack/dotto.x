@@ -22,7 +22,7 @@ describe('mount-operator:', () => {
       }
     })
 
-    let unbind = store.listen('some.path', (path, value) => {
+    let unbind = store.watch('some.path', (path, value) => {
       events.push(value)
     })
 
@@ -50,7 +50,7 @@ describe('mount-operator:', () => {
       }
     })
 
-    store.listen('some.path', (path, value) => {
+    store.watch('some.path', (path, value) => {
       events.push(value)
     })
 
@@ -78,7 +78,7 @@ describe('mount-operator:', () => {
       }
     })
 
-    store.listen('some.path', (path, value) => {
+    store.watch('some.path', (path, value) => {
       events.push(value)
     })
 
@@ -106,7 +106,7 @@ describe('mount-operator:', () => {
       }
     })
 
-    store.listen('some.path', (path, value) => {
+    store.watch('some.path', (path, value) => {
       events.push(value)
     })
 
@@ -117,7 +117,7 @@ describe('mount-operator:', () => {
 
     store.set('some.path', 111)
 
-    store.listen('some.path', (path, value) => {
+    store.watch('some.path', (path, value) => {
       events.push(value)
     })
     store.set('some.path', 222)
@@ -135,7 +135,7 @@ describe('mount-operator:', () => {
       events.push('mount')
     })
 
-    store.listen('some.path', (path, value) => {
+    store.watch('some.path', (path, value) => {
       events.push(value)
     })
 
@@ -146,7 +146,7 @@ describe('mount-operator:', () => {
 
     store.set('some.path', 111)
 
-    store.listen('some.path', (path, value) => {
+    store.watch('some.path', (path, value) => {
       events.push(value)
     })
     store.set('some.path', 222)

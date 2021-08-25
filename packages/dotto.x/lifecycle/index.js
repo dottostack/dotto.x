@@ -41,8 +41,8 @@ const on = (store, handler, key, eventHandler) =>
 
 export const onCreate = (destStore, cb) =>
   on(destStore, cb, 'create', (store, handler) => {
-    let orig = store.listen.bind(store)
-    store.listen = (...args) => {
+    let orig = store.watch.bind(store)
+    store.watch = (...args) => {
       if (!store.lc) handler([...args])
       return orig(...args)
     }
