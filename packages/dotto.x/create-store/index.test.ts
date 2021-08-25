@@ -57,7 +57,7 @@ describe('create-store:', () => {
     expect.assertions(2)
     let store = createStore({ some: { path: 0 } })
     let i = 1
-    store.listen(undefined, (path, value) => {
+    store.listen('', (path, value) => {
       expect(value).toEqual({ some: { path: i++ } })
     })
 
