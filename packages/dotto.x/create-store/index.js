@@ -1,6 +1,6 @@
 import { get } from '../utils/get'
 import { set } from '../utils/set'
-import { concat, walk } from '../utils/path'
+import { concat } from '../utils/path'
 
 const HANDLERS = '__h'
 const DATA = 'd'
@@ -28,11 +28,14 @@ export const createStore = (initial = {}) => {
     },
     _emit(path) {
       let fullPath = concat(DATA, path)
-      walk(fullPath, part => {
-        for (let listener of get(listenners, concat(part, HANDLERS)) || []) {
-          listener(part.replace(`${DATA}.`, ''), get(state, part))
-        }
-      })
+      for (let listener of get(listenners, concat(fullPath, HANDLERS)) || []) {
+        listener(path, get(state, fullPath))
+      }
+      // walk(fullPath, part => {
+      //   for (let listener of get(listenners, concat(part, HANDLERS)) || []) {
+      //     listener(part.replace(`${DATA}.`, ''), get(state, part))
+      //   }
+      // })
       emitChildren(get(listenners, fullPath), handlers => {
         for (let listener of handlers || []) {
           listener(fullPath.replace(`${DATA}.`, ''), get(state, fullPath))

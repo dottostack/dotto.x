@@ -2,14 +2,22 @@ import { decorate } from '../utils/decorate'
 import { createContainer } from './container'
 import { target } from './context'
 
-const EMPTY = Symbol.for('empty')
+const EMPTY = {}
 
-export const computed = cb => {
+export const computed = (cb, /*shouldEqual = (next, old) => next === old*/) => {
   let subscribers = []
   let lastResult = EMPTY
 
   let emit = () => {
-    lastResult = container.call()
+    let newResult = container.call()
+    // if (
+    //   lastResult !== EMPTY &&
+    //   shouldEqual &&
+    //   shouldEqual(newResult, lastResult)
+    // ) {
+    //   return
+    // }
+    lastResult = newResult
     subscribers.forEach(subscriber => subscriber(lastResult))
   }
 

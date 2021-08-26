@@ -33,7 +33,7 @@ export type DotXStore<State> = {
     path: Path,
     payload: ResolveType<DataStore<State>, `d.${Path}`>
   ): ResolveType<DataStore<State>, `d.${Path}`>
-  set(path?: null | undefined, payload: State): State
+  set(path?: null | undefined | '', payload: State): State
 
   emit(arg: any): void
 

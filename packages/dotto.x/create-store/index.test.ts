@@ -24,8 +24,8 @@ describe('create-store:', () => {
       expect(value).toBe(store.get(path))
     })
 
-    store.set('some.path', 3)
-    store.set('some.path', 2)
+    store.set('some', { path: 1 })
+    store.set('some', { path: 2 })
     unbind()
   })
 
@@ -57,26 +57,28 @@ describe('create-store:', () => {
     expect.assertions(2)
     let store = createStore({ some: { path: 0 } })
     let i = 1
-    store.listen((value) => {
+    store.listen(value => {
       expect(value).toEqual({ some: { path: i++ } })
     })
 
-    store.set('some.path', 1)
-    store.set('some.path', 2)
+    store.set(null, { some: { path: 1 } })
+    store.set(null, { some: { path: 2 } })
     store.off()
   })
+
   it('root subscribe', () => {
     expect.assertions(3)
     let store = createStore({ some: { path: 0 } })
     let i = 0
-    store.subscribe((value) => {
+    store.subscribe(value => {
       expect(value).toEqual({ some: { path: i++ } })
     })
 
-    store.set('some.path', 1)
-    store.set('some.path', 2)
+    store.set('', { some: { path: 1 } })
+    store.set('', { some: { path: 2 } })
     store.off()
   })
+
   it('self get', () => {
     let obj = { a: { b: 1 } }
     let store = createStore(obj)
