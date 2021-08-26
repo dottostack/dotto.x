@@ -1,3 +1,13 @@
+### [0.3.1](https://github.com/dottostack/dotto.x/compare/0.3.0...0.3.1) (2021-08-26)
+
+
+### Features
+
+* deep operator ([ddf4870](https://github.com/dottostack/dotto.x/commit/ddf48703ed56e7b83470b7feacd68cf601b8927b))
+* new store api ([3390755](https://github.com/dottostack/dotto.x/commit/3390755496a7ab77d19da1bde9b3890671af38e9))
+* react binding to new api ([6cf5334](https://github.com/dottostack/dotto.x/commit/6cf5334ef6a1e04edced9264d5760d4117c035fb))
+* watchDeep ([1f9e245](https://github.com/dottostack/dotto.x/commit/1f9e245535d70eb292c8aa80d5826e0373ad6781))
+
 ## [0.3.0](https://github.com/dottostack/dotto.x/compare/0.2.6...0.3.0) (2021-08-25)
 
 
