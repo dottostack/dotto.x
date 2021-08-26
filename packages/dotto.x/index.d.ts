@@ -8,3 +8,5 @@ export { ResolveType } from './utils/get'
 
 export { effect } from './effect'
 export { bind, BindedStore } from './bind'
+export { watchDeep } from './watch-deep'
+export { deep } from './deep'

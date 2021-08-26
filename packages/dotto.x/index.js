@@ -7,3 +7,5 @@ export { task, allTasks } from './task'
 
 export { effect } from './effect'
 export { bind } from './bind'
+export { watchDeep } from './watch-deep'
+export { deep } from './deep'

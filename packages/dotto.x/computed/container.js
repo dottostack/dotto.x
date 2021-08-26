@@ -12,17 +12,19 @@ export const createContainer = (cb, emit, invalidate) => {
     unbind() {
       listeners.forEach(sub => run_all(Object.values(sub)))
       listeners.clear()
+      storeOffHandlers.forEach(sub => run_all(Object.values(sub)))
       storeOffHandlers.clear()
     },
     add(store, query) {
       let listenerBox = get_or_create(listeners, store, () => ({}))
-
+      // TODO
       get_or_create(storeOffHandlers, store, () => {
         let unbind = onOff(store, () => {
           listeners.delete(store)
           invalidate(!listeners.size)
           unbind()
         })
+        return unbind
       })
 
       if (!listenerBox[query]) listenerBox[query] = store.watch(query, emit)

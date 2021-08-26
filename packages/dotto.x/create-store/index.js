@@ -31,11 +31,6 @@ export const createStore = (initial = {}) => {
       for (let listener of get(listenners, concat(fullPath, HANDLERS)) || []) {
         listener(path, get(state, fullPath))
       }
-      // walk(fullPath, part => {
-      //   for (let listener of get(listenners, concat(part, HANDLERS)) || []) {
-      //     listener(part.replace(`${DATA}.`, ''), get(state, part))
-      //   }
-      // })
       emitChildren(get(listenners, fullPath), handlers => {
         for (let listener of handlers || []) {
           listener(fullPath.replace(`${DATA}.`, ''), get(state, fullPath))

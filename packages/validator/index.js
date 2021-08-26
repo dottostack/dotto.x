@@ -1,8 +1,9 @@
-import { computed, createStore, take } from 'dotto.x'
+import { computed, createStore, deep, take } from 'dotto.x'
 import { onSet } from 'dotto.x/lifecycle'
 
 export const validator = (store, rules, config = {}) => {
-  let errors = createStore({})
+  let errorsStore = createStore({})
+  let errors = deep(errorsStore)
   let valid = computed(() => !Object.values(take(errors)).filter(a => a).length)
   let container = rules.reduce(
     (acc, { path, validators }) => ({ ...acc, [path]: validators }),
@@ -17,10 +18,12 @@ export const validator = (store, rules, config = {}) => {
       if (res) reason = res
       return res
     })
-    errors.set(path, reason)
+
+    errorsStore.set(path, reason)
     if (hasError && config.abort) {
       methods.abort()
     }
   })
+
   return { errors, destroy, valid }
 }
