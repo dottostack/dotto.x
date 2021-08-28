@@ -66,24 +66,25 @@ it('deep as computed part', () => {
   let data: Deep[] = []
 
   let store = createStore<Deep>({ some: { deep: 1 } })
-  let deepObserved = deep(store);
+  let deepObserved = deep(store)
   let computedWithDeep = computed(() => take(deepObserved))
+
   let unsub = computedWithDeep.listen(value => {
-    console.log('???')
     data.push(JSON.parse(JSON.stringify(value)))
   })
-  console.log(deepObserved)
+
   store.set('some', { deep: 2 })
   store.set('', { some: { deep: 1 } })
   store.set('', { some: { deep: 1, test: 1 } })
-  // TODO
-  // store.off()
-  // store.set('some.test', 3)
+
+  store.off()
+  store.set('some.test', 3)
 
   expect(data).toEqual([
     { some: { deep: 2 } },
     { some: { deep: 1 } },
     { some: { deep: 1, test: 1 } }
   ])
+  console.log(deepObserved.get())
   unsub()
 })

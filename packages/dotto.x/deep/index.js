@@ -16,22 +16,19 @@ export const deep = store =>
         },
         call() {
           if (!unChange) unChange = onChange(store, emit)
-
           if (!unOff) unOff = onOff(store, () => invalidate(true))
-          console.log('?22?')
           return cb()
         },
         run() {
           let targetContainer = target()
+          if (!targetContainer) return cb()
           targetContainer.replace((listeners, offHandlers, parent) => {
-            console.log('??')
             let listenerBox = listeners.get(store)
             if (listenerBox && listenerBox['***']) return
             if (listenerBox) run_all(Object.values(listenerBox))
             listeners.set(store, { '***': onChange(store, parent.emit) })
-            listeners.set(store, { '***': onChange(store, parent.emit) })
+            offHandlers.set(store, onOff(store, parent.invalidate))
           })
-
           return cb()
         }
       }

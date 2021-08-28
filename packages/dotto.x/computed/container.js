@@ -10,14 +10,11 @@ export const createContainer = (cb, emit, invalidate) => {
 
   return {
     unbind() {
-      listeners.forEach(sub => run_all(Object.values(sub)))
+      listeners.forEach(handlers => run_all(Object.values(handlers)))
       listeners.clear()
-      storeOffHandlers.forEach(sub => run_all(Object.values(sub)))
-      storeOffHandlers.clear()
     },
     replace(callback) {
       callback(listeners, storeOffHandlers, { emit, invalidate })
-      console.log(listeners)
     },
     add(store, query) {
       let listenerBox = get_or_create(listeners, store, () => ({}))
