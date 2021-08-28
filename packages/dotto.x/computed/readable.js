@@ -51,7 +51,7 @@ export const readable = (cb, createContainer) => {
       return this._run(subscriber, false)
     },
     get(reactive) {
-      if (reactive) return cb()
+      if (reactive) return container.run ? container.run() : cb()
       let targetContainer = target()
 
       if (!targetContainer) return cb()
