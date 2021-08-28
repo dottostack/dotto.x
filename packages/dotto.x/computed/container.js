@@ -15,11 +15,9 @@ export const createContainer = (cb, emit, invalidate) => {
       storeOffHandlers.forEach(sub => run_all(Object.values(sub)))
       storeOffHandlers.clear()
     },
-    replace(store, handler) {
-      let listenerBox = listeners.get(store)
-      if (listenerBox && listenerBox['***']) return
-      if (listenerBox) run_all(Object.values(listenerBox))
-      listeners.set(store, { '***': handler(emit) })
+    replace(callback) {
+      callback(listeners, storeOffHandlers, { emit, invalidate })
+      console.log(listeners)
     },
     add(store, query) {
       let listenerBox = get_or_create(listeners, store, () => ({}))

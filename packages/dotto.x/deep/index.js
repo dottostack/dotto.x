@@ -1,6 +1,7 @@
 import { target } from '../computed'
 import { readable } from '../computed/readable'
 import { onChange, onOff } from '../lifecycle'
+import { run_all } from '../utils/run_all'
 
 export const deep = store =>
   readable(
@@ -22,9 +23,15 @@ export const deep = store =>
         },
         run() {
           let targetContainer = target()
-          targetContainer.replace(store, parentEmit =>
-            onChange(store, parentEmit)
-          )
+          targetContainer.replace((listeners, offHandlers, parent) => {
+            console.log('??')
+            let listenerBox = listeners.get(store)
+            if (listenerBox && listenerBox['***']) return
+            if (listenerBox) run_all(Object.values(listenerBox))
+            listeners.set(store, { '***': onChange(store, parent.emit) })
+            listeners.set(store, { '***': onChange(store, parent.emit) })
+          })
+
           return cb()
         }
       }
