@@ -96,16 +96,18 @@
       "name": "Store",
       "path": "./index.js",
       "import": "{ createStore }",
-      "limit": "600B"
+      "limit": "435B"
     },
     {
       "name": "Lifecycle",
       "path": "./lifecycle/index.js",
-      "limit": "400B"
+      "limit": "415B"
     },
     {
       "name": "Computed",
-      "path": "./computed/index.js"
+      "path": "./computed/index.js",
+      "import": "{ computed }",
+      "limit": "575B"
     },
     {
       "name": "all",
