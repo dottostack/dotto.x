@@ -1,7 +1,7 @@
 export { createAtom } from './create-atom'
 export { createStore } from './create-store'
 
-export { computed, take } from './computed'
+export { computed, take, deep } from './computed'
 export { mount } from './mount'
 export { update } from './update'
 

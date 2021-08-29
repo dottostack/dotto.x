@@ -3,22 +3,28 @@ import { onOff } from '../lifecycle'
 import { context } from './context'
 import { decorate } from '../utils/decorate'
 import { get_or_create } from '../utils/get_or_create'
+import { DEEP_HANDLER } from './constants'
 
 export const createContainer = (cb, emit, invalidate) => {
   let listeners = new Map()
-  let storeOffHandlers = new Map()
+  let destroys = new Map()
 
   return {
+    listeners,
+    destroys,
+    emit,
+    invalidate,
     unbind() {
       listeners.forEach(sub => run_all(Object.values(sub)))
       listeners.clear()
-      storeOffHandlers.forEach(sub => run_all(Object.values(sub)))
-      storeOffHandlers.clear()
+      destroys.forEach(sub => run_all(Object.values(sub)))
+      destroys.clear()
     },
     add(store, query) {
       let listenerBox = get_or_create(listeners, store, () => ({}))
+      if (listenerBox[DEEP_HANDLER]) return
       // TODO
-      get_or_create(storeOffHandlers, store, () => {
+      get_or_create(destroys, store, () => {
         let unbind = onOff(store, () => {
           listeners.delete(store)
           invalidate(!listeners.size)
