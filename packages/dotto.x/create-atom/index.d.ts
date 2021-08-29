@@ -1,4 +1,4 @@
-export type DotAtom<State> = {
+export type DotXAtom<State> = {
   /**
    * Get store value.
    *
@@ -29,4 +29,4 @@ export type DotAtom<State> = {
  * @param initial Your initial data or interface.
  * @returns The store object with methods to subscribe, get and set.
  */
-export function atom<State>(initial?: State = {}): DotAtom<State>
+export function createAtom<State>(initial?: State = {}): DotXAtom<State>

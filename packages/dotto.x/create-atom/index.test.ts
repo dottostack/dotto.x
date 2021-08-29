@@ -1,14 +1,14 @@
 import { jest } from '@jest/globals'
 
 import { computed, take } from '../computed'
-import { atom } from './index'
+import { createAtom } from './index'
 
 jest.useFakeTimers()
 
 describe('atom:', () => {
   it('listen', async () => {
     expect.assertions(2)
-    let store = atom({ some: { path: 0 } })
+    let store = createAtom({ some: { path: 0 } })
     let unbind = store.listen(value => {
       expect(value).toBe(store.get())
     })
@@ -20,7 +20,7 @@ describe('atom:', () => {
 
   it('subscribe', () => {
     expect.assertions(3)
-    let store = atom({ some: { path: 0 } })
+    let store = createAtom({ some: { path: 0 } })
     let unbind = store.subscribe(value => {
       expect(value).toBe(store.get())
     })
@@ -32,7 +32,7 @@ describe('atom:', () => {
 
   it('use computed function', () => {
     let events: number[] = []
-    let time = atom(1)
+    let time = createAtom(1)
     let num = computed(() => {
       return 10 + take(time)
     })

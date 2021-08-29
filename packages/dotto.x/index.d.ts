@@ -1,4 +1,5 @@
 export * from './create-store'
+export * from './create-atom'
 
 export * from './computed'
 export { mount } from './mount'

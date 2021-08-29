@@ -1,4 +1,4 @@
-export const atom = (data = {}) => {
+export const createAtom = (data = {}) => {
   let listenners = []
   let store = {
     lc: 0,

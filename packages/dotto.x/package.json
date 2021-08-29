@@ -87,24 +87,24 @@
   },
   "size-limit": [
     {
+      "name": "Atom",
+      "path": "./index.js",
+      "import": "{ createAtom }",
+      "limit": "135B"
+    },
+    {
       "name": "Store",
       "path": "./index.js",
       "import": "{ createStore }",
       "limit": "600B"
     },
     {
-      "name": "Atom",
-      "path": "./atom/index.js",
-      "import": "{ atom }",
-      "limit": "600B"
-    },
-    {
-      "name": "lifecycle",
+      "name": "Lifecycle",
       "path": "./lifecycle/index.js",
       "limit": "400B"
     },
     {
-      "name": "computed",
+      "name": "Computed",
       "path": "./computed/index.js"
     },
     {

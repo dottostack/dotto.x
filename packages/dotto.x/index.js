@@ -1,3 +1,4 @@
+export { createAtom } from './create-atom'
 export { createStore } from './create-store'
 
 export { computed, take } from './computed'
