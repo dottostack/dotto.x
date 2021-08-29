@@ -93,6 +93,12 @@
       "limit": "600B"
     },
     {
+      "name": "Atom",
+      "path": "./atom/index.js",
+      "import": "{ atom }",
+      "limit": "600B"
+    },
+    {
       "name": "lifecycle",
       "path": "./lifecycle/index.js",
       "limit": "400B"
