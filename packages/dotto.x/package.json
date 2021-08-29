@@ -87,19 +87,27 @@
   },
   "size-limit": [
     {
+      "name": "Atom",
+      "path": "./index.js",
+      "import": "{ createAtom }",
+      "limit": "135B"
+    },
+    {
       "name": "Store",
       "path": "./index.js",
       "import": "{ createStore }",
-      "limit": "600B"
+      "limit": "435B"
     },
     {
-      "name": "lifecycle",
+      "name": "Lifecycle",
       "path": "./lifecycle/index.js",
-      "limit": "400B"
+      "limit": "415B"
     },
     {
-      "name": "computed",
-      "path": "./computed/index.js"
+      "name": "Computed",
+      "path": "./computed/index.js",
+      "import": "{ computed }",
+      "limit": "575B"
     },
     {
       "name": "all",

@@ -1,7 +1,10 @@
-import { DotXStore } from '../create-store'
+import type { DotXStore } from '../create-store'
+import type { DotXAtom } from '../create-atom'
+
+type LifecycleDep<Data> = DotXStore<Data> | DotXAtom<Data>
 
 export function onGet<Data>(
-  store: DotXStore<Data>,
+  store: LifecycleDep<Data>,
   handler: (
     original: unknown[],
     api: { shared: any; event: { stop(): void } }
@@ -9,7 +12,7 @@ export function onGet<Data>(
 )
 
 export function onSet<Data>(
-  store: DotXStore<Data>,
+  store: LifecycleDep<Data>,
   handler: (
     original: unknown[],
     api: { shared: any; event: { stop(): void }; methods: { abort(): void } }
@@ -17,7 +20,7 @@ export function onSet<Data>(
 )
 
 export function onChange<Data>(
-  store: DotXStore<Data>,
+  store: LifecycleDep<Data>,
   handler: (
     original: unknown[],
     api: { shared: any; event: { stop(): void }; methods: { abort(): void } }
@@ -25,11 +28,11 @@ export function onChange<Data>(
 )
 
 export function onCreate<Data>(
-  store: DotXStore<Data>,
+  store: LifecycleDep<Data>,
   handler: (original: unknown[], api: { shared: any }) => void
 )
 
 export function onOff<Data>(
-  store: DotXStore<Data>,
+  store: LifecycleDep<Data>,
   handler: (original: unknown[], api: { shared: any }) => void
 )

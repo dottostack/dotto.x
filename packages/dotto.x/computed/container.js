@@ -27,7 +27,11 @@ export const createContainer = (cb, emit, invalidate) => {
         return unbind
       })
 
-      if (!listenerBox[query]) listenerBox[query] = store.watch(query, emit)
+      if (!listenerBox[query]) {
+        listenerBox[query] = store.watch
+          ? store.watch(query, emit)
+          : store.listen(emit)
+      }
     },
     call() {
       return decorate(cb, () => {

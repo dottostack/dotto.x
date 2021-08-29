@@ -13,6 +13,7 @@ export const effect = (deps, cb) => {
     if (dep._run) {
       unbinds.push(dep.listen(handle))
     } else {
+      // TODO listen
       unbinds.push(onOff(dep, handle))
     }
     return unbinds
