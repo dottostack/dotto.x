@@ -28,6 +28,7 @@ point changes
 <br>
 
 # Status
+
 :warning: :warning: :warning:
 
 **Project in progress right now. Please wait for 1.0.0 version.**
@@ -83,7 +84,9 @@ user.watch('name', value => {
 userName.set('name', 'John Constantine')
 ```
 
-## Combine stores
+# Computed
+
+## Combine your stores
 
 Subscribe to store or part of stores using take. Take — computed operator.
 
@@ -105,3 +108,63 @@ targetProject.subscribe(value => /* do something */)
 
 user.set('id', 'some_other_id')
 ```
+
+## Computed operators
+
+### `take`
+
+- get value and subscribe to this paths
+
+### `deep`
+
+- get value and subscribe to all store
+
+# Use with React
+
+Install `dotto.x` binding to React:
+
+**Using npm**
+
+```sh
+npm i @dotto.x/react
+```
+
+**Using yarn**
+
+```sh
+yarn add @dotto.x/react
+```
+
+**store.js**
+
+```ts
+import { createStore, computed, take, update } from 'dotto.x'
+
+const user = createStore({ name: 'John', id: 'some_id' })
+const projects = createStore({
+  some_id: { name: 'Portfolio' },
+  some_other_id: { name: 'Hell' }
+})
+
+export const targetProject = computed(() => {
+  let userId = take(user, 'id')
+  return take(projects, userId)
+})
+
+export const changeUser = (newUser) => {
+  return update(user, () => newUser)
+}
+```
+
+**ProjectCard.jsx**
+
+```jsx
+import { useStore } from '@dotto.x/react'
+import { targetProject } from './store'
+
+export const ProjectCard = () => {
+  const project = useStore(targetProject)
+  return <div>{project.name}</div>
+}
+```
+
