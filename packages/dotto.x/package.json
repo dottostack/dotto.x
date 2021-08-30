@@ -107,7 +107,7 @@
       "name": "Computed",
       "path": "./computed/index.js",
       "import": "{ computed }",
-      "limit": "575B"
+      "limit": "617B"
     },
     {
       "name": "all",
