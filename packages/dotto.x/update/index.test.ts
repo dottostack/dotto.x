@@ -1,6 +1,7 @@
 import { createStore } from '../create-store'
 import { update } from '.'
 import { bind } from '../bind'
+import { createAtom } from '../create-atom'
 
 describe('update', () => {
   it('with store', () => {
@@ -33,5 +34,29 @@ describe('update', () => {
     update(user, () => 'Constantine')
     unsub()
     expect(events).toEqual(['Constantine'])
+  })
+
+  it('with atom', () => {
+    let events: any[] = []
+    let store = createAtom('John')
+    let unsub = store.listen(name => events.push(name))
+    update(store, () => 'Constantine')
+    unsub()
+    expect(events).toEqual(['Constantine'])
+  })
+
+  it('with store primitive', () => {
+    let events: any[] = []
+    let store = createStore(1)
+
+    let unsub = store.listen(state => {
+      events.push(state)
+    })
+    update(store, () => 2)
+    update(store, () => 3)
+    update(store, () => 4)
+    update(store, () => 5)
+    unsub()
+    expect(events).toEqual([2, 3, 4, 5])
   })
 })

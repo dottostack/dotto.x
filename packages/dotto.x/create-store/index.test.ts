@@ -66,6 +66,19 @@ describe('create-store:', () => {
     store.off()
   })
 
+  it('root watch', () => {
+    expect.assertions(2)
+    let store = createStore({ some: { path: 0 } })
+    let i = 1
+    store.watch(undefined, (_, value) => {
+      expect(value).toEqual({ some: { path: i++ } })
+    })
+
+    store.set(null, { some: { path: 1 } })
+    store.set(null, { some: { path: 2 } })
+    store.off()
+  })
+
   it('root subscribe', () => {
     expect.assertions(3)
     let store = createStore({ some: { path: 0 } })
