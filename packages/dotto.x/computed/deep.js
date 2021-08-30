@@ -18,25 +18,14 @@ export const deep = (store, query) => {
 
   let listenerBox = listeners.get(store)
   if (listenerBox && listenerBox[DEEP_HANDLER]) return store.get(query)
-
-  if (listenerBox) {
-    listenerBox[DEEP_HANDLER] = change(store, emit)
-    let filtered = Object.entries(listenerBox).filter(
-      ([key]) => key !== DEEP_HANDLER
+  listeners.set(store, { [DEEP_HANDLER]: change(store, emit) })
+  if (listenerBox) run_all(Object.values(listenerBox))
+  if (!destroys.has(store)) {
+    destroys.set(
+      store,
+      onOff(store, () => invalidate(true))
     )
-    // eslint-disable-next-line array-callback-return
-    filtered.map(([key, cb]) => {
-      cb()
-      delete listenerBox[key]
-    })
-  } else {
-    listeners.set(store, { [DEEP_HANDLER]: change(store, emit) })
   }
-
-  destroys.set(
-    store,
-    onOff(store, () => invalidate(true))
-  )
 
   return store.get(query)
 }

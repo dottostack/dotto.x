@@ -15,7 +15,9 @@ export const createContainer = (cb, emit, invalidate) => {
     emit,
     invalidate,
     unbind() {
-      listeners.forEach(sub => run_all(Object.values(sub)))
+      listeners.forEach(sub => {
+        run_all([...Object.values(sub), sub[DEEP_HANDLER] || (() => {})])
+      })
       listeners.clear()
       destroys.forEach(sub => run_all(Object.values(sub)))
       destroys.clear()

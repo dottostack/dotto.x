@@ -21,6 +21,16 @@ describe('atom lifecycle', () => {
     run_all([unsubHook, unsubAtom])
   })
 
+  it('onCreate (do not call)', () => {
+    let events: string[] = []
+    let atom = createAtom(2)
+    let unsubAtom = atom.subscribe(() => {})
+    let unsubHook = onCreate(atom, () => events.push('ok'))
+    atom.subscribe(() => {})
+    expect(events).toEqual([])
+    run_all([unsubHook, unsubAtom])
+  })
+
   it('onOff (from listen)', () => {
     let events: string[] = []
     let atom = createAtom(2)
