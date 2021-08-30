@@ -2,16 +2,15 @@
 
 <img align="right" src="https://raw.githubusercontent.com/dottostack/dotto.x/main/logo.png" width="200px" alt="dotto.x - lightweight state manager">
 
-A tiny state manager for **React**
-and vanilla JS. (other frameworks in future)
-point changes
+Dotto.x — is a tiny state manager for **React**, **Svelte**,
+and Vanilla JS. Other frameworks in the future.
 
 - **Lightweight.** Core less than 135 bytes (minified and gzipped). Zero dependencies.
-- **Easy but strong.** Simple working principe without magic, but with all features from big state managers.
-- **Deep observable and fast.** You can subscribe and follow pinpoint changes without thinking about multiple re-renders.
+- **Easy but strong.** Simple working principle without magic, but with all features from big state managers.
+- **Deep observable.** You can subscribe and follow pinpoint changes without thinking about multiple re-renders and memoization.
 - **Strong plugin system.** With plugins, you can enhance your store. Logging, undoing changes, connecting **Redux-devtools**, and anything else.
-- **Tree Shakable.** All project splited by small modules.
-- **Very strong TypeScript support.**
+- **Tree Shakable.** All library is split into small modules.
+- **Strong TypeScript support.**
 <hr>
 <br>
 <p align="center">
@@ -88,7 +87,7 @@ userName.set('name', 'John Constantine')
 
 ## Combine your stores
 
-Subscribe to store or part of stores using take. Take — computed operator.
+Subscribe to store or part of stores using `take`.
 
 ```ts
 import { createStore, computed, take } from 'dotto.x'
@@ -151,7 +150,7 @@ export const targetProject = computed(() => {
   return take(projects, userId)
 })
 
-export const changeUser = (newUser) => {
+export const changeUser = newUser => {
   return update(user, () => newUser)
 }
 ```
@@ -167,4 +166,3 @@ export const ProjectCard = () => {
   return <div>{project.name}</div>
 }
 ```
-
