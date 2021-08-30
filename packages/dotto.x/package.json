@@ -82,7 +82,12 @@
       "JS",
       "Shakable",
       "gzipped",
-      "WIP"
+      "WIP",
+      "TODOS",
+      "JSDoc",
+      "Vue",
+      "RN",
+      "npm"
     ]
   },
   "size-limit": [

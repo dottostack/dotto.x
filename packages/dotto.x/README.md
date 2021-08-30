@@ -6,7 +6,7 @@ A tiny state manager for **React**
 and vanilla JS. (other frameworks in future)
 point changes
 
-- **Lightweight.** Less than 435 bytes (minified and gzipped). Zero dependencies.
+- **Lightweight.** Core less than 135 bytes (minified and gzipped). Zero dependencies.
 - **Easy but strong.** Simple working principe without magic, but with all features from big state managers.
 - **Deep observable and fast.** You can subscribe and follow pinpoint changes without thinking about multiple re-renders.
 - **Strong plugin system.** With plugins, you can enhance your store. Logging, undoing changes, connecting **Redux-devtools**, and anything else.
@@ -27,20 +27,81 @@ point changes
 </p>
 <br>
 
-## How it works
+# Status
+:warning: :warning: :warning:
+
+**Project in progress right now. Please wait for 1.0.0 version.**
+
+# TODOS
+
+- [ ] Documentation
+- [ ] JSDoc comments
+- [ ] Vue, RN, Solid bindings
+- [ ] Examples on all frameworks
+
+# Installation
+
+**Using npm**
+
+```sh
+npm i dotto.x
+```
+
+**Using yarn**
+
+```sh
+yarn add dotto.x
+```
+
+# Base usage
+
+## Atomic stores
+
+```ts
+import { createAtom } from 'dotto.x'
+
+const userName = createAtom('John')
+
+userName.listen(value => {
+  // do something
+})
+
+userName.set('John Constantine')
+```
+
+## Mutable stores
 
 ```ts
 import { createStore } from 'dotto.x'
 
-const store = createStore({ some: { path: 0 } })
+const user = createStore({ name: 'John' })
 
-store.listen('some.path', (path, value) => {
-  // path - some.path
-  // value - 1,2
+user.watch('name', value => {
+  // do something
 })
 
-store.set('some.path', 1)
-store.set('some.path', 2)
-store.set('some.path', 'error') // type checks throw error, because 'some.path' most be a number.
+userName.set('name', 'John Constantine')
 ```
 
+## Combine stores
+
+Subscribe to store or part of stores using take. Take — computed operator.
+
+```ts
+import { createStore, computed, take } from 'dotto.x'
+
+const user = createStore({ name: 'John', id: 'some_id' })
+const projects = createStore({
+  some_id: { name: 'Portfolio' },
+  some_other_id: { name: 'Hell' }
+})
+
+const targetProject = computed(() => {
+  let userId = take(user, 'id')
+  return take(projects, userId)
+})
+
+targetProject.subscribe(value => /* do something */)
+
+user.set('id', 'some_other_id')
+```
