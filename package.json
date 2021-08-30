@@ -1,6 +1,6 @@
 {
   "name": "dotto.x.monorepo",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "index.js",
   "repository": "https://github.com/dottostack/dotto.x.git",
   "author": "Eddort <webisforce@gmail.com>",

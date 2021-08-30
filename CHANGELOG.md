@@ -1,3 +1,12 @@
+### [0.3.2](https://github.com/dottostack/dotto.x/compare/0.3.1...0.3.2) (2021-08-30)
+
+
+### Features
+
+* atomic store ([ca31c19](https://github.com/dottostack/dotto.x/commit/ca31c190e5fb64cec4e39a267e67f7adb2036e43))
+* deep computed operator ([3d8f24c](https://github.com/dottostack/dotto.x/commit/3d8f24c1d606b90c260f9104a37e77433bd9ee1f))
+* update operator ([46545a9](https://github.com/dottostack/dotto.x/commit/46545a92eb440a90b57621149f40ad7ae345aa4e))
+
 ### [0.3.1](https://github.com/dottostack/dotto.x/compare/0.3.0...0.3.1) (2021-08-26)
 
 
