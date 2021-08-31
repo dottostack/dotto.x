@@ -1,8 +1,6 @@
 <h1 align="center">dotto.redux-devtools</h1>
 <br>
-<img src="./logo.png" alt="dotto.x - lightweight state manager">
-
-<br>
+<div align="center"><img align="center" src="./logo.png" alt="dotto.redux-devtools — plugin for usage dotto.x with redux-devtools"></div>
 <br>
 
 **dotto.redux-devtools** — plugin for usage **dotto.x** with **redux-devtools**
