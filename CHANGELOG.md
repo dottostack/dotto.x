@@ -1,3 +1,10 @@
+### [0.3.3](https://github.com/dottostack/dotto.x/compare/0.3.2...0.3.3) (2021-08-31)
+
+
+### Features
+
+* redux-devtools plugin ([83d9312](https://github.com/dottostack/dotto.x/commit/83d9312e1d24b59cac6023bb0992169e8803d79e))
+
 ### [0.3.2](https://github.com/dottostack/dotto.x/compare/0.3.1...0.3.2) (2021-08-30)
 
 
