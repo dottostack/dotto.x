@@ -87,7 +87,11 @@
       "JSDoc",
       "Vue",
       "RN",
-      "npm"
+      "npm",
+      "memoization",
+      "js",
+      "jsx",
+      "ProjectCard"
     ]
   },
   "size-limit": [
