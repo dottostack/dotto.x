@@ -10,3 +10,4 @@ export { ResolveType } from './utils/get'
 
 export { effect } from './effect'
 export { bind, BindedStore } from './bind'
+export * from './action'

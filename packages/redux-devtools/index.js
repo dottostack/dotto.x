@@ -1,16 +1,6 @@
 import { onChange } from 'dotto.x/lifecycle'
 import { run_all } from 'dotto.x/utils/run_all'
-
-const action = (store, title, cb) => {
-  return (...params) => {
-    let unbind = onChange(store, (_, { shared }) => {
-      shared.actionName = title
-    })
-    let res = cb(...params)
-    unbind()
-    return res
-  }
-}
+import { action, SILENT_ACTION } from 'dotto.x'
 
 const getRDT = () =>
   typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__
@@ -79,7 +69,7 @@ export const reduxDevtools = deps => {
   let unuse = deps.map(([storeName, store]) => {
     let { subscribe, call, unsubscribe } = RDT(storeName)
 
-    let silentReinit = action(store, 'SILENT_REINIT', value => {
+    let silentReinit = action(store, SILENT_ACTION, value => {
       store.watch ? store.set(null, value) : store.set(value)
     })
 
@@ -90,7 +80,7 @@ export const reduxDevtools = deps => {
     let hasPath = Boolean(store.watch)
 
     let enhancer = (path, actionName) => {
-      if (actionName !== 'SILENT_REINIT') {
+      if (actionName !== SILENT_ACTION) {
         call({ store, path, actionName })
       }
     }
