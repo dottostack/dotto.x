@@ -1,9 +1,9 @@
 <h1 align="center">dotto.redux-devtools</h1>
 <br>
-<div align="center"><img align="center" src="./logo.png" alt="dotto.redux-devtools — plugin for usage dotto.x with redux-devtools"></div>
+<div align="center"><img align="center" src="https://raw.githubusercontent.com/dottostack/dotto.x/main/packages/redux-devtools/logo.png" alt="dotto.redux-devtools is a plugin for usage dotto.x with redux-devtools"></div>
 <br>
 
-**dotto.redux-devtools** — plugin for usage **dotto.x** with **redux-devtools**
+**dotto.redux-devtools** is a plugin for usage **dotto.x** with **redux-devtools**
 
 <hr>
 <br>

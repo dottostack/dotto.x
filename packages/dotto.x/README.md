@@ -2,13 +2,13 @@
 
 <img align="right" src="https://raw.githubusercontent.com/dottostack/dotto.x/main/logo.png" width="200px" alt="dotto.x - lightweight state manager">
 
-Dotto.x — is a tiny state manager for **React**, **Svelte**,
-and Vanilla JS. Other frameworks in the future.
+Dotto.x is a tiny state manager for **React**, **Svelte**,
+and vanilla JS.
 
-- **Lightweight.** Core less than 135 bytes (minified and gzipped). Zero dependencies.
-- **Easy but strong.** Simple working principle without magic, but with all features from big state managers.
+- **Lightweight.** Core is less than 135 bytes (minified and gzipped). Zero dependencies.
+- **Easy but strong.** Simple working principle without magic but with all features from big state managers.
 - **Deep observable.** You can subscribe and follow pinpoint changes without thinking about multiple re-renders and memoization.
-- **Strong plugin system.** With plugins, you can enhance your store. Logging, undoing changes, connecting **Redux-devtools**, and anything else.
+- **Strong plugin system.** You can enhance your store with plugins. Logging, undoing changes, connecting **Redux-devtools**, and anything else.
 - **Tree Shakable.** All library is split into small modules.
 - **Strong TypeScript support.**
 <hr>
@@ -30,7 +30,7 @@ and Vanilla JS. Other frameworks in the future.
 
 :warning: :warning: :warning:
 
-**Project in progress right now. Please wait for 1.0.0 version.**
+**Project is in progress now. Please wait for version 1.0.0.**
 
 # TODOS
 
@@ -53,7 +53,7 @@ npm i dotto.x
 yarn add dotto.x
 ```
 
-# Base usage
+# Basic usage
 
 ## Atomic stores
 
@@ -95,7 +95,7 @@ import { createStore, computed, take } from 'dotto.x'
 const user = createStore({ name: 'John', id: 'some_id' })
 const projects = createStore({
   some_id: { name: 'Portfolio' },
-  some_other_id: { name: 'Hell' }
+  some_other_id: { name: 'Awesome Project' }
 })
 
 const targetProject = computed(() => {
@@ -142,7 +142,7 @@ import { createStore, computed, take, update } from 'dotto.x'
 const user = createStore({ name: 'John', id: 'some_id' })
 const projects = createStore({
   some_id: { name: 'Portfolio' },
-  some_other_id: { name: 'Hell' }
+  some_other_id: { name: 'Awesome Project' }
 })
 
 export const targetProject = computed(() => {
