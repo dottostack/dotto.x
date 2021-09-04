@@ -1,6 +1,6 @@
 {
   "name": "@dotto.x/validator",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Validate plugin for dotto.x",
   "main": "index.js",
   "repository": "https://github.com/dottostack/dotto.x",
@@ -16,7 +16,7 @@
     "deploy": "npx clean-publish"
   },
   "peerDependencies": {
-    "dotto.x": "0.3.4"
+    "dotto.x": "0.3.5"
   },
   "clean-publish": {
     "files": [
@@ -109,7 +109,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "check-dts": "^0.5.3",
-    "dotto.x": "^0.3.4",
+    "dotto.x": "^0.3.5",
     "eslint": "^7.29.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-es5": "^1.5.0",
