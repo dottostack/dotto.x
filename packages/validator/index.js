@@ -1,4 +1,4 @@
-import { computed, createAtom, take } from 'dotto.x'
+import { computed, createAtom, take, update } from 'dotto.x'
 import { onChange } from 'dotto.x/lifecycle'
 import { get } from 'dotto.x/utils/get'
 
@@ -15,7 +15,7 @@ export const validator = (store, rules) => {
         if (res) reason = res
         return res
       })
-      errors.set({ ...errors.get(), [path]: reason })
+      update(errors, data => ({ ...data, [path]: reason }))
     }
   })
   return { errors, destroy, valid }
