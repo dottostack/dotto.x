@@ -1,3 +1,16 @@
+## [0.4.0](https://github.com/dottostack/dotto.x/compare/0.3.4...0.4.0) (2021-09-04)
+
+
+### Features
+
+* action operator ([0d87caa](https://github.com/dottostack/dotto.x/commit/0d87caa766f6b7152e7916a6c0c931012f6ed1bc))
+* remove yaspeller ([f1d8975](https://github.com/dottostack/dotto.x/commit/f1d8975f501d48221bf45c6a3e9bfde938bff121))
+
+
+### Bug Fixes
+
+* react binding with atom ([cb03e4f](https://github.com/dottostack/dotto.x/commit/cb03e4fe9a0d2fe1562fad0cacbb1e34e136bbba))
+
 ### [0.3.4](https://github.com/dottostack/dotto.x/compare/0.3.3...0.3.4) (2021-09-01)
 
 ### [0.3.3](https://github.com/dottostack/dotto.x/compare/0.3.2...0.3.3) (2021-08-31)
