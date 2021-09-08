@@ -4,7 +4,7 @@
   "description": "A tiny state manager",
   "main": "index.js",
   "repository": "https://github.com/dottostack/dotto.x",
-  "author": "Eduard Aksamitov <e@gmail.com>",
+  "author": "Eduard Aksamitov <e@edaks.co>",
   "license": "MIT",
   "sideEffects": false,
   "type": "module",
