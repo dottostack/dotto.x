@@ -473,7 +473,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
     cross-fetch: ^3.1.4
-    dotto.x: ^0.4.0
+    dotto.x: ^0.4.1
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -491,7 +491,7 @@ __metadata:
     ts-jest: ^27.0.3
     typescript: ^4.3.4
   peerDependencies:
-    dotto.x: 0.4.0
+    dotto.x: 0.4.1
   languageName: unknown
   linkType: soft
 
@@ -505,7 +505,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.28.0
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
-    dotto.x: ^0.4.0
+    dotto.x: ^0.4.1
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -523,7 +523,7 @@ __metadata:
     ts-jest: ^27.0.3
     typescript: ^4.3.4
   peerDependencies:
-    dotto.x: 0.4.0
+    dotto.x: 0.4.1
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   languageName: unknown
@@ -540,7 +540,7 @@ __metadata:
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
     cross-fetch: ^3.1.4
-    dotto.x: ^0.4.0
+    dotto.x: ^0.4.1
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -558,7 +558,7 @@ __metadata:
     ts-jest: ^27.0.3
     typescript: ^4.3.4
   peerDependencies:
-    dotto.x: 0.4.0
+    dotto.x: 0.4.1
   languageName: unknown
   linkType: soft
 
@@ -572,7 +572,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.28.0
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
-    dotto.x: ^0.4.0
+    dotto.x: ^0.4.1
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -590,7 +590,7 @@ __metadata:
     ts-jest: ^27.0.3
     typescript: ^4.3.4
   peerDependencies:
-    dotto.x: 0.4.0
+    dotto.x: 0.4.1
   languageName: unknown
   linkType: soft
 
@@ -605,7 +605,7 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.28.0
     "@typescript-eslint/parser": ^4.28.0
     check-dts: ^0.5.3
-    dotto.x: ^0.4.0
+    dotto.x: ^0.4.1
     eslint: ^7.29.0
     eslint-config-standard: ^16.0.3
     eslint-plugin-es5: ^1.5.0
@@ -624,7 +624,7 @@ __metadata:
     typescript: ^4.3.4
     vue: ^3.2.10
   peerDependencies:
-    dotto.x: 0.4.0
+    dotto.x: 0.4.1
     vue: ">=3.2.10"
   languageName: unknown
   linkType: soft
@@ -4348,7 +4348,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"dotto.x@^0.4.0, dotto.x@workspace:packages/dotto.x":
+"dotto.x@^0.4.1, dotto.x@workspace:packages/dotto.x":
   version: 0.0.0-use.local
   resolution: "dotto.x@workspace:packages/dotto.x"
   dependencies:

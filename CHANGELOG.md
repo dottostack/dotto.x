@@ -1,3 +1,10 @@
+### [0.4.1](https://github.com/dottostack/dotto.x/compare/0.4.0...0.4.1) (2021-09-09)
+
+
+### Features
+
+* Vue binding ([a550f71](https://github.com/dottostack/dotto.x/commit/a550f71ca5c188a365eae64182d6fb1a6c00e967))
+
 ## [0.4.0](https://github.com/dottostack/dotto.x/compare/0.3.4...0.4.0) (2021-09-04)
 
 
